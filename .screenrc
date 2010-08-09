@@ -1,9 +1,8 @@
-startup_messasge off
+startup_message off
 vbell on
 vbell_msg "bell on %t (%n)"
 
-shelltitle "shell"
-idle 20 eval "screen cmattrix -f -o -u 10" "idle 0"
-
 caption always "%{= bb}%{+b w}%n %h %=%t %c"
-hardstatus alwayslastline "%-Lw^{= BW}%50>%n%f* %t%{-}%+Lw%<"
+hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+
+idle 20 eval "screen cmattrix -f -o -u 10" "idle 0"
