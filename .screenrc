@@ -1,6 +1,4 @@
 startup_message off
-vbell on
-vbell_msg "bell on %t (%n)"
 
 caption always "%{= bb}%{+b w}%n %h %=%t %c"
 hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
