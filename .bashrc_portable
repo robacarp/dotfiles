@@ -1,0 +1,17 @@
+#include this file in .bashrc like this:
+#echo -e "\tIncluding aliases"
+#if [ -f ~/.bash_aliases ]; then
+#  . ~/.bash_aliases
+#  echo -e "\t (aliases included)"
+#else
+#  echo -e "\t (no .bash_aliases file found)"
+#fi
+
+
+
+echo -e "\tAliasing"
+alias ls="ls -la"
+alias md="mkdir"
+
+echo -e "\tDefining Functions"
+cs () { cd $1; ls; }
