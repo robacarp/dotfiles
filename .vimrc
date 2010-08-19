@@ -1,22 +1,29 @@
-:set number
-:set autoindent
-:set tabstop=8
-:set shiftwidth=2
-:set softtabstop=2
-:set expandtab
+set number
+set autoindent
+set tabstop=8
+set shiftwidth=2
+set softtabstop=2
+set expandtab
 
-:syntax on
-:set showmode
-:set cursorline
+syntax on
+set showmode
+set cursorline
 
-:set nocp
-:filetype plugin on
-:set wmnu
-:set wildmode=longest,list,full
-:set ignorecase
-:set smartcase
-:set incsearch
+set nocp
+filetype plugin on
+set wmnu
+set wildmode=longest,list,full
+set ignorecase
+set smartcase
+set incsearch
 
-:set foldmethod=indent
+set foldmethod=indent
+
+command W w
+command Wq wq
+command Bn bn
+command Bp bp
+
+
 
 au FileType make setlocal noexpandtab
