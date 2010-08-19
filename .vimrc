@@ -20,7 +20,10 @@ set incsearch
 set foldmethod=indent
 
 command W w
+command Q q
 command Wq wq
+command Wbn w|bn
+command Wbp w|bp
 command Bn bn
 command Bp bp
 
