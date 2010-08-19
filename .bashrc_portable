@@ -1,10 +1,10 @@
 #include this file in .bashrc like this:
-#echo -e "\tIncluding aliases"
-#if [ -f ~/.bash_aliases ]; then
-#  . ~/.bash_aliases
-#  echo -e "\t (aliases included)"
+#echo -e "\tIncluding Rob Standard Includes"
+#if [ -f ~/.bashrc_portable ]; then
+#  . ~/.bashrc_portable
+#  echo -e "\t (RSI success)"
 #else
-#  echo -e "\t (no .bash_aliases file found)"
+#  echo -e "\t (no .bashrc_portable file found)"
 #fi
 
 
