@@ -28,5 +28,4 @@ command Bn bn
 command Bp bp
 
 
-
 au FileType make setlocal noexpandtab
