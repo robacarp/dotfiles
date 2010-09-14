@@ -19,10 +19,11 @@ cs () { cd $1; ls; }
 name=`uname`
 case $name in
   'Darwin')
-    echo 'OSX'
+    echo -e "\tOSX aliasing"
+    alias mvim="open /Applications/MacVim.app"
   ;;
   'Linux')
-    echo 'Linux'
+    echo -e "\tNo Linux specific aliases"
   ;;
   *)
     echo 'Unknown'
