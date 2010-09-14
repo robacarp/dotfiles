@@ -15,3 +15,17 @@ alias md="mkdir"
 
 echo -e "\tDefining Functions"
 cs () { cd $1; ls; }
+
+name=`uname`
+case $name in
+  'Darwin')
+    echo 'OSX'
+  ;;
+  'Linux')
+    echo 'Linux'
+  ;;
+  *)
+    echo 'Unknown'
+  ;;
+esac
+
