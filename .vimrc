@@ -26,6 +26,6 @@ command Wbn w|bn
 command Wbp w|bp
 command Bn bn
 command Bp bp
-
+command Ls ls
 
 au FileType make setlocal noexpandtab
