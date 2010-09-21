@@ -24,9 +24,6 @@ set ruler      "line/col numbers
 set backspace=indent,eol,start   "better backspacing past line start
 set laststatus=1   "show status bar with >1 windows only (2 => always)
 
-"...more visual stuff.
-set wrap
-set textwidth=79
 
 if version > 730
   set colorcolumn=85
