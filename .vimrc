@@ -43,7 +43,6 @@ nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
 "again, just because I'm lazy
-nnoremap ; :
 
 "dealing with opening files
 set wildmenu
