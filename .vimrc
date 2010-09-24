@@ -35,6 +35,7 @@ set listchars=tab:▸\
 "make j/k behave soundly.
 nnoremap j gj
 nnoremap k gk
+nnoremap <leader>1 :!jekyll<cr><cr>
 
 "more esc keys...because they are right next to it anyways
 inoremap <F1> <ESC>
