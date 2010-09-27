@@ -7,3 +7,5 @@
 	branch = auto
 [push]
 	default = tracking
+[core]
+	editor = /usr/bin/vim
