@@ -35,14 +35,14 @@ set listchars=tab:▸\
 "make j/k behave soundly.
 nnoremap j gj
 nnoremap k gk
+
+"leader keys
 nnoremap <leader>1 :!jekyll<cr><cr>
 
-"more esc keys...because they are right next to it anyways
+"more esc keys...because its right next to it anyways
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
-
-"again, just because I'm lazy
 
 "dealing with opening files
 set wildmenu
@@ -52,7 +52,8 @@ set wildmode=list,longest
 set ignorecase
 set smartcase
 set incsearch
-set hlsearch
+"man this gets annoying...
+"set hlsearch
 set showmatch
 
 "regexin easier
