@@ -32,3 +32,34 @@ case $name in
   ;;
 esac
 
+go () {
+ case "$1" in
+    home)
+      server="dgogeek.ath.cx"
+    ;;
+    dev)
+      server="robert-dev"
+    ;;
+    live)
+      server="robertcarpenter.net"
+    ;;
+    beta)
+      server="beta"
+    ;;
+  esac
+
+  user="robert"
+
+  if [ -n "$2" ]; then
+    user="$2"
+  fi
+
+  opts="-AX"
+
+  if [ -n "$3" ]; then
+    opts="$3"
+  fi
+
+  ssh $opts $user@$server
+}
+
