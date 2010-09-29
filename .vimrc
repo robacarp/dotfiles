@@ -71,6 +71,7 @@ if version > 730
   set relativenumber
   set undofile
 end
+  set relativenumber
 
 command W w
 command Q q
