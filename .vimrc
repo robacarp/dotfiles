@@ -1,5 +1,7 @@
 filetype off
-filetype plugin on
+call pathogen#runtime_append_all_bundles()
+filetype plugin indent on
+
 set nocompatible
 set modelines=0
 set encoding=utf-8
