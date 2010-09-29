@@ -31,8 +31,7 @@ if version > 730
   set colorcolumn=85
 end
 set list
-set listchars=eol:¬
-set listchars=tab:▸\ 
+set listchars=tab:>\ ,trail:>,nbsp:%
 
 "make j/k behave soundly.
 nnoremap j gj
