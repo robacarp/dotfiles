@@ -22,7 +22,7 @@ name=`uname`
 case $name in
   'Darwin')
     echo -e "\tOSX aliasing"
-    alias mvim="open /Applications/MacVim.app"
+    alias mvim="open /Applications/MacVim.app $1"
   ;;
   'Linux')
     echo -e "\tNo Linux specific aliases"
@@ -37,7 +37,7 @@ go () {
     home)
       server="dgogeek.ath.cx"
     ;;
-    dev)
+    dev|work)
       server="robert-dev"
     ;;
     live)
