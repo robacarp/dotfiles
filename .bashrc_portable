@@ -46,6 +46,9 @@ go () {
     beta)
       server="beta"
     ;;
+    local)
+      server="10.10.7.47"
+    ;;
   esac
 
   user="robert"
