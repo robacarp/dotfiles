@@ -58,8 +58,6 @@ set incsearch
 set showmatch
 
 "regexin easier
-nnoremap / /\v
-vnoremap / /\v
 set gdefault    "automagically adds /g on a regex. /g to disable
 
 "mmmm....folding...
