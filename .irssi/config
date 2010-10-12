@@ -246,10 +246,11 @@ settings = {
   core = {
     real_name = "Robacarp";
     user_name = "robacarp";
-    nick = "robacarp";
+    nick = "tehnoobz";
   };
   "fe-text" = { actlist_sort = "refnum"; };
   "fe-common/core" = { theme = "agon"; };
   "irc/core" = { alternate_nick = "robacarp_"; };
 };
 hilights = ( { text = "hacim"; nick = "yes"; word = "yes"; } );
+set = "autolog";

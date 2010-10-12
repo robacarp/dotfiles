@@ -27,9 +27,6 @@ set backspace=indent,eol,start   "better backspacing past line start
 set laststatus=1   "show status bar with >1 windows only (2 => always)
 
 
-if version > 730
-  set colorcolumn=85
-end
 set list
 set listchars=tab:>\ ,trail:>,nbsp:%
 
@@ -71,6 +68,8 @@ if version > 730
   set undofile
 end
 
+color bluegreen
+
 command W w
 command Q q
 command Wq wq
@@ -81,3 +80,4 @@ command Bp bp
 command Ls ls
 
 au FileType make setlocal noexpandtab
+au FileType python setlocal noexpandtab
