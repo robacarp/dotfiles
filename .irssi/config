@@ -1,33 +1,4 @@
 servers = (
-  { address = "irc.ubuntu.com"; chatnet = "Ubuntu"; port = "8001"; },
-  { address = "eu.irc6.net"; chatnet = "IRCnet"; port = "6667"; },
-  { 
-    address = "irc.open-ircnet.net";
-    chatnet = "IRCnet";
-    port = "6667";
-  },
-  { address = "irc.efnet.org"; chatnet = "EFNet"; port = "6667"; },
-  { 
-    address = "irc.undernet.org";
-    chatnet = "Undernet";
-    port = "6667";
-  },
-  { address = "irc.dal.net"; chatnet = "DALnet"; port = "6667"; },
-  { 
-    address = "irc.quakenet.org";
-    chatnet = "QuakeNet";
-    port = "6667";
-  },
-  { address = "irc.oftc.net"; chatnet = "OFTC"; port = "6667"; },
-  {
-    address = "irc.gamesurge.net";
-    chatnet = "GameSurge";
-    port = "6667";
-  },
-  { address = "irc.webchat.org"; chatnet = "WebChat"; port = "6667"; },
-  { address = "irc.rizon.net"; chatnet = "Rizon"; port = "6667"; },
-  { address = "irc.link-net.org"; chatnet = "LinkNet"; port = "6667"; },
-  { address = "silc.silcnet.org"; chatnet = "SILC"; port = "706"; },
   {
     address = "irc.freenode.net";
     chatnet = "freenode";
@@ -47,28 +18,14 @@ servers = (
 );
 
 chatnets = {
-  SILC = { type = "SILC"; };
   freenode = {
     type = "IRC";
     autosendcmd = "/msg nickserv identify 010203";
   };
   sfinternal = { type = "IRC"; autosendcmd = "/j #sparkfun;/j #it"; };
-  Ubuntu = { type = "IRC"; };
-  IRCnet = { type = "IRC"; };
-  EFNet = { type = "IRC"; };
-  Undernet = { type = "IRC"; };
-  DALnet = { type = "IRC"; };
-  QuakeNet = { type = "IRC"; };
-  OFTC = { type = "IRC"; };
-  GameSurge = { type = "IRC"; };
-  WebChat = { type = "IRC"; };
-  Rizon = { type = "IRC"; };
-  LinkNet = { type = "IRC"; };
 };
 
 channels = (
-  #{ name = "#sparkfun"; chatnet = "sfinternal"; autojoin = "yes"; };
-  #{ name = "#it"; chatnet = "sfinternal"; autojoin = "yes"; };
   { name = "#sparkfun"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
@@ -111,6 +68,7 @@ aliases = {
   GOTO = "sb goto";
   CHAT = "dcc chat";
   RUN = "SCRIPT LOAD";
+  UPTIME = "eval exec - expr `date +%s` - \\$F | awk '{print \"Irssi uptime: \"int(\\\\\\$1/3600/24)\"d \"int(\\\\\\$1/3600%24)\"h \"int(\\\\\\$1/60%60)\"m \"int(\\\\\\$1%60)\"s\" }'";
   CALC = "exec - if which bc &>/dev/null\\; then echo '$*' | bc | awk '{print \"$*=\"$$1}'\\; else echo bc was not found\\; fi";
   SBAR = "STATUSBAR";
   INVITELIST = "mode $C +I";
@@ -235,7 +193,7 @@ statusbar = {
 };
 settings = {
   core = {
-    real_name = "Robert L. Carpenter";
+    real_name = "Robacarp";
     user_name = "robacarp";
     nick = "robacarp";
   };
@@ -248,3 +206,5 @@ hilights = (
 );
 ignores = ( { mask = "prodcutnews"; level = "ALL"; } );
 logs = { };
+hilights = ( { text = "hacim"; nick = "yes"; word = "yes"; } );
+set = "autolog";
