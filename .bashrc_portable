@@ -7,8 +7,6 @@
 #  echo -e "\t (no .bashrc_portable file found)"
 #fi
 
-
-
 echo -e "\tAliasing"
 alias ls="ls -la"
 alias md="mkdir"
@@ -20,45 +18,35 @@ PS1='\h:\W \u\$ '
 
 name=`uname`
 case $name in
-  'Darwin')
+  Darwin)
     echo -e "\tOSX aliasing"
     alias mvim="open /Applications/MacVim.app $1"
   ;;
-  'Linux')
-    echo -e "\tNo Linux specific aliases"
-  ;;
-  *)
-    echo 'Unknown'
-  ;;
+  Linux) echo -e "\tNo Linux specific aliases" ;;
+  *) echo 'Unknown' ;;
 esac
+
+hostname=`hostname`
+if [ "$hostname" = "robert-dev" ] ; then
+  echo -e "\tstarting screen"
+  screen -x
+fi
 
 go () {
  case "$1" in
-    home)
-      server="dgogeek.ath.cx"
-    ;;
-    dev|work)
-      server="robert-dev"
-    ;;
-    live)
-      server="robertcarpenter.net"
-    ;;
-    beta)
-      server="beta"
-    ;;
-    local)
-      server="10.10.7.47"
-    ;;
+    home     ) server="dgogeek.ath.cx" ;;
+    dev|work ) server="robert-dev" ;;
+    live     ) server="robertcarpenter.net" ;;
+    beta     ) server="beta" ;;
+    local    ) server="10.10.7.47" ;;
   esac
 
   user="robert"
-
   if [ -n "$2" ]; then
     user="$2"
   fi
 
   opts="-AX"
-
   if [ -n "$3" ]; then
     opts="$3"
   fi

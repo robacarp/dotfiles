@@ -1,85 +1,32 @@
 servers = (
-  { address = "irc.stealth.net"; chatnet = "IRCnet"; port = "6668"; },
-  { address = "irc.efnet.net"; chatnet = "EFNet"; port = "6667"; },
-  { 
-    address = "irc.undernet.org";
-    chatnet = "Undernet";
-    port = "6667";
-  },
-  { address = "irc.dal.net"; chatnet = "DALnet"; port = "6667"; },
-  { 
-    address = "irc.quakenet.org";
-    chatnet = "QuakeNet";
-    port = "6667";
-  },
-  { address = "silc.silcnet.org"; chatnet = "SILC"; port = "706"; },
   {
     address = "irc.freenode.net";
-    chatnet = "irc.freenode.net";
+    chatnet = "freenode";
     port = "6667";
     use_ssl = "no";
     ssl_verify = "no";
     autoconnect = "yes";
+  },
+  {
+    address = "irc-server";
+    chatnet = "sfinternal";
+    port = "6667";
+    use_ssl = "no";
+    ssl_verify = "no";
+    autoconnect = "no";
   }
 );
 
 chatnets = {
-  IRCnet = {
+  freenode = {
     type = "IRC";
-    max_kicks = "4";
-    max_msgs = "5";
-    max_whois = "4";
-    max_query_chans = "5";
-  };
-  EFNet = { 
-    type = "IRC";
-    max_kicks = "4";
-    max_msgs = "3";
-    max_whois = "1";
-  };
-  Undernet = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  DALnet = {
-    type = "IRC";
-    nick = "robacarp";
-    username = "robacarp";
-    realname = "robacarp";
-    max_kicks = "4";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  QuakeNet = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  SILC = { type = "SILC"; };
-  "irc.freenode.net" = {
-    type = "IRC";
-    nick = "robacarp";
-    username = "robacarp";
     autosendcmd = "/msg nickserv identify 010203";
   };
+  sfinternal = { type = "IRC"; autosendcmd = "/j #sparkfun;/j #it"; };
 };
 
 channels = (
-  { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
-  { name = "silc"; chatnet = "silc"; autojoin = "No"; },
-  { 
-    name = "sparkfun";
-    chatnet = "irc.freenode.net";
-    autojoin = "yes";
-  },
-  {
-    name = "#imperfect_christian";
-    chatnet = "DALnet";
-    autojoin = "yes";
-  }
+  { name = "#sparkfun"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -117,7 +64,7 @@ aliases = {
   UMODE = "mode $N";
   WC = "window close";
   WN = "window new hide";
-  SV = "say MacIrssi 0.8.6.6 (Core: irssi 0.8.14) - http://www.sysctl.co.uk/projects/macirssi/";
+  SV = "say Irssi $J ($V) - http://irssi.org/";
   GOTO = "sb goto";
   CHAT = "dcc chat";
   RUN = "SCRIPT LOAD";
@@ -129,6 +76,8 @@ aliases = {
   "MANUAL-WINDOWS" = "set use_status_window off;set autocreate_windows off;set autocreate_query_level none;set autoclose_windows off;set reuse_unused_windows on;save";
   EXEMPTLIST = "mode $C +e";
   ATAG = "WINDOW SERVER";
+  UNSET = "set -clear";
+  RESET = "set -default";
 };
 
 statusbar = {
@@ -151,12 +100,12 @@ statusbar = {
 
     # treated specially .. window is printed with non-empty windows,
     # window_empty is printed with empty windows
-    window = "{sb $winref:$itemname{sbmode $M}}";
+    window = "{sb $winref:$tag/$itemname{sbmode $M}}";
     window_empty = "{sb $winref{sbservertag $tag}}";
     prompt = "{prompt $[.15]itemname}";
     prompt_empty = "{prompt $winname}";
     topic = " $topic";
-    topic_empty = " Irssi v$J - http://irssi.org/help/";
+    topic_empty = " Irssi v$J - http://www.irssi.org";
 
     # all of these treated specially, they're only displayed when needed
     lag = "{sb Lag: $0-}";
@@ -246,11 +195,16 @@ settings = {
   core = {
     real_name = "Robacarp";
     user_name = "robacarp";
-    nick = "tehnoobz";
+    nick = "robacarp";
   };
   "fe-text" = { actlist_sort = "refnum"; };
-  "fe-common/core" = { theme = "agon"; };
-  "irc/core" = { alternate_nick = "robacarp_"; };
+  "fe-common/core" = { autolog = "yes"; };
 };
+hilights = (
+  { text = "robacarp"; nick = "yes"; word = "yes"; },
+  { text = "emplo"; nick = "yes"; word = "yes"; }
+);
+ignores = ( { mask = "prodcutnews"; level = "ALL"; } );
+logs = { };
 hilights = ( { text = "hacim"; nick = "yes"; word = "yes"; } );
 set = "autolog";
