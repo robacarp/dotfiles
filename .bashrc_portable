@@ -39,6 +39,7 @@ go () {
     live     ) server="robertcarpenter.net" ;;
     beta     ) server="beta" ;;
     local    ) server="10.10.7.47" ;;
+    desktop  ) server="192.168.0.86" ;;
   esac
 
   user="robert"
