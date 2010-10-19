@@ -40,6 +40,10 @@ go () {
     beta     ) server="beta" ;;
     local    ) server="10.10.7.47" ;;
     desktop  ) server="192.168.0.86" ;;
+    list     ) 
+      echo "home dev live beta local desktop list";
+      return 0;
+    ;;
   esac
 
   user="robert"
