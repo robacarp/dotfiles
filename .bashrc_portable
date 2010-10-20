@@ -10,6 +10,7 @@
 echo -e "\tAliasing"
 alias ls="ls -la"
 alias md="mkdir"
+alias r="rails"
 
 echo -e "\tDefining Functions"
 cs () { cd $1; ls; }
