@@ -21,7 +21,7 @@ name=`uname`
 case $name in
   Darwin)
     echo -e "\tOSX aliasing"
-    alias mvim="open /Applications/MacVim.app $1"
+    alias mvim="open /Applications/MacVim.app --args $1"
   ;;
   Linux) echo -e "\tNo Linux specific aliases" ;;
   *) echo 'Unknown' ;;
