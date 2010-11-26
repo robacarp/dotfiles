@@ -35,12 +35,15 @@ nnoremap j gj
 nnoremap k gk
 
 "leader keys
+"man I'm lazy...
 nnoremap <leader>1 :!jekyll<cr><cr>
+nnoremap <leader>t :NERDTree<cr>
 
 "more esc keys...because its right next to it anyways
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
+
 
 "dealing with opening files
 set wildmenu
@@ -59,6 +62,7 @@ set gdefault    "automagically adds /g on a regex. /g to disable
 
 "mmmm....folding...
 set foldmethod=indent
+set nofoldenable
 
 "new stuff. 
 if version > 730
@@ -67,6 +71,7 @@ if version > 730
 end
 
 color bluegreen
+color anotherdark
 
 command W w
 command Q q
