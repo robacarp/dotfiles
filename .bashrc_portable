@@ -57,6 +57,15 @@ go () {
     opts="$3"
   fi
 
+  echo "ssh $opts $user@$server"
   ssh $opts $user@$server
+}
+
+vib() {
+  if test -w $1; then
+    vim $1
+  else
+    sudo vim $1
+  fi
 }
 
