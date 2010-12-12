@@ -10,6 +10,8 @@
 echo -e "\tAliasing"
 alias ls="ls -la"
 alias md="mkdir"
+alias r="rails"
+alias ack="ack-grep"
 
 echo -e "\tDefining Functions"
 cs () { cd $1; ls; }
@@ -20,7 +22,7 @@ name=`uname`
 case $name in
   Darwin)
     echo -e "\tOSX aliasing"
-    alias mvim="open /Applications/MacVim.app $1"
+    alias mvim="open /Applications/MacVim.app --args $1"
   ;;
   Linux) echo -e "\tNo Linux specific aliases" ;;
   *) echo 'Unknown' ;;
@@ -38,7 +40,12 @@ go () {
     dev|work ) server="robert-dev" ;;
     live     ) server="robertcarpenter.net" ;;
     beta     ) server="beta" ;;
-    local    ) server="10.10.7.47" ;;
+    local    ) server="doulos" ;;
+    desktop  ) server="192.168.0.86" ;;
+    list     ) 
+      echo "home dev live beta local desktop list";
+      return 0;
+    ;;
   esac
 
   user="robert"
@@ -51,6 +58,15 @@ go () {
     opts="$3"
   fi
 
+  echo "ssh $opts $user@$server"
   ssh $opts $user@$server
+}
+
+vib() {
+  if test -w $1; then
+    vim $1
+  else
+    sudo vim $1
+  fi
 }
 
