@@ -1,11 +1,15 @@
 [user]
-	name = Robert L. Carpenter
-	email = robacarp@gmail.com
+  name = Robert L. Carpenter
+  email = robacarp@gmail.com
 [color]
-	diff = auto
-	status = auto
-	branch = auto
+  diff = auto
+  status = auto
+  branch = auto
 [push]
-	default = tracking
+  default = tracking
 [core]
-	editor = /usr/local/bin/vim
+  editor = /usr/local/bin/vim
+[alias]
+  co = checkout
+  br = branch
+  s = status
