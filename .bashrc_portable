@@ -29,10 +29,8 @@ case $name in
 esac
 
 hostname=`hostname`
-if [ "$hostname" = "robert-dev" ] ; then
-  echo -e "\tstarting screen"
-  screen -x
-fi
+echo -e "\tstarting screen"
+screen -x
 
 go () {
  case "$1" in
