@@ -26,7 +26,10 @@ chatnets = {
 };
 
 channels = (
-  { name = "#sparkfun"; chatnet = "freenode"; autojoin = "yes"; }
+  { name = "#sparkfun"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#linuxandsci"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#rubyonrails"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#stockpile"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -202,9 +205,9 @@ settings = {
 };
 hilights = (
   { text = "robacarp"; nick = "yes"; word = "yes"; },
-  { text = "emplo"; nick = "yes"; word = "yes"; }
+  { text = "emplo"; nick = "yes"; word = "yes"; },
+  { text = "hacim"; nick = "yes"; word = "yes"; }
 );
 ignores = ( { mask = "prodcutnews"; level = "ALL"; } );
 logs = { };
-hilights = ( { text = "hacim"; nick = "yes"; word = "yes"; } );
 set = "autolog";
