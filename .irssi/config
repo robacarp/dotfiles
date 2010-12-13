@@ -17,19 +17,14 @@ servers = (
   }
 );
 
-chatnets = {
-  freenode = {
-    type = "IRC";
-    autosendcmd = "/msg nickserv identify 010203";
-  };
-  sfinternal = { type = "IRC"; autosendcmd = "/j #sparkfun;/j #it"; };
-};
+chatnets = { freenode = { type = "IRC"; }; sfinternal = { type = "IRC"; }; };
 
 channels = (
   { name = "#sparkfun"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#linuxandsci"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#rubyonrails"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#stockpile"; chatnet = "freenode"; autojoin = "yes"; }
+  { name = "#stockpile"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#it"; chatnet = "sfinternal"; autojoin = "yes"; },
+  { name = "#sparkfun"; chatnet = "sfinternal"; autojoin = "yes"; }
 );
 
 aliases = {
