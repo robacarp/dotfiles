@@ -6,6 +6,11 @@ servers = (
     use_ssl = "no";
     ssl_verify = "no";
     autoconnect = "yes";
+
+    user_name = "robacarp";
+    nick = "robacarp";
+    real_name = "robacarp";
+    alternate_nick = "pracabor";
   },
   {
     address = "irc-server";
@@ -14,17 +19,22 @@ servers = (
     use_ssl = "no";
     ssl_verify = "no";
     autoconnect = "no";
+
+    user_name = "robacarp";
+    nick = "robacarp";
+    real_name = "robacarp";
+    alternate_nick = "pracabor";
   }
 );
 
 chatnets = { freenode = { type = "IRC"; }; sfinternal = { type = "IRC"; }; };
 
 channels = (
-  { name = "#sparkfun"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#linuxandsci"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#stockpile"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#it"; chatnet = "sfinternal"; autojoin = "yes"; },
-  { name = "#sparkfun"; chatnet = "sfinternal"; autojoin = "yes"; }
+    { name = "#sparkfun"; chatnet = "freenode"; autojoin = "yes"; },
+    { name = "#linuxandsci"; chatnet = "freenode"; autojoin = "yes"; },
+    { name = "#stockpile"; chatnet = "freenode"; autojoin = "yes"; },
+    { name = "#it"; chatnet = "sfinternal"; autojoin = "yes"; },
+    { name = "#sparkfun"; chatnet = "sfinternal"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -76,6 +86,7 @@ aliases = {
   ATAG = "WINDOW SERVER";
   UNSET = "set -clear";
   RESET = "set -default";
+  reg = "msg nickserv identify $N $0";
 };
 
 statusbar = {
@@ -200,8 +211,7 @@ settings = {
 };
 hilights = (
   { text = "robacarp"; nick = "yes"; word = "yes"; },
-  { text = "emplo"; nick = "yes"; word = "yes"; },
-  { text = "hacim"; nick = "yes"; word = "yes"; }
+  { text = "emplo"; nick = "yes"; word = "yes"; }
 );
 ignores = ( { mask = "prodcutnews"; level = "ALL"; } );
 logs = { };
