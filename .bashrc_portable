@@ -39,6 +39,7 @@ go () {
     home     ) server="dgogeek.ath.cx" ;;
     dev|work ) server="robert-dev" ;;
     live     ) server="robertcarpenter.net" ;;
+    liver    ) server="robacarp.com" ;;
     beta     ) server="beta" ;;
     local    ) server="doulos" ;;
     desktop  ) server="192.168.0.86" ;;

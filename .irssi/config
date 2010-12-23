@@ -30,11 +30,11 @@ servers = (
 chatnets = { freenode = { type = "IRC"; }; sfinternal = { type = "IRC"; }; };
 
 channels = (
-    { name = "#sparkfun"; chatnet = "freenode"; autojoin = "yes"; },
-    { name = "#linuxandsci"; chatnet = "freenode"; autojoin = "yes"; },
-    { name = "#stockpile"; chatnet = "freenode"; autojoin = "yes"; },
-    { name = "#it"; chatnet = "sfinternal"; autojoin = "yes"; },
-    { name = "#sparkfun"; chatnet = "sfinternal"; autojoin = "yes"; }
+  { name = "#sparkfun"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#linuxandsci"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#stockpile"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#it"; chatnet = "sfinternal"; autojoin = "yes"; },
+  { name = "#sparkfun"; chatnet = "sfinternal"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -213,6 +213,9 @@ hilights = (
   { text = "robacarp"; nick = "yes"; word = "yes"; },
   { text = "emplo"; nick = "yes"; word = "yes"; }
 );
-ignores = ( { mask = "prodcutnews"; level = "ALL"; } );
+ignores = (
+  { mask = "prodcutnews"; level = "ALL"; },
+  { mask = "flyback"; level = "ALL"; }
+);
 logs = { };
 set = "autolog";
