@@ -24,17 +24,30 @@ servers = (
     nick = "robacarp";
     real_name = "robacarp";
     alternate_nick = "pracabor";
+  },
+  {
+    address = "irc.oftc.net";
+    chatnet = "oftc";
+    port = "6667";
+    use_ssl = "no";
+    autoconnect = "no";
+
+    user_name = "robacarp";
+    nick = "robacarp";
+    real_name = "robacarp";
+    alternate_nick = "pracabor";
   }
 );
 
-chatnets = { freenode = { type = "IRC"; }; sfinternal = { type = "IRC"; }; };
+chatnets = { freenode = { type = "IRC"; }; sfinternal = { type = "IRC"; }; oftc = { type = "IRC"; }; };
 
 channels = (
   { name = "#sparkfun"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#linuxandsci"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#stockpile"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#it"; chatnet = "sfinternal"; autojoin = "yes"; },
-  { name = "#sparkfun"; chatnet = "sfinternal"; autojoin = "yes"; }
+  { name = "#sparkfun"; chatnet = "sfinternal"; autojoin = "yes"; },
+  { name = "#linode"; chatnet = "oftc"; autojoin = "yes"; }
 );
 
 aliases = {
