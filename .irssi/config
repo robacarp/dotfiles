@@ -39,7 +39,11 @@ servers = (
   }
 );
 
-chatnets = { freenode = { type = "IRC"; }; sfinternal = { type = "IRC"; }; oftc = { type = "IRC"; }; };
+chatnets = {
+  freenode = { type = "IRC"; };
+  sfinternal = { type = "IRC"; };
+  oftc = { type = "IRC"; };
+};
 
 channels = (
   { name = "#sparkfun"; chatnet = "freenode"; autojoin = "yes"; },
@@ -226,9 +230,6 @@ hilights = (
   { text = "robacarp"; nick = "yes"; word = "yes"; },
   { text = "emplo"; nick = "yes"; word = "yes"; }
 );
-ignores = (
-  { mask = "prodcutnews"; level = "ALL"; },
-  { mask = "flyback"; level = "ALL"; }
-);
+ignores = ( { mask = "prodcutnews"; level = "ALL"; } );
 logs = { };
 set = "autolog";
