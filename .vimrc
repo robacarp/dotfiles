@@ -1,5 +1,6 @@
 filetype off
 call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
 filetype plugin indent on
 
 set nocompatible
@@ -26,18 +27,25 @@ set ruler      "line/col numbers
 set backspace=indent,eol,start   "better backspacing past line start
 set laststatus=1   "show status bar with >1 windows only (2 => always)
 
-
 set list
 set listchars=tab:>\ ,trail:>,nbsp:%
+
+"gui options
+"   No menubar, no always scrollbars
+set guioptions=e
+set guifont=Monaco:h12
 
 "make j/k behave soundly.
 nnoremap j gj
 nnoremap k gk
 
-"leader keys
+"shortcuts keys
 "man I'm lazy...
-nnoremap <leader>1 :!jekyll<cr><cr>
-nnoremap <leader>t :NERDTree<cr>
+map <F2> :NERDTreeToggle<CR>
+map <F8> :NERDTree<CR>
+map <F3> :set invnumber<CR>
+map <F4> :set relativenumber<CR>
+map <F12> :VCSBlame<CR>
 
 "more esc keys...because its right next to it anyways
 inoremap <F1> <ESC>
@@ -47,7 +55,7 @@ vnoremap <F1> <ESC>
 
 "dealing with opening files
 set wildmenu
-set wildmode=list,longest
+set wildmode=longest
 
 "friendlier searching
 set ignorecase
@@ -65,10 +73,7 @@ set foldmethod=indent
 set nofoldenable
 
 "new stuff. 
-if version > 730
-  set relativenumber
-  set undofile
-end
+"set undofile
 
 color bluegreen
 color anotherdark
