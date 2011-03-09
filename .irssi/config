@@ -13,7 +13,7 @@ servers = (
     alternate_nick = "pracabor";
   },
   {
-    address = "irc-server";
+    address = "irc";
     chatnet = "sfinternal";
     port = "6667";
     use_ssl = "no";
@@ -49,8 +49,8 @@ channels = (
   { name = "#sparkfun"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#linuxandsci"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#stockpile"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#it"; chatnet = "sfinternal"; autojoin = "yes"; },
   { name = "#sparkfun"; chatnet = "sfinternal"; autojoin = "yes"; },
+  { name = "#it"; chatnet = "sfinternal"; autojoin = "yes"; },
   { name = "#linode"; chatnet = "oftc"; autojoin = "yes"; }
 );
 
@@ -228,8 +228,12 @@ settings = {
 };
 hilights = (
   { text = "robacarp"; nick = "yes"; word = "yes"; },
-  { text = "emplo"; nick = "yes"; word = "yes"; }
+  { text = "emplo"; nick = "yes"; word = "yes"; },
+  { text = "meatbags"; nick = "yes"; word = "yes"; }
 );
-ignores = ( { mask = "prodcutnews"; level = "ALL"; } );
+ignores = (
+  { mask = "prodcutnews"; level = "ALL"; },
+  { level = "JOINS PARTS"; channels = ( "#sparkfun-freeday" ); }
+);
 logs = { };
 set = "autolog";
