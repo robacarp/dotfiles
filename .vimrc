@@ -39,6 +39,8 @@ set guifont=Monaco:h12
 nnoremap j gj
 nnoremap k gk
 
+
+
 "shortcuts keys
 "man I'm lazy...
 map <F2> :NERDTreeToggle<CR>

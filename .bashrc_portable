@@ -8,7 +8,9 @@
 #fi
 
 echo -e "\tAliasing"
-alias ls="ls -la"
+alias l="\ls"
+alias ll="\ls -l"
+alias ls="\ls -la"
 alias md="mkdir"
 alias r="rails"
 alias ack="ack-grep"
