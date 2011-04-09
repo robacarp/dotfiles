@@ -13,6 +13,8 @@ alias ll="\ls -l"
 alias ls="\ls -la"
 alias md="mkdir"
 alias r="rails"
+alias rs="rails server"
+alias rc="rails console"
 alias ack="ack-grep"
 alias g="git"
 alias gs="git status"
@@ -44,7 +46,7 @@ go () {
     liver    ) server="173.255.193.199" ;;
     beta     ) server="beta" ;;
     local    ) server="doulos" ;;
-    desktop  ) server="192.168.0.86" ;;
+    desktop  ) server="192.168.10.24" ;;
     list     ) 
       echo "home dev live beta local desktop list";
       return 0;
