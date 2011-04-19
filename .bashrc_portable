@@ -18,6 +18,7 @@ alias rc="rails console"
 alias ack="ack-grep"
 alias g="git"
 alias gs="git status"
+alias irc="irssi"
 
 echo -e "\tDefining Functions"
 cs () { cd $1; ls; }
