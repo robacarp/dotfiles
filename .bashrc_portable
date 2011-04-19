@@ -42,8 +42,8 @@ go () {
  case "$1" in
     home     ) server="dgogeek.ath.cx" ;;
     dev|work ) server="robert-dev" ;;
-    live     ) server="robertcarpenter.net" ;;
-    liver    ) server="173.255.193.199" ;;
+    live     ) server="173.255.193.199" ;;
+#    live     ) server="robertcarpenter.net" ;;
     beta     ) server="beta" ;;
     local    ) server="doulos" ;;
     desktop  ) server="192.168.10.24" ;;

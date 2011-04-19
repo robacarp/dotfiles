@@ -78,9 +78,9 @@ set nofoldenable
 "set undofile
 
 set background=dark
-colorscheme solarized
+"colorscheme solarized
 "color bluegreen
-"color anotherdark
+color anotherdark
 
 command W w
 command Q q
