@@ -28,7 +28,7 @@ set backspace=indent,eol,start   "better backspacing past line start
 set laststatus=1   "show status bar with >1 windows only (2 => always)
 
 set list
-set listchars=tab:>\ ,trail:>,nbsp:%
+set listchars=tab:>\ ,trail:>,nbsp:%,conceal:%,precedes:%
 
 "gui options
 "   No menubar, no always scrollbars
@@ -47,7 +47,7 @@ map <F2> :NERDTreeToggle<CR>
 map <F8> :NERDTree<CR>
 map <F3> :set invnumber<CR>
 map <F4> :set relativenumber<CR>
-map <F12> :VCSBlame<CR>
+map <F5> :VCSBlame<CR>
 
 "more esc keys...because its right next to it anyways
 inoremap <F1> <ESC>
@@ -80,7 +80,10 @@ set nofoldenable
 set background=dark
 "colorscheme solarized
 "color bluegreen
-color anotherdark
+"color anotherdark
+"color wombat
+"color mustang
+color vividchalk
 
 command W w
 command Q q
