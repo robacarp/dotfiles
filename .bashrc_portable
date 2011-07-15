@@ -19,6 +19,7 @@ alias ack="ack-grep"
 alias g="git"
 alias gs="git status"
 alias irc="irssi"
+alias go="ssh"
 
 echo -e "\tDefining Functions"
 cs () { cd $1; ls; }
@@ -39,34 +40,34 @@ hostname=`hostname`
 echo -e "\tstarting screen"
 screen -x
 
-go () {
- case "$1" in
-    home     ) server="dgogeek.ath.cx" ;;
-    dev|work ) server="robert-dev" ;;
-    live     ) server="173.255.193.199" ;;
-#    live     ) server="robertcarpenter.net" ;;
-    beta     ) server="beta" ;;
-    local    ) server="doulos" ;;
-    desktop  ) server="192.168.10.24" ;;
-    list     ) 
-      echo "home dev live beta local desktop list";
-      return 0;
-    ;;
-  esac
-
-  user="robert"
-  if [ -n "$2" ]; then
-    user="$2"
-  fi
-
-  opts="-AX"
-  if [ -n "$3" ]; then
-    opts="$3"
-  fi
-
-  echo "ssh $opts $user@$server"
-  ssh $opts $user@$server
-}
+#go () {
+# case "$1" in
+#    home     ) server="dgogeek.ath.cx" ;;
+#    dev|work ) server="robert-dev" ;;
+#    live     ) server="173.255.193.199" ;;
+##    live     ) server="robertcarpenter.net" ;;
+#    beta     ) server="beta" ;;
+#    local    ) server="doulos" ;;
+#    desktop  ) server="192.168.10.24" ;;
+#    list     ) 
+#      echo "home dev live beta local desktop list";
+#      return 0;
+#    ;;
+#  esac
+#
+#  user="robert"
+#  if [ -n "$2" ]; then
+#    user="$2"
+#  fi
+#
+#  opts="-AX"
+#  if [ -n "$3" ]; then
+#    opts="$3"
+#  fi
+#
+#  echo "ssh $opts $user@$server"
+#  ssh $opts $user@$server
+#}
 
 vib() {
   if test -w $1; then

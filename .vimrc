@@ -28,7 +28,7 @@ set backspace=indent,eol,start   "better backspacing past line start
 set laststatus=1   "show status bar with >1 windows only (2 => always)
 
 set list
-set listchars=tab:>\ ,trail:>,nbsp:%,conceal:%,precedes:%
+set listchars=tab:>\ ,trail:>
 
 "gui options
 "   No menubar, no always scrollbars
