@@ -24,7 +24,8 @@ alias go="ssh"
 echo -e "\tDefining Functions"
 cs () { cd $1; ls; }
 
-PS1='\h:\W \u\$ '
+PS1='\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$'
+
 
 name=`uname`
 case $name in
@@ -39,35 +40,6 @@ esac
 hostname=`hostname`
 echo -e "\tstarting screen"
 screen -x
-
-#go () {
-# case "$1" in
-#    home     ) server="dgogeek.ath.cx" ;;
-#    dev|work ) server="robert-dev" ;;
-#    live     ) server="173.255.193.199" ;;
-##    live     ) server="robertcarpenter.net" ;;
-#    beta     ) server="beta" ;;
-#    local    ) server="doulos" ;;
-#    desktop  ) server="192.168.10.24" ;;
-#    list     ) 
-#      echo "home dev live beta local desktop list";
-#      return 0;
-#    ;;
-#  esac
-#
-#  user="robert"
-#  if [ -n "$2" ]; then
-#    user="$2"
-#  fi
-#
-#  opts="-AX"
-#  if [ -n "$3" ]; then
-#    opts="$3"
-#  fi
-#
-#  echo "ssh $opts $user@$server"
-#  ssh $opts $user@$server
-#}
 
 vib() {
   if test -w $1; then
