@@ -7,8 +7,6 @@
   branch = auto
 [push]
   default = tracking
-[core]
-  editor = /usr/local/bin/vim
 [alias]
   co = checkout
   br = branch
