@@ -9,8 +9,8 @@
 
 echo -e "\tAliasing"
 alias l="\ls"
-alias ll="\ls -l"
-alias ls="\ls -la"
+alias ll="\ls -l -G"
+alias ls="\ls -la -G"
 alias md="mkdir"
 alias r="rails"
 alias rs="rails server"
