@@ -232,8 +232,6 @@ hilights = (
   { text = "meatbags"; nick = "yes"; word = "yes"; }
 );
 ignores = (
-  { mask = "prodcutnews"; level = "ALL"; },
-  { level = "JOINS PARTS"; channels = ( "#sparkfun-freeday" ); }
 );
 logs = { };
 set = "autolog";

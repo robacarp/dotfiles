@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/Users/robertcarpenter/.irssi'
-let g:netrw_dirhist_2='/Users/robertcarpenter/Sites/twimbly_v2/app/views/things'
-let g:netrw_dirhist_3='/Users/robertcarpenter/Documents/programs/ruby/ticketing'
-let g:netrw_dirhist_4='/Users/robertcarpenter/Documents/programs/ruby'
-let g:netrw_dirhist_5='/Users/robertcarpenter/Sites/stockpile/config/initializers'
-let g:netrw_dirhist_6='/Users/robertcarpenter'
-let g:netrw_dirhist_7='/Users/robertcarpenter/Sites/scoreboard'

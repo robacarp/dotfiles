@@ -11,3 +11,5 @@
   co = checkout
   br = branch
   s = status
+[core]
+	editor = /usr/bin/vim
