@@ -10,7 +10,7 @@
 echo -e "\tAliasing"
 alias l="\ls"
 alias ll="\ls -l -G"
-alias ls="\ls -la -G"
+alias ls="\ls -la --color=auto"
 alias md="mkdir"
 alias r="rails"
 alias rs="rails server --debug"
@@ -20,9 +20,10 @@ alias g="git"
 alias gs="git status"
 alias irc="irssi"
 alias go="ssh"
+alias cld="cd \`\ls -t | head -n1\`"  #cd into the directory with the newest timestamp
 
 echo -e "\tDefining Functions"
-cs () { cd $1 && ls; }
+cs () { cd $1 && ls; }                #cd then ls
 
 PS1='\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
