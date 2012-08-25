@@ -4,3 +4,5 @@ caption always "%{= bb}%{+b w}%n %h %=%t %c"
 hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
 
 idle 20 eval "screen cmatrix -f -o -u 10" "idle 0"
+
+multiuser on
