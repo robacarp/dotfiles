@@ -35,4 +35,28 @@ vib() {
   fi
 }
 
+keyme() {
+  if [[ $TERM =~ "screen" ]]; then
+    echo -n "Importing ssh keys - "
+    if [ -s $HOME/.ssh/envs ]; then
+      . $HOME/.ssh/envs
+      echo "Success!"
+    else
+      echo "No envs file found."
+    fi
+  else
+    echo -n "Exporting ssh keys - "
+      # Courtesy of http://www.deadman.org/sshscreen.php
+      SSHVARS="SSH_CLIENT SSH_TTY SSH_AUTH_SOCK SSH_CONNECTION DISPLAY"
+
+      for x in ${SSHVARS} ; do
+          (eval echo $x=\$$x) | sed  's/=/="/
+                                      s/$/"/
+                                      s/^/export /'
+      done 1>$HOME/.ssh/envs
+
+      echo "Success!"
+  fi
+}
+
 [[ -s "/Users/robert/.rvm/scripts/rvm" ]] && source "/Users/robert/.rvm/scripts/rvm"
