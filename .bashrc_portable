@@ -37,7 +37,7 @@ vib() {
 
 keyme() {
   if [[ $TERM =~ "screen" ]]; then
-    echo -n "Importing ssh keys - "
+    echo -n "Importing ssh agent - "
     if [ -s $HOME/.ssh/envs ]; then
       . $HOME/.ssh/envs
       echo "Success!"
@@ -45,7 +45,7 @@ keyme() {
       echo "No envs file found."
     fi
   else
-    echo -n "Exporting ssh keys - "
+    echo -n "Exporting ssh agent - "
       # Courtesy of http://www.deadman.org/sshscreen.php
       SSHVARS="SSH_CLIENT SSH_TTY SSH_AUTH_SOCK SSH_CONNECTION DISPLAY"
 
