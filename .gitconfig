@@ -13,4 +13,4 @@
   s = status
 [core]
 	editor = /usr/bin/vim
-	excludesfile = /Users/robert/.gitignore
+	excludesfile = /Users/robert/.gitignore_global
