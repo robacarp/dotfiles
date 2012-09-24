@@ -8,8 +8,6 @@
 #fi
 
 alias l="\ls"
-alias ll="\ls -l -G"
-alias ls="\ls -la --color=auto"
 alias md="mkdir"
 alias r="rails"
 alias rs="rails server --debug"
@@ -23,6 +21,21 @@ alias cld="cd \`\ls -t | head -n1\`"  #cd into the directory with the newest tim
 alias vlf="vi $(\ls -t | head -n1)"   #open the file with the newest timestamp in the directory
 alias axel="axel -a"
 alias laxel="\axel -a -s 2097152"
+
+#system specific aliases
+uname=$(uname -a)
+if [[ $uname =~ ^Linux ]]; then
+  echo "detected linux"
+  alias ls="\ls -la --color=auto"
+  alias ll="\ls -l --color=auto"
+elif [[ $uname =~ ^Darwin ]]; then
+  echo "detected darwin"
+  alias ls="\ls -la -G"
+  alias ll="\ls -l -G"
+else
+  echo "could not detect operating system"
+fi
+
 
 cs () { cd "$1" && ls; }                #cd then ls
 
