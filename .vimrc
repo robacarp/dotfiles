@@ -39,8 +39,6 @@ set guifont=Monaco:h12
 nnoremap j gj
 nnoremap k gk
 
-
-
 "shortcuts keys
 "man I'm lazy...
 map <F2> :NERDTreeToggle<CR>
@@ -54,7 +52,6 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
-
 "dealing with opening files
 set wildmenu
 set wildmode=longest
@@ -65,9 +62,14 @@ set smartcase
 set incsearch
 "man this gets annoying...
 "set hlsearch
+"instead, only highlight the one I'm trying to look at
 set showmatch
 
-"regexin easier
+"sprinkle a little salt in the regexen to make it more palatable to vim
+nnoremap / /\v
+vnoremap / /\v
+
+"global regexin easier
 set gdefault    "automagically adds /g on a regex. /g to disable
 
 "mmmm....folding...
@@ -85,6 +87,7 @@ set background=dark
 "color mustang
 color vividchalk
 
+"my little pinky isa bit slow coming off that shift key sometimes.
 command W w
 command Q q
 command Wq wq
@@ -94,5 +97,12 @@ command Bn bn
 command Bp bp
 command Ls ls
 
+"tab-important languages
 au FileType make setlocal noexpandtab
 au FileType python setlocal noexpandtab
+
+"syntax highlighting for the insane
+au BufNewFile,BufRead *.pde setf c
+au BufNewFile,BufRead *.ino setf c
+au BufNewFile,BufRead Rakefile setf ruby
+au BufNewFile,BufRead Gemfile setf ruby
