@@ -95,10 +95,10 @@ PS1='\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\03
 
 PS1=""
 #PS1="$PS1\n"                                        # newline
-PS1="$PS1$(c Y)\$(~/.rvm/bin/rvm-prompt v g)$(c) "  # ruby version, gemset
+PS1="$PS1$(c Y)\$(~/.rvm/bin/rvm-prompt v g)$(c) "   # ruby version, gemset
 PS1="$PS1$(c EMR)\$(_git_bang_if_dirty)$(c)"         # exclamation point if branch is dirty
 PS1="$PS1$(c C)\$(_git_current_branch)$(c)"          # current branch name
-PS1="$PS1$(c K) \$(/bin/date \"+%H:%m:%S\")$(c)"      # time, so we can see when the last command finished, black, so its there when we need it but not in the way.
+PS1="$PS1$(c K) \$(/bin/date \"+%H:%m:%S\")$(c)"     # time, so we can see when the last command finished, black, so its there when we need it but not in the way.
 PS1="$PS1\n"                                         # newline
 PS1="$PS1$(c G)\u@\h$(c):$(c B)\w$(c)\$ "            # the real prompt, ruby version, gemset
 
