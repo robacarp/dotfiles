@@ -1,8 +1,6 @@
 #include this file in .bashrc like this:
-#echo -e "\tIncluding Rob Standard Includes"
 #if [ -f ~/.bashrc_portable ]; then
 #  . ~/.bashrc_portable
-#  echo -e "\t (RSI success)"
 #else
 #  echo -e "\t (no .bashrc_portable file found)"
 #fi
@@ -36,10 +34,73 @@ else
   echo "could not detect operating system"
 fi
 
+function c {
+  #color table swiped from http://tammersaleh.com/posts/a-better-rvm-bash-prompt/
+  # regular colors
+
+  case $1 in
+    # colors
+    K) echo "\[\033[0;30m\]" ;;
+    R) echo "\[\033[0;31m\]" ;;
+    G) echo "\[\033[0;32m\]" ;;
+    Y) echo "\[\033[0;33m\]" ;;
+    B) echo "\[\033[0;34m\]" ;;
+    M) echo "\[\033[0;35m\]" ;;
+    C) echo "\[\033[0;36m\]" ;;
+    W) echo "\[\033[0;37m\]" ;;
+
+    # emphasized (bolded) colors
+    EMK) echo "\[\033[1;30m\]" ;;
+    EMR) echo "\[\033[1;31m\]" ;;
+    EMG) echo "\[\033[1;32m\]" ;;
+    EMY) echo "\[\033[1;33m\]" ;;
+    EMB) echo "\[\033[1;34m\]" ;;
+    EMM) echo "\[\033[1;35m\]" ;;
+    EMC) echo "\[\033[1;36m\]" ;;
+    EMW) echo "\[\033[1;37m\]" ;;
+
+    # background colors
+    BGK) echo "\[\033[40m\]" ;;
+    BGR) echo "\[\033[41m\]" ;;
+    BGG) echo "\[\033[42m\]" ;;
+    BGY) echo "\[\033[43m\]" ;;
+    BGB) echo "\[\033[44m\]" ;;
+    BGM) echo "\[\033[45m\]" ;;
+    BGC) echo "\[\033[46m\]" ;;
+    BGW) echo "\[\033[47m\]" ;;
+
+    # not-colors
+    *) echo "\[\033[0m\]"    ;;
+  esac
+
+}
+
+function _git_bang_if_dirty { # http://tammersaleh.com/posts/a-better-rvm-bash-prompt/
+  git diff --quiet HEAD &>/dev/null
+  [ $? == 1 ] && echo "!"
+}
+
+function _git_dash_unless_dirty {
+  git diff --quiet HEAD &>/dev/null
+  [ $? == 1 ] || echo "-"
+}
+
+function _git_current_branch { # adapted from http://amix.dk/blog/post/19571
+  git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
 
 cs () { cd "$1" && ls; }                #cd then ls
 
 PS1='\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+PS1=""
+#PS1="$PS1\n"                                        # newline
+PS1="$PS1$(c Y)\$(~/.rvm/bin/rvm-prompt v g)$(c) "  # ruby version, gemset
+PS1="$PS1$(c EMR)\$(_git_bang_if_dirty)$(c)"         # exclamation point if branch is dirty
+PS1="$PS1$(c C)\$(_git_current_branch)$(c)"          # current branch name
+PS1="$PS1$(c K) \$(/bin/date \"+%H:%m:%S\")$(c)"      # time, so we can see when the last command finished, black, so its there when we need it but not in the way.
+PS1="$PS1\n"                                         # newline
+PS1="$PS1$(c G)\u@\h$(c):$(c B)\w$(c)\$ "            # the real prompt, ruby version, gemset
 
 screen -x
 
