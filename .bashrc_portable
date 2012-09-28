@@ -43,6 +43,10 @@ PS1='\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\03
 
 screen -x
 
+##################################################################################
+#
+# Open a file in a vim session, use sudo if needed.
+#
 vib() {
   if test -w $1; then
     vim $1
@@ -51,6 +55,15 @@ vib() {
   fi
 }
 
+#
+# For use when resuming remote screen session to re-sync
+# ssh agent, and thus keys push through the new ssh session
+# and make them available to shells running inside of screen
+#
+# Run before connecting to screen to dump env vars to a file,
+# then resume or extend screen session and run again to
+# import those env vars to the current environment.
+#
 keyme() {
   if [[ $TERM =~ "screen" ]]; then
     echo -n "Importing ssh agent - "
