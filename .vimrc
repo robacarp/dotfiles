@@ -106,3 +106,22 @@ au BufNewFile,BufRead *.pde setf c
 au BufNewFile,BufRead *.ino setf c
 au BufNewFile,BufRead Rakefile setf ruby
 au BufNewFile,BufRead Gemfile setf ruby
+
+" A function to open up my Rails tabs workflow.
+function Rails()
+  let tabs = [ 'test', 'app/support', 'app/models', 'app/mailers', 'app/controllers', 'app/assets' ]
+
+  for i in tabs
+    if isdirectory(i)
+      execute 'tabnew ' . i
+    endif
+  endfor
+endfunction
+
+" If the current directory looks like a Rails website,
+if isdirectory('app') && isdirectory('config')
+  call Rails()
+end
+
+" Hook in the command :Rails to the Rails function
+command -nargs=0 Rails :call Rails()

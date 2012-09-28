@@ -88,4 +88,31 @@ keyme() {
   fi
 }
 
+# OSX: Run a command in a new terminal tab -- probably will blow up or something on nix's
+# shamelessly nabbed from http://tomafro.net/2009/08/tip-open-new-tab-in-osx-terminal
+tab () {
+  osascript 2>/dev/null <<EOF
+    tell application "System Events"
+      tell process "Terminal" to keystroke "t" using command down
+    end
+
+    tell application "Terminal"
+      activate
+      do script with command "cd $PWD; $*" in window 1
+    end tell
+EOF
+}
+
+#
+# Start up the rails dev environment in the current directory, again probably blows up on nix's
+#
+# Might be worth it to write some logic that encapsulates screen/osx commands into generics...
+#
+workflow () {
+  tab rc         # start rails console in a new tab
+  tab guard      # start guard in a new tab
+  mvim .         # open up macvim in this directory -- auto-opens tabs for relevant rails folders
+  rs             # start the rails server in this tab
+}
+
 [[ -s "/Users/robert/.rvm/scripts/rvm" ]] && source "/Users/robert/.rvm/scripts/rvm"
