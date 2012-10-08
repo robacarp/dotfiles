@@ -96,30 +96,71 @@ command Bn bn
 command Bp bp
 command Ls ls
 
+" NERDTree enhancements/fixes
+"   Nerdtree defaults for window splitting are backwards from vim defaults.
+let NERDTreeMapOpenVSplit='i'
+let NERDTreeMapOpenSplit='s'
+
 "tab-important languages
-au FileType make setlocal noexpandtab
-au FileType python setlocal noexpandtab
+autocmd FileType make setlocal noexpandtab
+autocmd FileType python setlocal noexpandtab
 
 "syntax highlighting for the insane
-au BufNewFile,BufRead *.pde setf c
-au BufNewFile,BufRead *.ino setf c
-au BufNewFile,BufRead Rakefile setf ruby
-au BufNewFile,BufRead Gemfile setf ruby
+autocmd BufNewFile,BufRead *.pde setf c
+autocmd BufNewFile,BufRead *.ino setf c
+autocmd BufNewFile,BufRead Rakefile setf ruby
+autocmd BufNewFile,BufRead Gemfile setf ruby
+autocmd BufNewFile,BufRead Guardfile setf ruby
 
 " A function to open up my Rails tabs workflow.
-function Rails()
-  let tabs = [ 'test', 'app/support', 'app/models', 'app/mailers', 'app/controllers', 'app/assets' ]
+function! Rails()
+  let tabs = {
+           \ 'test':            'minitest_helper.rb',
+           \ 'app/models':      'user.rb',
+           \ 'app/controllers': 'application_controller.rb',
+           \ 'app/views':       'layouts/application.html.haml'
+        \ }
 
-  for i in tabs
-    if isdirectory(i)
-      execute 'tabnew ' . i
+  let success = 0
+
+  for i in keys(tabs)
+
+    let directory = getcwd() . '/' . i . '/'
+    let default_file = directory . tabs[i]
+    let file_type = getftype(default_file)
+
+    if isdirectory(i) || file_type == 'file'
+      "if isdirectory(directory) || file_type == 'file'
+      if success
+        execute 'tabnew'
+      endif
+
+      if file_type == 'file'
+        "execute 'normal a e ' . default_file
+        execute 'e ' . default_file
+      endif
+
+
+      if ! exists("loaded_nerd_tree")
+        normal a doom on you
+      elseif isdirectory(directory)
+        execute 'NERDTree ' . directory
+        wincmd l
+      endif
+
+      let success = 1
     endif
+
   endfor
+
 endfunction
 
 " If the current directory looks like a Rails website,
-if isdirectory('app') && isdirectory('config')
-  call Rails()
+if getftype('config/application.rb') == 'file' && has('gui_running')
+  "this seems to cause a 'press-enter-to-continue' prompt to happen
+  "autocmd GUIEnter * call Rails()
+  autocmd VimEnter * call Rails()
+  "call Rails()
 end
 
 " Hook in the command :Rails to the Rails function
