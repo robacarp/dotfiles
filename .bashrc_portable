@@ -172,10 +172,10 @@ EOF
 # Might be worth it to write some logic that encapsulates screen/osx commands into generics...
 #
 workflow () {
-  tab rc         # start rails console in a new tab
-  tab guard      # start guard in a new tab
-  mvim .         # open up macvim in this directory -- auto-opens tabs for relevant rails folders
-  rs             # start the rails server in this tab
+  tab rc                               # start rails console in a new tab
+  [[ -f Guardfile ]] && tab guard      # start guard in a new tab
+  mvim . &>/dev/null                   # open up macvim in this directory -- auto-opens tabs for relevant rails folders
+  rs                                   # start the rails server in this tab
 }
 
 [[ -s "/Users/robert/.rvm/scripts/rvm" ]] && source "/Users/robert/.rvm/scripts/rvm"
