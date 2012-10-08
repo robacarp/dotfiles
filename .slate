@@ -1,0 +1,16 @@
+# This is the default .slate file.
+# If no ~/.slate file exists this is the file that will be used.
+
+config defaultToCurrentScreen true
+config nudgePercentOf screenSize
+config resizePercentOf screenSize
+config keyboardLayout dvorak
+
+# Window Hints
+bind esc:cmd hint
+
+bind 0:f6 move screenSizeX/2;0 screenSizeX/2;(screenSizeY/9)*7
+bind 9:f6 move 0;0 screenSizeX/2;(screenSizeY/9)*7
+bind 6:f6 move screenSizeX/4;0 screenSizeX/2;(screenSizeY/9)*7
+bind 1:f6 move 0;0 screenSizeX;screenSizeY
+bind 2:f6 move 0;0 screenSizeX;screenSizeY*7/9
