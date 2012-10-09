@@ -1,16 +1,35 @@
-# This is the default .slate file.
-# If no ~/.slate file exists this is the file that will be used.
-
 config defaultToCurrentScreen true
 config nudgePercentOf screenSize
 config resizePercentOf screenSize
 config keyboardLayout dvorak
 
-# Window Hints
-bind esc:cmd hint
+alias top-major (screenSizeY/9)*7
+alias bottom-bar (screenSizeY/9)*2
 
-bind 0:f6 move screenSizeX/2;0 screenSizeX/2;(screenSizeY/9)*7
-bind 9:f6 move 0;0 screenSizeX/2;(screenSizeY/9)*7
-bind 6:f6 move screenSizeX/4;0 screenSizeX/2;(screenSizeY/9)*7
+#
+# primary columns
+#
+
+#full-width commands
 bind 1:f6 move 0;0 screenSizeX;screenSizeY
-bind 2:f6 move 0;0 screenSizeX;screenSizeY*7/9
+bind 2:f6 move 0;0 screenSizeX;${top-major}
+
+#center column, full and partial height
+bind 6:f6 move screenSizeX/4;0 screenSizeX/2;${top-major}
+bind f:f6 move screenSizeX/4;0 screenSizeX/2;screenSizeY
+
+#left and right columns, full and partial height.
+bind 9:f6 move 0;0 screenSizeX/2;${top-major}
+bind 0:f6 move screenSizeX/2;0 screenSizeX/2;${top-major}
+bind r:f6 move 0;0 screenSizeX/2;screenSizeY
+bind l:f6 move screenSizeX/2;0 screenSizeX/2;screenSizeY
+
+#########################################################
+#
+#bottom row
+#
+# this works correctly:
+bind 5:cmd move screenSizeX/3;screenSizeY*7/9 screenSizeX/3;screenSizeY*2/9
+
+# same command, different trigger, this doesn't work.
+#bind 5:f6 move screenSizeX/3;screenSizeY*7/9 screenSizeX/3;screenSizeY*2/9
