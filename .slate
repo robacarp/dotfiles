@@ -29,7 +29,9 @@ bind l:f6 move screenSizeX/2;0 screenSizeX/2;screenSizeY
 #bottom row
 #
 # this works correctly:
-bind 5:cmd move screenSizeX/3;screenSizeY*7/9 screenSizeX/3;screenSizeY*2/9
+#bind 5:cmd move screenSizeX/3;screenSizeY*7/9 screenSizeX/3;screenSizeY*2/9
 
 # same command, different trigger, this doesn't work.
-#bind 5:f6 move screenSizeX/3;screenSizeY*7/9 screenSizeX/3;screenSizeY*2/9
+#bind 7:f6 move screenOriginX+screenSizeX*2/4;screenOriginY+screenSizeY*7/9 screenSizeX/4;screenSizeY*2/9
+bind 5:f6 move screenSizeX*2/4;screenSizeY*7/9 screenSizeX/4;screenSizeY*2/9
+
