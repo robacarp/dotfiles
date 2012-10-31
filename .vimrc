@@ -114,23 +114,29 @@ autocmd BufNewFile,BufRead Guardfile setf ruby
 
 " A function to open up my Rails tabs workflow.
 function! Rails()
-  let tabs = {
-           \ 'test':            'minitest_helper.rb',
-           \ 'app/models':      'user.rb',
-           \ 'app/controllers': 'application_controller.rb',
-           \ 'app/views':       'layouts/application.html.haml'
-        \ }
+  let tabs = [
+           \ ['/',               'config/routes.rb'],
+           \ ['test',            'test_helper.rb'],
+           \ ['app/models',      'user.rb'],
+           \ ['app/controllers', 'application_controller.rb'],
+           \ ['app/views',       'layouts/application.html.haml'],
+           \ ['app/assets',      'stylesheets/application.css.scss']
+        \ ]
 
+  " controller
+  " test
+  " view
+  " model
+  " route
   let success = 0
 
-  for i in keys(tabs)
+  for i in tabs
 
-    let directory = getcwd() . '/' . i . '/'
-    let default_file = directory . tabs[i]
+    let directory = getcwd() . '/' . i[0] . '/'
+    let default_file = directory . i[1]
     let file_type = getftype(default_file)
 
-    if isdirectory(i) || file_type == 'file'
-      "if isdirectory(directory) || file_type == 'file'
+    if isdirectory(directory) || file_type == 'file'
       if success
         execute 'tabnew'
       endif
@@ -141,9 +147,7 @@ function! Rails()
       endif
 
 
-      if ! exists("loaded_nerd_tree")
-        normal a doom on you
-      elseif isdirectory(directory)
+      if isdirectory(directory)
         execute 'NERDTree ' . directory
         wincmd l
       endif
@@ -155,11 +159,15 @@ function! Rails()
 
 endfunction
 
+"if isdirectory('Sites/serenity')
+"  cd Sites/serenity
+"endif
+
 " If the current directory looks like a Rails website,
 if getftype('config/application.rb') == 'file' && has('gui_running')
   "this seems to cause a 'press-enter-to-continue' prompt to happen
   "autocmd GUIEnter * call Rails()
-  autocmd VimEnter * call Rails()
+  "autocmd VimEnter * call Rails()
   "call Rails()
 end
 
