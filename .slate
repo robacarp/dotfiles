@@ -11,18 +11,21 @@ alias bottom-bar (screenSizeY/9)*2
 #
 
 #full-width commands
-bind 1:f6 move 0;0 screenSizeX;screenSizeY
-bind 2:f6 move 0;0 screenSizeX;${top-major}
+bind 1:f6 move screenOriginX;screenOriginY screenSizeX;screenSizeY
+bind 2:f6 move screenOriginX;screenOriginY screenSizeX;${top-major}
 
 #center column, full and partial height
-bind 6:f6 move screenSizeX/4;0 screenSizeX/2;${top-major}
-bind f:f6 move screenSizeX/4;0 screenSizeX/2;screenSizeY
+bind 6:f6 move screenSizeX/4;screenOriginY screenSizeX/2;${top-major}
+bind f:f6 move screenSizeX/4;screenOriginY screenSizeX/2;screenSizeY
 
 #left and right columns, full and partial height.
-bind 9:f6 move 0;0 screenSizeX/2;${top-major}
-bind 0:f6 move screenSizeX/2;0 screenSizeX/2;${top-major}
-bind r:f6 move 0;0 screenSizeX/2;screenSizeY
-bind l:f6 move screenSizeX/2;0 screenSizeX/2;screenSizeY
+bind 9:f6 move screenOriginX;screenOriginY screenSizeX/2;${top-major}
+bind 0:f6 move screenSizeX/2;screenOriginY screenSizeX/2;${top-major}
+bind r:f6 move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
+bind l:f6 move screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
+
+#same place on the other screen
+bind space:f6 move windowTopLeftX/screenSizeX
 
 #########################################################
 #
