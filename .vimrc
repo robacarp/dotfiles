@@ -51,6 +51,10 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
+"Switch between tabs rather intuitively
+nnoremap th :tabprev<CR>
+nnoremap tl :tabnext<CR>
+
 "dealing with opening files
 set wildmenu
 set wildmode=longest
