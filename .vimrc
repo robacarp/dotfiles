@@ -104,6 +104,7 @@ command Ls ls
 "   Nerdtree defaults for window splitting are backwards from vim defaults.
 let NERDTreeMapOpenVSplit='i'
 let NERDTreeMapOpenSplit='s'
+let NERDTreeDirArrows=0
 
 "tab-important languages
 autocmd FileType make setlocal noexpandtab
