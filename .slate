@@ -25,7 +25,7 @@ bind r:f6 move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
 bind l:f6 move screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
 
 #same place on the other screen
-bind space:f6 move windowTopLeftX/screenSizeX
+#bind space:f6 move windowTopLeftX/screenSizeX
 
 #########################################################
 #
