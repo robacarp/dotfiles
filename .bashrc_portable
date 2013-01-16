@@ -179,4 +179,8 @@ workflow () {
   rs                                   # start the rails server in this tab
 }
 
+notes () {
+  [[ -f ~/notes.md ]] && less ~/notes.md
+}
+
 [[ -s "/Users/robert/.rvm/scripts/rvm" ]] && source "/Users/robert/.rvm/scripts/rvm"
