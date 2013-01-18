@@ -117,7 +117,9 @@ autocmd BufNewFile,BufRead Rakefile setf ruby
 autocmd BufNewFile,BufRead Gemfile setf ruby
 autocmd BufNewFile,BufRead Guardfile setf ruby
 
-" A function to open up my Rails tabs workflow.
+"
+" Open tabs for a Railsy environment.
+"
 function! Rails()
   let tabs = [
            \ ['/',               'config/routes.rb'],
@@ -128,14 +130,69 @@ function! Rails()
            \ ['app/assets',      'stylesheets/application.css.scss']
         \ ]
 
+  call OpenTabs(tabs)
+
   " controller
   " test
   " view
   " model
   " route
+endfunction
+
+
+"
+" Open tabs for a SFE development environment
+"
+" Specify commerce or sparkle as the first parameter.
+"
+function! Spark(...)
+  if a:0 == 0 || strlen(a:1) < 1
+    echo 'Specify either commerce or sparkle: Spark commerce'
+    return 0
+  endif
+
+  let char = strpart(a:1, 0, 1)
+
+  if char == 's'
+    let tabs = [
+          \ ['/',                      ''],
+          \ ['lib/classes',            ''],
+          \ ['lib/classes/dinosaurs',  ''],
+          \ ['lib/templates',          ''],
+          \ ['public/sparkle/css',     ''],
+          \ ['public/sparkle/js/lib',  ''],
+          \]
+  elseif char == 'c'
+    let tabs = [
+          \ ['/',                      ''],
+          \ ['lib/classes',            ''],
+          \ ['lib/classes/dinosaurs',  ''],
+          \ ['lib/templates',          ''],
+          \ ['public/css',     ''],
+          \ ['public/js',  ''],
+          \]
+  else
+    echo 'Specify either commerce or sparkle: Spark commerce'
+    let tabs = [ ]
+  endif
+
+  call OpenTabs(tabs)
+endfunction
+
+
+"
+"  Open a collection of files in tabs.
+"
+"  List of ordered pairs where the car is the nerd-tree directory
+"  for a tab and the cdr is the relevant file to open in that tab.
+"
+"  If the directory specified in the car doesn't exist, the tab will
+"  not be opened.
+"
+function! OpenTabs (tabs)
   let success = 0
 
-  for i in tabs
+  for i in a:tabs
 
     let directory = getcwd() . '/' . i[0] . '/'
     let default_file = directory . i[1]
@@ -164,17 +221,20 @@ function! Rails()
 
 endfunction
 
+
 "if isdirectory('Sites/serenity')
 "  cd Sites/serenity
 "endif
 
-" If the current directory looks like a Rails website,
-if getftype('config/application.rb') == 'file' && has('gui_running')
+" If the current directory looks like a Rails website, automagically open all
+" the tabs
+"if getftype('config/application.rb') == 'file' && has('gui_running')
   "this seems to cause a 'press-enter-to-continue' prompt to happen
   "autocmd GUIEnter * call Rails()
   "autocmd VimEnter * call Rails()
   "call Rails()
-end
+"endif
 
 " Hook in the command :Rails to the Rails function
 command -nargs=0 Rails :call Rails()
+command -nargs=* Spark :call Spark(<f-args>)
