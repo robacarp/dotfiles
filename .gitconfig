@@ -12,5 +12,5 @@
   br = branch
   s = status
 [core]
-	editor = /usr/bin/vim
-	excludesfile = /Users/robert/.gitignore_global
+  editor = /usr/bin/vim
+  excludesfile = ~/.gitignore_global
