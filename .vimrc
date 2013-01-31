@@ -155,21 +155,23 @@ function! Spark(...)
 
   if char == 's'
     let tabs = [
-          \ ['/',                      ''],
+          \ ['configuration',          'database.rc.php'],
           \ ['lib/classes',            ''],
           \ ['lib/classes/dinosaurs',  ''],
+          \ ['lib/classes/sparkle',    ''],
           \ ['lib/templates',          ''],
-          \ ['public/sparkle/css',     ''],
           \ ['public/sparkle/js/lib',  ''],
+          \ ['public/sparkle/css',     ''],
           \]
   elseif char == 'c'
     let tabs = [
-          \ ['/',                      ''],
+          \ ['configuration',          'database.rc.php'],
           \ ['lib/classes',            ''],
           \ ['lib/classes/dinosaurs',  ''],
+          \ ['lib/classes/commerce',   ''],
           \ ['lib/templates',          ''],
-          \ ['public/css',     ''],
-          \ ['public/js',  ''],
+          \ ['public/js',              ''],
+          \ ['public/css',             ''],
           \]
   else
     echo 'Specify either commerce or sparkle: Spark commerce'
