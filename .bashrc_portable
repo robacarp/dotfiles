@@ -5,23 +5,10 @@
 #  echo -e "\t (no .bashrc_portable file found)"
 #fi
 
-alias l="\ls"
-alias md="mkdir"
-alias r="rails"
-alias rs="rails server --debug"
-alias rc="rails console --debug"
-alias ack="ack-grep"
-alias g="git"
-alias gs="git status"
-alias pull="git pull"
-alias push="git push"
-alias check="git checkout"
-alias irc="irssi"
-alias go="ssh"
-alias cld="cd \`\ls -t | head -n1\`"  #cd into the directory with the newest timestamp
+if [ -f .bash_aliases ]; then
+  . .config/aliases
+fi
 alias vlf="vi $(\ls -t | head -n1)"   #open the file with the newest timestamp in the directory
-alias axel="axel -a"
-alias laxel="\axel -a -s 2097152"
 
 #system specific aliases
 uname=$(uname -a)
