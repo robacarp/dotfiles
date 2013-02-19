@@ -1,9 +1,12 @@
 . .config/aliases
-. ~/.config/fish/hooks/rvm.fish
 
 # Tie RVM into the PATH
-set PATH ~/.rvm/bin $PATH
-rvm current >&-
+if test -d ~/.rvm/bin
+  . ~/.config/fish/hooks/rvm.fish
+  . ~/.config/fish/library/rvm.fish
+  set PATH ~/.rvm/bin $PATH
+  rvm current >&-
+end
 
 set -l uname (uname -a | sed -e 'y/ /\n/')
 if contains "Linux" $uname
@@ -41,7 +44,9 @@ function _hostname
 end
 
 function _rvm_prompt
-  rvm-prompt v g
+  if test -d ~/.rvm/bin
+    rvm-prompt v g
+  end
 end
 
 function _prompt_character
