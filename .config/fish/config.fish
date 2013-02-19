@@ -1,20 +1,69 @@
 . .config/aliases
+. ~/.config/fish/hooks/rvm.fish
 
-set uname=uname -a
-if test $uname =~ "^Linux"
-  echo "detected linux"
-  alias ls="\ls -la --color=auto"
-  alias ll="\ls -l --color=auto"
-else if test $uname =~ "^Darwin"
-  echo "detected darwin"
-  alias ls="\ls -la -G"
-  alias ll="\ls -l -G"
+# Tie RVM into the PATH
+set PATH ~/.rvm/bin $PATH
+rvm current >&-
+
+set -l uname (uname -a | sed -e 'y/ /\n/')
+if contains "Linux" $uname
+  echo "system: linux"
+  alias ls="command ls -la --color=auto"
+  alias ll="command ls -l --color=auto"
+else if contains "Darwin" $uname
+  echo "system: darwin"
+  alias ls="command ls -la -G"
+  alias ll="command ls -l -G"
 else
   echo "could not detect operating system"
 end
 
 function cs -d "Change directory then ls contents"
   cd $argv; and ls
+end
+
+function _git_bang_if_dirty
+  if git status -s --ignore-submodules=dirty ^&- >&-
+    echo -n !
+  end
+end
+
+function _git_branch_name
+  echo -n (git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
+end
+
+function _git_hash
+  echo -n (git log -1 ^/dev/null | sed -n -e 's/^commit \([a-z0-9]\{8\}\)[a-z0-9]\{32\}/\1/p')
+end
+
+function _hostname
+  echo (hostname ^&- | cut -d . -f 1)
+end
+
+function _rvm_prompt
+  rvm-prompt v g
+end
+
+function _prompt_character
+  switch $USER
+  case root
+    echo '#'
+  case '*'
+    echo '>'
+  end
+end
+
+function fish_prompt
+  echo -s -n (set_color yellow) (_rvm_prompt) (set_color normal)
+  echo -s -n (set_color red) (_git_bang_if_dirty) (set_color normal)
+
+  echo -s -n (set_color cyan) (_git_branch_name) (set_color normal)
+
+  echo -s    (set_color black) (_git_hash) " " (date "+%b-%d %H:%M:%S") (set_color normal)
+
+  echo -s -n  $USER @ (_hostname) " "
+  echo -s -n (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
+  echo -s -n (_prompt_character) " "
 end
 
 function tab -d "Open a new tab and run a command in that tab."
