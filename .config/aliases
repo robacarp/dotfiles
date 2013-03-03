@@ -15,3 +15,4 @@ alias cld="cd \`\ls -t | head -n1\`"  #cd into the directory with the newest tim
 alias axel="axel -a"
 alias laxel="\axel -a -s 2097152"
 
+alias redis="redis-server /usr/local/etc/redis.conf"

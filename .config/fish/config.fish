@@ -8,6 +8,11 @@ if test -d ~/.rvm/bin
   rvm current >&-
 end
 
+# Postgres.app CLI tools
+if test -d /Applications/Postgres.app
+  set PATH /Applications/Postgres.app/Contents/MacOS/bin $PATH
+end
+
 set -l uname (uname -a | sed -e 'y/ /\n/')
 if contains "Linux" $uname
   #echo "system: linux"
@@ -19,6 +24,10 @@ else if contains "Darwin" $uname
   alias ll="command ls -l -G"
 else
   echo "could not detect operating system"
+end
+
+if status --is-login
+  set PATH $PATH ~/.rvm/gems/ruby-1.9.3-p362/bin ~/.rvm/gems/ruby-1.9.3-p362@global/bin ~/.rvm/rubies/ruby-1.9.3-p362/bin ~/.rvm/bin /usr/local/heroku/bin ~/.rvm/bin
 end
 
 function cs -d "Change directory then ls contents"
