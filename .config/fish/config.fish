@@ -1,4 +1,4 @@
-. .config/aliases
+. ~/.config/aliases
 
 # Tie RVM into the PATH
 if test -d ~/.rvm/bin
