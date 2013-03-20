@@ -10,11 +10,11 @@ end
 
 set -l uname (uname -a | sed -e 'y/ /\n/')
 if contains "Linux" $uname
-  echo "system: linux"
+  #echo "system: linux"
   alias ls="command ls -la --color=auto"
   alias ll="command ls -l --color=auto"
 else if contains "Darwin" $uname
-  echo "system: darwin"
+  #echo "system: darwin"
   alias ls="command ls -la -G"
   alias ll="command ls -l -G"
 else
