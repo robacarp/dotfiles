@@ -13,6 +13,6 @@ alias irc="irssi"
 alias go="ssh"
 alias cld="cd \`\ls -t | head -n1\`"  #cd into the directory with the newest timestamp
 alias axel="axel -a"
-alias laxel="\axel -a -s 2097152"
+alias laxel="axel -s 2097152"
 
 alias redis="redis-server /usr/local/etc/redis.conf"
