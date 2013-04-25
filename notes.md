@@ -25,3 +25,10 @@
   create the image:
     dd if=/dev/disk# of=/path/to/file.iso bs=2048
 
+
+##The ability to start some servers...I don't really want these running locally all the time.
+#### MySQL
+mysql.server start
+
+#### elasticsearch
+elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml

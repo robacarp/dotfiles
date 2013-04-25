@@ -98,6 +98,13 @@ function workflow -d "Start up my standard rails workflow"
   rs
 end
 
+function gloo -d "Start up the Gloo vm and related tools"
+  cd ~/Sites/gloo/vagrant
+  tab vagrant ssh
+  tab vagrant ssh
+  tab vagrant ssh
+end
+
 function notes -d "show the notes file"
   test -f ~/notes.md; and less ~/notes.md
 end

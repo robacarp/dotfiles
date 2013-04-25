@@ -124,8 +124,10 @@ function! Rails()
   let tabs = [
            \ ['/',               'config/routes.rb'],
            \ ['test',            'test_helper.rb'],
+           \ ['app/support',     ''],
            \ ['app/models',      'user.rb'],
            \ ['app/controllers', 'application_controller.rb'],
+           \ ['app/helpers',     'application_helper.rb'],
            \ ['app/views',       'layouts/application.html.haml'],
            \ ['app/assets',      'stylesheets/application.css.scss']
         \ ]
