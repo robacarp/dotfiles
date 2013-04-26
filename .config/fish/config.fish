@@ -99,10 +99,11 @@ function workflow -d "Start up my standard rails workflow"
 end
 
 function gloo -d "Start up the Gloo vm and related tools"
-  cd ~/Sites/gloo/vagrant
-  tab vagrant ssh
-  tab vagrant ssh
-  tab vagrant ssh
+  cd ~/Sites/gloo/program_creator
+  tab rc
+  tab "redis-server /usr/local/etc/redis.conf & elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml &"
+  tab
+  rs
 end
 
 function notes -d "show the notes file"
