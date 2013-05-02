@@ -1,3 +1,15 @@
 [submodule ".vim/bundle/Colour-Sampler-Pack"]
 	path = .vim/bundle/Colour-Sampler-Pack
 	url = git@github.com:vim-scripts/Colour-Sampler-Pack.git
+[submodule ".vim/bundle/NerdTree"]
+	path = .vim/bundle/NerdTree
+	url = git@github.com:scrooloose/nerdtree.git
+[submodule ".vim/bundle/vim-fish"]
+	path = .vim/bundle/vim-fish
+	url = git@github.com:aliva/vim-fish.git
+[submodule ".vim/bundle/vcscommand"]
+	path = .vim/bundle/vcscommand
+	url = git@github.com:vim-scripts/vcscommand.vim.git
+[submodule ".vim/bundle/command-t"]
+	path = .vim/bundle/command-t
+	url = git@github.com:wincent/Command-T.git
