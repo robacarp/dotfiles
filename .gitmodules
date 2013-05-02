@@ -1,0 +1,3 @@
+[submodule ".vim/bundle/Colour-Sampler-Pack"]
+	path = .vim/bundle/Colour-Sampler-Pack
+	url = git@github.com:vim-scripts/Colour-Sampler-Pack.git
