@@ -19,3 +19,6 @@
 [submodule ".vim/bundle/Align"]
 	path = .vim/bundle/Align
 	url = git@github.com:vim-scripts/Align.git
+[submodule ".vim/bundle/ScrollColors"]
+	path = .vim/bundle/ScrollColors
+	url = git@github.com:vim-scripts/ScrollColors.git
