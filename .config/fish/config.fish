@@ -34,6 +34,8 @@ function cs -d "Change directory then ls contents"
   cd $argv; and ls
 end
 
+alias cld="cd (command ls -t | head -n1)"
+
 function _git_bang_if_dirty
   if git status -s --ignore-submodules=dirty ^&- >&-
     echo -n !

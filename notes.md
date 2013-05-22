@@ -32,3 +32,6 @@ mysql.server start
 
 #### elasticsearch
 elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml
+
+#### cassandra
+cassandra -f

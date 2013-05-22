@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-function __check_rvm_at_cwd --on-event cwd
+function __check_rvm_at_cwd -v PWD
   # Source a .rvmrc file in a directory after changing to it, if it exists.
   # To disable this fature, set rvm_project_rvmrc=0 in $HOME/.rvmrc
 
