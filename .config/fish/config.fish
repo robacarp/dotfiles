@@ -88,24 +88,45 @@ function tab -d "Open a new tab and run a command in that tab."
                         -e 'end'
   osascript             -e 'tell application "Terminal"' \
                           -e 'activate' \
-                          -e "do script with command \"cd $PWD; $argv\" in window 1" \
+                          -e "do script with command \"cd $PWD\" in window 1" \
                         -e 'end tell'
+
+  for current_arg in $argv
+    osascript             -e 'tell application "Terminal"' \
+                            -e 'activate' \
+                            -e "do script with command \"$current_arg\" in window 1" \
+                          -e 'end tell'
+  end
+
 end
 
 function workflow -d "Start up my standard rails workflow"
   tab rc
   test -f Guardfile; and tab guard
   tab
-  mvim . 2>/dev/null
+  if not contains "!v" $argv
+    mvim . 2>/dev/null
+  end
   rs
 end
 
 function gloo -d "Start up the Gloo vm and related tools"
   cd ~/Sites/gloo/program_creator
+  tab rs
   tab rc
-  tab "redis-server /usr/local/etc/redis.conf & elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml &"
-  tab
-  rs
+  tab "rake QUEUE=\\\* VERBOSE=1 resque:work"
+  tab "rake resque:scheduler"
+  tab "cd ../bfd/api-analytics" "play run"
+  exit
+end
+
+function backend -d "Start up the gloo bfd infrastructure"
+  cd ~/Sites/gloo/bfd
+  tab "redis-server /usr/local/etc/redis.conf"
+  tab "elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml"
+  tab "cd ~/Sites/gloo/kafka-0.7.2-incubating-src" "bin/zookeeper-server-start.sh config/zookeeper.properties"
+  tab "cd ~/Sites/gloo/kafka-0.7.2-incubating-src" "bin/kafka-server-start.sh config/server.properties"
+  exit
 end
 
 function notes -d "show the notes file"
