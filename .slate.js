@@ -67,12 +67,14 @@ function face() {
 }
 
 // Workstation specific extensions for me
-face.prototype.top_major    = function () { S.log('top_major'); return this.h('screenSizeY-150') }
+face.prototype.top_major    = function () { return this.h('screenSizeY-150') }
+face.prototype.top_half     = function () { return this.h('screenSizeY/2').y('screenOriginY') }
 face.prototype.bottom_minor = function () { return this.h(150) }
 face.prototype.left_major   = function () { return this.w('screenSizeX-150') }
 face.prototype.right_half   = function () { return this.w('screenSizeX/2').x('screenSizeX/2+screenOriginX')  }
 face.prototype.left_half    = function () { return this.w('screenSizeX/2').x('screenOriginX')  }
-face.prototype.middle_half  = function () { S.log('middle_half'); return this.w('screenSizeX/2').x('screenSizeX/4+screenOriginX') }
+face.prototype.middle_half  = function () { return this.w('screenSizeX/2').x('screenSizeX/4+screenOriginX') }
+face.prototype.bottom_half  = function () { return this.h('screenSizeY/2').y('screenOriginY+screenSizeY/2') }
 face.prototype.swap_screen  = function () {
   // this doesn't work...
   S.log("calling swap_screen");
@@ -81,16 +83,26 @@ face.prototype.swap_screen  = function () {
   return this.s(new_screen)
 }
 
+// full width
 S.bind('1:f6', O_().top_major().mv() );
-S.bind('6:f6', O_().top_major().middle_half().mv() );
-S.bind('9:f6', O_().top_major().left_half().mv() );
-S.bind('0:f6', O_().top_major().right_half().mv() );
+S.bind("':f6", O_().mv());
+S.bind('a:f6', O_().bottom_half().mv() );
 
-S.bind("`:f6", O_().mv());
-S.bind('f:f6', O_().middle_half().mv());
+S.bind('2:f6', O_().top_half().mv() );
+
+// left half
+S.bind('9:f6', O_().top_major().left_half().mv() );
 S.bind('r:f6', O_().left_half().mv());
+S.bind('n:f6', O_().left_half().bottom_half().mv() );
+
+// right half
+S.bind('0:f6', O_().top_major().right_half().mv() );
 S.bind('l:f6', O_().right_half().mv());
+S.bind('s:f6', O_().right_half().bottom_half().mv() );
+
+// middle half
+S.bind('6:f6', O_().top_major().middle_half().mv() );
+S.bind('f:f6', O_().middle_half().mv());
 S.bind('space:f6', O_().swap_screen().mv());
 
 /* */
-
