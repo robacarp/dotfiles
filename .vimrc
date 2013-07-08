@@ -2,6 +2,7 @@ filetype off
 call pathogen#infect()
 filetype plugin indent on
 
+set shell=bash
 set nocompatible
 set modelines=0
 set encoding=utf-8
@@ -41,10 +42,11 @@ nnoremap k gk
 "shortcuts keys
 "man I'm lazy...
 map <F2> :NERDTreeToggle<CR>
-map <F8> :NERDTree<CR>
 map <F3> :set invnumber<CR>
 map <F4> :set relativenumber<CR>
 map <F5> :VCSBlame<CR>
+map <F8> :NERDTree<CR>
+map <F12> :JSHint<CR>
 
 "more esc keys...because its right next to it anyways
 inoremap <F1> <ESC>
