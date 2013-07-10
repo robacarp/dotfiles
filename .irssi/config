@@ -44,6 +44,14 @@ servers = (
     use_ssl = "no";
     ssl_verify = "no";
     autoconnect = "yes";
+  },
+  {
+    address = "icarus.p1k3.org";
+    chatnet = "p1k3";
+    port = "6666";
+    use_ssl = "no";
+    ssl_verify = "no";
+    autoconnect = "yes";
   }
 );
 
@@ -58,6 +66,7 @@ chatnets = {
     type = "IRC";
     autosendcmd = "/^msg &bitlbee identify ; wait 200";
   };
+  p1k3 = { type = "IRC"; };
 };
 
 channels = (
@@ -66,7 +75,8 @@ channels = (
   { name = "#stockpile"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#sparkfun"; chatnet = "sfinternal"; autojoin = "no"; },
   { name = "#it"; chatnet = "sfinternal"; autojoin = "no"; },
-  { name = "#linode"; chatnet = "oftc"; autojoin = "yes"; }
+  { name = "#linode"; chatnet = "oftc"; autojoin = "yes"; },
+  { name = "#channel"; chatnet = "p1k3"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -249,8 +259,9 @@ hilights = (
 ignores = (
   { mask = "prodcutnews"; level = "ALL"; },
   { level = "JOINS PARTS"; channels = ( "#sparkfun-freeday" ); },
-  { level = "JOINS PARTS QUITS"; channels = ( "#sparkfun" ); },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#ruby" ); }
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#ruby" ); },
+  { mask = "sparkbot"; level = "ALL"; },
+  { mask = "SparkBot`"; level = "ALL"; }
 );
 logs = { };
 set = "autolog";
