@@ -1,11 +1,8 @@
 . ~/.config/aliases
 
-# Tie RVM into the PATH
-if test -d ~/.rvm/bin
-  . ~/.config/fish/hooks/rvm.fish
-  . ~/.config/fish/library/rvm.fish
-  set PATH ~/.rvm/bin $PATH
-  rvm current >&-
+if test -d $HOME/.rbenv
+  set PATH $HOME/.rbenv/bin $PATH
+  . (rbenv init -|psub)
 end
 
 # Postgres.app CLI tools
@@ -24,10 +21,6 @@ else if contains "Darwin" $uname
   alias ll="command ls -l -G"
 else
   echo "could not detect operating system"
-end
-
-if status --is-login
-  set PATH $PATH ~/.rvm/gems/ruby-1.9.3-p362/bin ~/.rvm/gems/ruby-1.9.3-p362@global/bin ~/.rvm/rubies/ruby-1.9.3-p362/bin ~/.rvm/bin /usr/local/heroku/bin ~/.rvm/bin
 end
 
 function cs -d "Change directory then ls contents"
@@ -169,5 +162,5 @@ function keyme
 end
 
 function keycopy -d "Copy public key to server"
-  cat ~/.ssh/id_rsa.pub | ssh $argv[0] 'mkdir .ssh && cat >> .ssh/authorized_keys && echo "public key copied"'
+  cat ~/.ssh/id_rsa.pub | ssh $argv 'mkdir -p .ssh; cat >> .ssh/authorized_keys && echo "public key copied"'
 end

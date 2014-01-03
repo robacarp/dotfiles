@@ -91,9 +91,6 @@ cs () { cd "$1" && ls; }                #cd then ls
 
 PS1=""
 #PS1="$PS1\n"                                        # newline
-if [ -f ~/.rvm/bin/rvm-prompt ]; then
-PS1="$PS1$(c Y)\$(~/.rvm/bin/rvm-prompt v g)$(c) "   # ruby version, gemset
-fi
 PS1="$PS1$(c EMR)\$(_git_bang_if_dirty)$(c)"         # exclamation point if branch is dirty
 PS1="$PS1$(c C)\$(_git_current_branch)$(c)"          # current branch name
 PS1="$PS1$(c K)@\$(_git_hash)$(c)"                   # current sha hash
@@ -179,5 +176,3 @@ workflow () {
 notes () {
   [[ -f ~/notes.md ]] && less ~/notes.md
 }
-
-[[ -s "/Users/robert/.rvm/scripts/rvm" ]] && source "/Users/robert/.rvm/scripts/rvm"
