@@ -63,7 +63,7 @@ function _prompt_character
 end
 
 function fish_prompt
-  echo -s -n (set_color yellow) (_rvm_prompt) (set_color normal)
+#  echo -s -n (set_color yellow) (rvm_prompt) (set_color normal)
   echo -s -n (set_color red) (_git_bang_if_dirty) (set_color normal)
 
   echo -s -n (set_color cyan) (_git_branch_name) (set_color normal)
