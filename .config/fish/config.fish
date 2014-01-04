@@ -134,7 +134,6 @@ function notes -d "show the notes file"
 end
 
 function keyme
-  echo "NO STOPIT IT DOESNT WORK"
 #
 # For use when resuming remote screen session to re-sync
 # ssh agent, and thus keys push through the new ssh session
@@ -144,7 +143,7 @@ function keyme
 # then resume or extend screen session and run again to
 # import those env vars to the current environment.
 #
-  if test $TERM =~ "screen"
+  if test $TERM = "screen"
     echo -n "Importing ssh agent - "
     if test -f $HOME/.ssh/envs
       . $HOME/.ssh/envs
@@ -154,14 +153,10 @@ function keyme
     end
   else
     echo -n "Exporting ssh agent - "
-      # Courtesy of http://www.deadman.org/sshscreen.php
-      set SSHVARS "SSH_CLIENT SSH_TTY SSH_AUTH_SOCK SSH_CONNECTION DISPLAY"
+      # Adapted for fish from http://www.deadman.org/sshscreen.php
       echo > ~/.ssh/envs
-      for x in $SSHVARS
-          echo $x=\$$x | sed 's/=/="/
-                              s/$/"/
-                              s/^/export /' \
-                              >> ~/.ssh/envs
+      for x in SSH_CLIENT SSH_TTY SSH_AUTH_SOCK SSH_CONNECTION DISPLAY
+          echo set $x (eval "echo \$$x") >> ~/.ssh/envs
       end
 
       echo "Success!"
