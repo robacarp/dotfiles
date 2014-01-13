@@ -6,6 +6,7 @@ use 5.10.0;
 use Term::ANSIColor;
 use File::Basename;
 use Cwd 'realpath';
+use Env 'HOME';
 
 sub color_say {
   my $temp;
@@ -23,7 +24,8 @@ my $preferred_directory_name = '.dotfiles';
 # establish where the script resides and
 # where the links are going to be dropped
 my $cwd = dirname realpath $0;
-my $destination = dirname dirname realpath($0);
+
+my $destination = $HOME;
 
 # rename the working directory into something with a dot prefix
 if (basename($cwd) ne $preferred_directory_name) {
