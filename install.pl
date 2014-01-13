@@ -1,5 +1,16 @@
 #!/usr/bin/env perl
 
+#
+# A little script which should run in dist perl and
+# will symlink my dotfiles into $HOME.
+#
+# Possible TODO:
+# - some cli parameters?
+#   - dry-run
+#   - no-rename-cwd
+#   - link-source=$HOME
+#
+
 use strict;
 use warnings;
 use 5.10.0;
@@ -42,6 +53,7 @@ rename "$cwd", basename($cwd) . "/.dotfiles";
 # not to the execute location
 chdir($cwd);
 
+# read in the excludes file
 my $excludes = "";
 my $no_excludes = 0;
 
@@ -81,7 +93,7 @@ for my $file (@destinations) {
 
   # link it, bro
   color_say 'green', 'link: ', "$destination/$file to $cwd/$file";
-  symlink "$cwd/$file", "$destination/$file" or color_say 'red', 'link failed :/';
+  # symlink "$cwd/$file", "$destination/$file" or color_say 'red', 'link failed :/';
 }
 
-print "\n\n";
+print "\n";
