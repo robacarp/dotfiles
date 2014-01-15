@@ -25,3 +25,6 @@
 [submodule ".vim/bundle/jshint2.vim"]
 	path = .vim/bundle/jshint2.vim
 	url = git@github.com:robacarp/jshint2.vim.git
+[submodule ".vim/bundle/vim-pathogen"]
+	path = .vim/bundle/vim-pathogen
+	url = git@github.com:tpope/vim-pathogen.git

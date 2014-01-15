@@ -1,5 +1,6 @@
 filetype off
-call pathogen#infect()
+source ~/.dotfiles/.vim/bundle/vim-pathogen/autoload/pathogen.vim
+call pathogen#infect('~/.dotfiles/.vim/bundle/{}')
 filetype plugin indent on
 
 set shell=bash
