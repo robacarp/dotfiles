@@ -39,10 +39,11 @@ exit;
 
 sub color_say {
   my $temp;
-  while (@_) {
-     print color (shift @_) if (@_ > 1);
-     print shift @_ if (@_);
-     print color 'reset';
+  while (@_ > 0) {
+    # say scalar(@_), 'items in \@_. [0] is ', $_[0];
+    print color (shift @_) if (@_ > 1);
+    print shift @_ if (@_);
+    print color 'reset';
   }
 
   print "\n";
@@ -59,7 +60,7 @@ my $destination = $HOME;
 # rename the working directory into something with a dot prefix
 if (basename($cwd) ne $preferred_directory_name) {
   my $new_cwd = dirname($cwd) . '/' . $preferred_directory_name;
-  color_say 'green', 'renaming'," $cwd to $new_cwd";
+  color_say 'green', '# renaming'," $cwd to $new_cwd";
 
   if ($opt_r && ! $opt_d) {
     rename $cwd, $new_cwd;
@@ -87,6 +88,7 @@ if ($excludes_exist) {
 
 # fetch a list of the dotfiles in this folder
 my @destinations = <.*>;
+my $flags = '';
 
 for my $file (@destinations) {
   # skip . and ..
@@ -100,18 +102,25 @@ for my $file (@destinations) {
 
   # check to see if the file was explicitly excluded
   if (index($excludes, $file) > -1) {
-    color_say 'cyan', 'skip: ', $file;
+    color_say 'cyan', '# skip: ', $file;
     next;
   }
 
   # check to make sure the file doesn't already exist
   if (-e "$destination/$file") {
-    color_say 'yellow', 'exists: ', "$destination/$file";
+
+    if (-d "$destination/$file") {
+      $flags = "-r";
+    } else {
+      $flags = '';
+    }
+
+    color_say 'reset', "rm $flags $destination/$file", 'yellow', '  # file exists, remove and re-run';
     next;
   }
 
   # link it, bro
-  color_say 'green', 'link: ', "$destination/$file to $cwd/$file";
+  color_say 'green', '# link: ', "$destination/$file to $cwd/$file";
   if (! $opt_d) {
     symlink "$cwd/$file", "$destination/$file" or color_say 'red', 'link failed :/';
   }
