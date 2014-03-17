@@ -13,6 +13,7 @@ alias go="ssh"
 alias cld="cd \`\ls -t | head -n1\`"  #cd into the directory with the newest timestamp
 alias axel="axel -a"
 alias laxel="axel -s 2097152"
+alias rsync_dl="rsync --partial --progress --inplace --human-readable"
 alias servers="grep -e \"Host \"  ~/.ssh/config"
 
 alias redis="redis-server /usr/local/etc/redis.conf"
