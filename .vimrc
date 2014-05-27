@@ -18,6 +18,7 @@ set expandtab
 
 "visual stuff...
 syntax on
+set synmaxcol=120
 set showmode
 set cursorline
 set showcmd
