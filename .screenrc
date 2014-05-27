@@ -3,5 +3,7 @@ startup_message off
 caption always "%{= bb}%{+b w}%n %h %=%t %c"
 hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
 
+defscrollback 30000
+
 multiuser on
 defutf8 on
