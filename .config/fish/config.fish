@@ -9,6 +9,9 @@ end
 if test -d /Applications/Postgres.app
   set PATH /Applications/Postgres.app/Contents/MacOS/bin $PATH
 end
+if test -d /Applications/Postgres.app/Contents/Versions/9.3/bin
+  set PATH /Applications/Postgres.app/Contents/Versions/9.3/bin $PATH
+end
 
 set -l uname (uname -a | sed -e 'y/ /\n/')
 if contains "Linux" $uname
