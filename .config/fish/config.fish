@@ -13,6 +13,11 @@ if test -d /Applications/Postgres.app/Contents/Versions/9.3/bin
   set PATH /Applications/Postgres.app/Contents/Versions/9.3/bin $PATH
 end
 
+# homedirectory bin folder
+if test -d ~/.dotfiles/bin
+  set PATH $PATH ~/.dotfiles/bin
+end
+
 set -l uname (uname -a | sed -e 'y/ /\n/')
 if contains "Linux" $uname
   #echo "system: linux"
