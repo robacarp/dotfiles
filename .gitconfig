@@ -14,3 +14,5 @@
 [core]
   editor = /usr/bin/vim
   excludesfile = ~/.gitignore_global
+[color "status"]
+	branch = magenta
