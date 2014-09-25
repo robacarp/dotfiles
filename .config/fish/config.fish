@@ -55,6 +55,20 @@ function _hostname
   echo (hostname ^&- | cut -d . -f 1)
 end
 
+function _env_vars
+  if set -q RAILS_ENV
+    echo -n $RAILS_ENV
+  end
+
+  if set -q RAILS_ENV NODE_ENV
+    echo -n " "
+  end
+
+  if set -q NODE_ENV
+    echo -n $NODE_ENV
+  end
+end
+
 function _rvm_prompt
   if test -d ~/.rvm/bin
     rvm-prompt v g
@@ -72,12 +86,14 @@ end
 
 function fish_prompt
 #  echo -s -n (set_color yellow) (rvm_prompt) (set_color normal)
-  echo -s -n (set_color red) (_git_bang_if_dirty) (set_color normal)
+#  echo -s -n (set_color red) (_git_bang_if_dirty) (set_color normal)
 
   echo -s -n (set_color cyan) (_git_branch_name) (set_color normal)
+  echo -s -n (set_color purple) " " (_env_vars) (set_color normal)
 
-  echo -s    (set_color black) (_git_hash) " " (date "+%b-%d %H:%M:%S") (set_color normal)
+  echo -s -n (set_color black) (_git_hash) " " (date "+%b-%d %H:%M:%S") (set_color normal)
 
+  echo -s (set_color normal)
   echo -s -n  $USER @ (_hostname) " "
   echo -s -n (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
   echo -s -n (_prompt_character) " "
