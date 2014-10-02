@@ -72,10 +72,6 @@ set incsearch
 "instead, only highlight the one I'm trying to look at
 set showmatch
 
-"sprinkle a little salt in the regexen to make it more palatable to vim
-nnoremap / /\v
-vnoremap / /\v
-
 "global regexin easier
 set gdefault    "automagically adds /g on a regex. /g to disable
 
@@ -83,7 +79,7 @@ set gdefault    "automagically adds /g on a regex. /g to disable
 set foldmethod=indent
 set nofoldenable
 
-"new stuff. 
+"new stuff.
 "set undofile
 
 set background=dark
@@ -121,6 +117,14 @@ autocmd BufNewFile,BufRead Rakefile setf ruby
 autocmd BufNewFile,BufRead Gemfile setf ruby
 autocmd BufNewFile,BufRead Guardfile setf ruby
 
+call textobj#user#plugin('rubyblock', {
+      \ 'code': {
+      \   'pattern': ['.*\(module\|class\|if\|do\|def\).*\n\s*', '\n\s*end'],
+      \   'select-a': 'ar',
+      \   'select-i': 'ir',
+      \ },
+      \})
+
 "
 " Open tabs for a Railsy environment.
 "
@@ -145,47 +149,8 @@ function! Rails()
   " route
 endfunction
 
-
-"
-" Open tabs for a SFE development environment
-"
-" Specify commerce or sparkle as the first parameter.
-"
-function! Spark(...)
-  if a:0 == 0 || strlen(a:1) < 1
-    echo 'Specify either commerce or sparkle: Spark commerce'
-    return 0
-  endif
-
-  let char = strpart(a:1, 0, 1)
-
-  if char == 's'
-    let tabs = [
-          \ ['configuration',          'database.rc.php'],
-          \ ['lib/classes',            ''],
-          \ ['lib/classes/dinosaurs',  ''],
-          \ ['lib/classes/sparkle',    ''],
-          \ ['lib/templates',          ''],
-          \ ['public/sparkle/js/lib',  ''],
-          \ ['public/sparkle/css',     ''],
-          \]
-  elseif char == 'c'
-    let tabs = [
-          \ ['configuration',          'database.rc.php'],
-          \ ['lib/classes',            ''],
-          \ ['lib/classes/dinosaurs',  ''],
-          \ ['lib/classes/commerce',   ''],
-          \ ['lib/templates',          ''],
-          \ ['public/js',              ''],
-          \ ['public/css',             ''],
-          \]
-  else
-    echo 'Specify either commerce or sparkle: Spark commerce'
-    let tabs = [ ]
-  endif
-
-  call OpenTabs(tabs)
-endfunction
+" Hook in the command :Rails to the Rails function
+command -nargs=0 Rails :call Rails()
 
 
 "
@@ -230,10 +195,6 @@ function! OpenTabs (tabs)
 endfunction
 
 
-"if isdirectory('Sites/serenity')
-"  cd Sites/serenity
-"endif
-
 " If the current directory looks like a Rails website, automagically open all
 " the tabs
 "if getftype('config/application.rb') == 'file' && has('gui_running')
@@ -242,7 +203,3 @@ endfunction
   "autocmd VimEnter * call Rails()
   "call Rails()
 "endif
-
-" Hook in the command :Rails to the Rails function
-command -nargs=0 Rails :call Rails()
-command -nargs=* Spark :call Spark(<f-args>)
