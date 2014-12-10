@@ -18,9 +18,8 @@ set expandtab
 
 "visual stuff...
 syntax on
-set synmaxcol=120
 set showmode
-set cursorline
+" set cursorline " seems to interfere with the ruby syntaxthighlighting
 set showcmd
 set hidden     "buffers get hidden instead of backgrounded.
 set visualbell
@@ -67,9 +66,6 @@ set wildmode=longest
 set ignorecase
 set smartcase
 set incsearch
-"man this gets annoying...
-"set hlsearch
-"instead, only highlight the one I'm trying to look at
 set showmatch
 
 "global regexin easier
@@ -79,16 +75,15 @@ set gdefault    "automagically adds /g on a regex. /g to disable
 set foldmethod=indent
 set nofoldenable
 
-"new stuff.
-"set undofile
+set undofile
 
 set background=dark
 "colorscheme solarized
 "color bluegreen
 "color anotherdark
-"color wombat
-"color mustang
-color vividchalk
+" color wombat
+color mustang
+" color vividchalk
 
 "my little pinky isa bit slow coming off that shift key sometimes.
 command W w
@@ -125,7 +120,7 @@ call textobj#user#plugin('rubyblock', {
       \ },
       \})
 
-"
+
 " Open tabs for a Railsy environment.
 "
 function! Rails()
