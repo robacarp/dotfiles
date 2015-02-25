@@ -56,6 +56,8 @@ function _hostname
 end
 
 function _env_vars
+  # set vars $RAILS_ENV $NODE_ENV (basename $TEST)
+
   if set -q RAILS_ENV
     echo -n $RAILS_ENV
   end
@@ -66,6 +68,11 @@ function _env_vars
 
   if set -q NODE_ENV
     echo -n $NODE_ENV
+  end
+
+  if set -q TEST
+    echo -n " "
+    echo -n (basename $TEST)
   end
 end
 
