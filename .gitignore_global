@@ -2,3 +2,4 @@
 *.swo
 *.un~
 .DS_Store
+.ackrc
