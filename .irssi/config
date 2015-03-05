@@ -15,9 +15,9 @@ servers = (
   {
     address = "icarus.p1k3.org";
     chatnet = "p1k3";
-    port = "6666";
-    use_ssl = "no";
-    ssl_verify = "no";
+    port = "6697";
+    use_ssl = "yes";
+    ssl_verify = "yes";
     autoconnect = "yes";
   }
 );
