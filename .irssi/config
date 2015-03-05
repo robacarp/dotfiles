@@ -13,27 +13,6 @@ servers = (
     alternate_nick = "pracabor";
   },
   {
-  {
-    address = "irc.oftc.net";
-    chatnet = "oftc";
-    port = "6667";
-    use_ssl = "no";
-    autoconnect = "no";
-
-    user_name = "robacarp";
-    nick = "robacarp";
-    real_name = "robacarp";
-    alternate_nick = "pracabor";
-  },
-  {
-    address = "2nd.robacarp.com";
-    chatnet = "2nd";
-    port = "6600";
-    use_ssl = "no";
-    ssl_verify = "no";
-    autoconnect = "yes";
-  },
-  {
     address = "icarus.p1k3.org";
     chatnet = "p1k3";
     port = "6666";
@@ -49,10 +28,6 @@ chatnets = {
     autosendcmd = "/^msg Nickserv identify ; wait 200";
   };
   oftc = { type = "IRC"; };
-  2nd = {
-    type = "IRC";
-    autosendcmd = "/^msg &bitlbee identify ; wait 200";
-  };
   p1k3 = { type = "IRC"; };
 };
 
@@ -60,7 +35,6 @@ channels = (
   { name = "#sparkfun"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#linuxandsci"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#stockpile"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#linode"; chatnet = "oftc"; autojoin = "yes"; },
   { name = "#channel"; chatnet = "p1k3"; autojoin = "yes"; }
 );
 
