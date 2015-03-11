@@ -1,5 +1,10 @@
 . ~/.config/aliases
 
+function fish_user_key_bindings
+  bind . 'expand-dot-to-parent-directory-path'
+  bind \cs 'sudo-my-prompt-yo'
+end
+
 if test -d $HOME/.rbenv
   set PATH $HOME/.rbenv/bin $PATH
   . (rbenv init -|psub)
