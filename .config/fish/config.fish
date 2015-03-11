@@ -42,16 +42,6 @@ end
 
 alias cld="cd (command ls -t | head -n1)"
 
-function _git_bang_if_dirty
-  if git status -s --ignore-submodules=dirty ^&- >&-
-    echo -n !
-  end
-end
-
-function _git_branch_name
-  echo -n (git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
-end
-
 function _git_hash
   echo -n (git log -1 ^/dev/null | sed -n -e 's/^commit \([a-z0-9]\{8\}\)[a-z0-9]\{32\}/\1/p')
 end
@@ -61,8 +51,6 @@ function _hostname
 end
 
 function _env_vars
-  # set vars $RAILS_ENV $NODE_ENV (basename $TEST)
-
   if set -q RAILS_ENV
     echo -n $RAILS_ENV
   end
@@ -81,12 +69,6 @@ function _env_vars
   end
 end
 
-function _rvm_prompt
-  if test -d ~/.rvm/bin
-    rvm-prompt v g
-  end
-end
-
 function _prompt_character
   switch $USER
   case root
@@ -97,16 +79,53 @@ function _prompt_character
 end
 
 function fish_prompt
-#  echo -s -n (set_color yellow) (rvm_prompt) (set_color normal)
-#  echo -s -n (set_color red) (_git_bang_if_dirty) (set_color normal)
+  set -l previous_command $status
+  set -l stats (gitstatus)
+  set -l vars (_env_vars)
+  set -l hash (_git_hash)
 
-  echo -s -n (set_color cyan) (_git_branch_name) (set_color normal)
-  echo -s -n (set_color purple) " " (_env_vars) (set_color normal)
+  set -l dirty (math $stats[3] + $stats[2] + $stats[4])
 
-  echo -s -n (set_color black) (_git_hash) " " (date "+%b-%d %H:%M:%S") (set_color normal)
+  # previous command status if nonzero
+  if test $previous_command -gt 0
+    echo -s -n (set_color -b red) status: " "  $previous_command (set_color normal)
+  end
 
+  # ! for modified files
+  if test $dirty -gt 0
+    echo -s -n (set_color red) ! (set_color normal)
+  end
+
+  # branch name
+  if test $stats[1]
+    echo -s -n (set_color cyan) $stats[1] " " (set_color normal)
+  end
+
+  # environment vars
+  if test $vars
+    echo -s -n (set_color purple) " " $vars (set_color normal)
+  end
+
+  # hidden data
+  echo -s -n (set_color black)
+
+  # current sha hash
+  if test $hash
+    echo -s -n (_git_hash) " "
+  end
+
+  echo -s -n (date "+%b-%d %H:%M:%S")
+  echo -s -n (set_color normal)
+
+  # prompt line
   echo -s (set_color normal)
-  echo -s -n  $USER @ (_hostname) " "
+
+  if test $USER = 'root'
+    echo -s -n (set_color -o magenta) $USER (set_color normal) @
+  end
+
+  echo -s -n (_hostname) " "
+
   echo -s -n (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
   echo -s -n (_prompt_character) " "
 end
