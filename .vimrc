@@ -47,6 +47,7 @@ map <F3> :set invnumber<CR>
 map <F4> :set relativenumber<CR>
 map <F5> :VCSBlame<CR>
 map <F8> :NERDTree<CR>
+map <F9> :set invhlsearch<CR> :set invcursorcolumn<CR> :set invcursorline<CR>
 map <F12> :JSHint<CR>
 
 "more esc keys...because its right next to it anyways
@@ -100,6 +101,8 @@ command Ls ls
 let NERDTreeMapOpenVSplit='i'
 let NERDTreeMapOpenSplit='s'
 let NERDTreeDirArrows=0
+
+set wildignore+=*/node_modules/*,*/doc/*,*/coverage/*
 
 "tab-important languages
 autocmd FileType make setlocal noexpandtab
