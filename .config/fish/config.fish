@@ -88,7 +88,7 @@ function fish_prompt
 
   # previous command status if nonzero
   if test $previous_command -gt 0
-    echo -s -n (set_color -b red) status: " "  $previous_command (set_color normal)
+    echo -s -n (set_color -b red) status: " "  $previous_command (set_color normal) " "
   end
 
   # ! for modified files
