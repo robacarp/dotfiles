@@ -87,14 +87,14 @@ color mustang
 " color vividchalk
 
 "my little pinky isa bit slow coming off that shift key sometimes.
-command W w
-command Q q
-command Wq wq
-command Wbn w|bn
-command Wbp w|bp
-command Bn bn
-command Bp bp
-command Ls ls
+command! W w
+command! Q q
+command! Wq wq
+command! Wbn w|bn
+command! Wbp w|bp
+command! Bn bn
+command! Bp bp
+command! Ls ls
 
 " NERDTree enhancements/fixes
 "   Nerdtree defaults for window splitting are backwards from vim defaults.
@@ -148,7 +148,7 @@ function! Rails()
 endfunction
 
 " Hook in the command :Rails to the Rails function
-command -nargs=0 Rails :call Rails()
+command! -nargs=0 Rails :call Rails()
 
 
 "
