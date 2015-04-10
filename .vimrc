@@ -48,7 +48,9 @@ map <F4> :set relativenumber<CR>
 map <F5> :VCSBlame<CR>
 map <F8> :NERDTree<CR>
 map <F9> :set invhlsearch<CR> :set invcursorcolumn<CR> :set invcursorline<CR>
-map <F12> :JSHint<CR>
+
+set timeoutlen=400
+map <Leader>a :NERDTreeFind<CR>
 
 "more esc keys...because its right next to it anyways
 inoremap <F1> <ESC>
