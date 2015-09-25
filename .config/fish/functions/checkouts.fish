@@ -1,5 +1,5 @@
 function checkouts -d "list recently checked out branches"
-  set count 3
+  set count 7
   # what is scripting and how do I operand
   if test 1 -lt (count $argv)
   if test '-n' = $argv[1]
@@ -11,6 +11,4 @@ function checkouts -d "list recently checked out branches"
                     /checkout/ && $2 !~ /^$/ {
                       if (names[$2]++ == 0) print $2
                     }' | head -n $count
-
-  echo
 end
