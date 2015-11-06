@@ -64,6 +64,7 @@ set ignorecase
 set smartcase
 set incsearch
 set showmatch
+set nohlsearch
 
 "global regexin easier
 set gdefault    "automagically adds /g on a regex. /g to disable
