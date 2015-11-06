@@ -19,7 +19,7 @@ set backspace=indent,eol,start   "better backspacing past line start
 set laststatus=1   "show status bar with >1 windows only (2 => always)
 
 set list
-set listchars=tab:>\ ,trail:>
+set listchars=tab:>\ ,trail:·
 
 "gui options
 "   No menubar, no always scrollbars
@@ -29,6 +29,10 @@ set guifont=Monaco:h12
 "make j/k behave soundly.
 nnoremap j gj
 nnoremap k gk
+
+" dont deselect on indent
+vnoremap < <gv
+vnoremap > >gv
 
 "shortcuts keys
 "man I'm lazy...
@@ -64,19 +68,16 @@ set showmatch
 "global regexin easier
 set gdefault    "automagically adds /g on a regex. /g to disable
 
-"mmmm....folding...
-set foldmethod=indent
-set nofoldenable
-
-set undofile
+" Keep undo history across sessions, by storing in file.
+if has('persistent_undo')
+  silent !mkdir ~/.vim/backups > /dev/null 2>&1
+  set undodir=~/.vim/backups
+  set undofile
+endif
 
 set background=dark
-"colorscheme solarized
-"color bluegreen
-"color anotherdark
-" color wombat
+"other great options: anotherdark, wombat, vividchalk
 color mustang
-" color vividchalk
 
 "my little pinky isa bit slow coming off that shift key sometimes.
 command! W w
@@ -84,9 +85,6 @@ command! Q q
 command! Wq wq
 command! Wbn w|bn
 command! Wbp w|bp
-command! Bn bn
-command! Bp bp
-command! Ls ls
 
 " NERDTree enhancements/fixes
 "   Nerdtree defaults for window splitting are backwards from vim defaults.
