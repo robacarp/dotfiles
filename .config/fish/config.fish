@@ -5,6 +5,15 @@ function fish_user_key_bindings
   bind \cs 'sudo-my-prompt-yo'
 end
 
+function exec_start --on-event fish_preexec -d "Starts the execution clock of a process"
+  set -g _exec_start (date +%s)
+end
+
+function exec_end --on-event fish_postexec -d "Stop the execution clock of a process and set _exec_delta"
+  set -g _exec_delta (math (date +%s) - $_exec_start)
+  set -e -g _exec_start
+end
+
 if test -d $HOME/.rbenv
   set PATH $HOME/.rbenv/bin $PATH
   . (rbenv init -|psub)
@@ -115,6 +124,11 @@ function fish_prompt
   end
 
   echo -s -n (date "+%b-%d %H:%M:%S")
+
+  if test "$_exec_delta" -gt 5
+    echo -s -n " ∆t=" (decode_time $_exec_delta)
+  end
+
   echo -s -n (set_color normal)
 
   # prompt line
