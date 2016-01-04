@@ -31,8 +31,8 @@ nnoremap j gj
 nnoremap k gk
 
 " dont deselect on indent
-vnoremap < <gv
-vnoremap > >gv
+" vnoremap < <gv
+" vnoremap > >gv
 
 "shortcuts keys
 "man I'm lazy...
