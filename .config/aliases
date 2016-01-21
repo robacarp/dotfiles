@@ -16,5 +16,6 @@ alias rsync_dl="rsync --partial --progress --inplace --human-readable"
 alias servers="grep -e \"Host \"  ~/.ssh/config"
 
 alias redis="redis-server /usr/local/etc/redis.conf"
-alias elastic="elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml"
+alias elastic="/Users/robert/Sites/gloo/elasticsearch/bin/elasticsearch"
 alias influx="influxdb -config=/usr/local/etc/influxdb.conf"
+alias fgsidekiq="sidekiq -C /dev/null"
