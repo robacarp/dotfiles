@@ -32,6 +32,11 @@ if test -d ~/.dotfiles/bin
   set PATH $PATH ~/.dotfiles/bin
 end
 
+# homebrew path
+if test -d /usr/local/sbin
+  set PATH $PATH /usr/local/sbin
+end
+
 set -l uname (uname -a | sed -e 'y/ /\n/')
 if contains "Linux" $uname
   #echo "system: linux"
