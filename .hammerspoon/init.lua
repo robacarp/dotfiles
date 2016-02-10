@@ -20,14 +20,23 @@ function ModalYoLo:new(modal_key)
     binding = hs.hotkey.modal.new('',modal_key)
   }
 
+  -- disable binding on escape key
   obby.binding:bind('', 'escape', function()
     obby.binding:exit()
   end)
+
+  -- automatically disable modal key after 1 second
+  function obby.binding:entered()
+    hs.timer.doAfter(1, function()
+      obby.binding:exit()
+    end)
+  end
 
   self.__index = self
   return setmetatable(obby, self)
 end
 
+  -- bind a key to an action under the modal
   function ModalYoLo:bind(key, mutator)
     self.binding:bind('', key, function()
       self.binding:exit()
@@ -56,9 +65,7 @@ function Mutation:new()
 end
 
   function Mutation:debug()
-    hs.alert.show( table.tostring( 
-    self
-    ), 6 )
+    hs.alert.show( table.tostring(self), 6 )
   end
 
   function Mutation:x(ex)
@@ -120,37 +127,43 @@ end
 modal = ModalYoLo:new('f6')
 
 -- Left and right columns (80% and full)
-
+-- Right, 80% tall
 modal:bind('0', function(s,mutator)
   mutator:x(s.scr_half_w):y(0):w(s.scr_half_w):h(s.scr_h * 0.8):commit()
 end)
 
+-- Right, 80% tall
 modal:bind('9', function(s,mutator)
   mutator:x(0):y(0):w(s.scr_half_w):h(s.scr_h * 0.8):commit()
 end)
 
+-- Left, full height
 modal:bind('r', function(s, mutator)
   mutator:x(0):y(0):w(s.scr_half_w):h(s.scr_h):commit()
 end)
 
+-- Right, full height
 modal:bind('l', function(s, mutator)
   mutator:x(s.scr_half_w):y(0):w(s.scr_half_w):h(s.scr_h):commit()
 end)
 
 -- 4 corners grid view
-
+-- top left
 modal:bind('1', function(s, mutator)
   mutator:x(0):y(0):w(s.scr_half_w):h(s.scr_half_h):commit()
 end)
 
+-- top right
 modal:bind('2', function(s, mutator)
   mutator:x(s.scr_half_w):y(0):w(s.scr_half_w):h(s.scr_half_h):commit()
 end)
 
+-- bottom left
 modal:bind('\'', function(s, mutator)
   mutator:x(0):y(s.scr_half_h):w(s.scr_half_w):h(s.scr_half_h):commit()
 end)
 
+-- bottom right
 modal:bind(',', function(s, mutator)
   mutator:x(s.scr_half_w):y(s.scr_half_h):w(s.scr_half_w):h(s.scr_half_h):commit()
 end)
