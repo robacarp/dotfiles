@@ -20,11 +20,8 @@ if test -d $HOME/.rbenv
 end
 
 # Postgres.app CLI tools
-if test -d /Applications/Postgres.app
-  set PATH /Applications/Postgres.app/Contents/MacOS/bin $PATH
-end
-if test -d /Applications/Postgres.app/Contents/Versions/9.3/bin
-  set PATH /Applications/Postgres.app/Contents/Versions/9.3/bin $PATH
+if test -d /Applications/Postgres.app/Contents/Versions/latest/bin
+  set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
 end
 
 # homedirectory bin folder
