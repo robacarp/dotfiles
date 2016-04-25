@@ -2,3 +2,4 @@
 .config/fish/fishd.*
 .vim/doc/*
 .vim/backups/*
+.config/fish/fish_history-e

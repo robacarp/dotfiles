@@ -93,7 +93,7 @@ let NERDTreeMapOpenVSplit='i'
 let NERDTreeMapOpenSplit='s'
 let NERDTreeDirArrows=0
 
-set wildignore+=*/node_modules/*,*/doc/*,*/coverage/*
+set wildignore+=*/node_modules/*,*/doc/*,*/coverage/*,test/reports/*
 
 "tab-important languages
 autocmd FileType make setlocal noexpandtab
