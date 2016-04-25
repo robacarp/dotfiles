@@ -1,8 +1,11 @@
 require 'irb/ext/save-history'
+require 'irb/completion'
+require 'pp'
+
 #History configuration
 IRB.conf[:SAVE_HISTORY] = 300
 IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-history"
-
+IRB.conf[:AUTO_INDENT]=true
 
 module Robocarp
   # Send stuff to the system clipboard (osx)
@@ -44,3 +47,6 @@ module Robocarp
 end
 
 extend Robocarp
+
+irbrc = File.join(Dir.pwd, ".irbrc")
+load irbrc if File.exists?(irbrc)
