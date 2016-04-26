@@ -7,6 +7,19 @@ IRB.conf[:SAVE_HISTORY] = 300
 IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-history"
 IRB.conf[:AUTO_INDENT]=true
 
+begin
+  require 'awesome_print'
+
+  def ap object = nil, options={ indent: -2 }
+    super
+  end
+rescue LoadError
+
+  def ap object, options={}
+    pp object
+  end
+end
+
 module Robocarp
   # Send stuff to the system clipboard (osx)
   def copy stuff
