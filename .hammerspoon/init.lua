@@ -13,6 +13,9 @@ function reloadConfig(files)
 end
 hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', reloadConfig):start()
 
+-- from the example, send the clipboard as regular keystrokes
+hs.hotkey.bind({"cmd", "alt"}, "V", function() hs.eventtap.keyStrokes(hs.pasteboard.getContents()) end)
+
 -- modalyolo keeps track of bindings and allows us to wrap all events
 ModalYoLo = {}
 function ModalYoLo:new(modal_key)
@@ -166,6 +169,11 @@ end)
 -- bottom right
 modal:bind(',', function(s, mutator)
   mutator:x(s.scr_half_w):y(s.scr_half_h):w(s.scr_half_w):h(s.scr_half_h):commit()
+end)
+
+-- full screen
+modal:bind('5', function(s, mutator)
+  mutator:x(0):y(0):w(s.scr_w):h(s.scr_h):commit()
 end)
 
 hs.alert.show('Config loaded', 1)
