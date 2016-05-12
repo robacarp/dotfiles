@@ -19,9 +19,6 @@
 [submodule ".vim/bundle/ScrollColors"]
 	path = .vim/bundle/ScrollColors
 	url = git@github.com:vim-scripts/ScrollColors.git
-[submodule ".vim/bundle/jshint2.vim"]
-	path = .vim/bundle/jshint2.vim
-	url = git@github.com:robacarp/jshint2.vim.git
 [submodule ".vim/bundle/vim-pathogen"]
 	path = .vim/bundle/vim-pathogen
 	url = git@github.com:tpope/vim-pathogen.git
