@@ -72,8 +72,7 @@ module Robocarp
       history
     end
 
-    filtered_history.last(limit).uniq.each {|h| puts "\t#{h}"}
-    nil
+    filtered_history.last(limit).uniq
   end
 
   # credit: 2016-05-18 http://rosettacode.org/wiki/Levenshtein_distance#Ruby
