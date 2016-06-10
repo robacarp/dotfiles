@@ -129,25 +129,24 @@ end
 
 modal = ModalYoLo:new('f6')
 
--- Left and right columns (80% and full)
--- Right, 80% tall
-modal:bind('0', function(s,mutator)
-  mutator:x(s.scr_half_w):y(0):w(s.scr_half_w):h(s.scr_h * 0.8):commit()
+-- Left, 80% wide
+modal:bind('7', function(s, mutator)
+  mutator:x(0):y(0):w(s.scr_w * 0.8):h(s.scr_h):commit()
 end)
 
--- Right, 80% tall
-modal:bind('9', function(s,mutator)
-  mutator:x(0):y(0):w(s.scr_half_w):h(s.scr_h * 0.8):commit()
-end)
-
--- Left, full height
-modal:bind('r', function(s, mutator)
+-- Left
+modal:bind('8', function(s, mutator)
   mutator:x(0):y(0):w(s.scr_half_w):h(s.scr_h):commit()
 end)
 
--- Right, full height
-modal:bind('l', function(s, mutator)
+-- Right
+modal:bind('9', function(s, mutator)
   mutator:x(s.scr_half_w):y(0):w(s.scr_half_w):h(s.scr_h):commit()
+end)
+
+-- Right 80% wide
+modal:bind('0', function(s, mutator)
+  mutator:x(s.scr_w * 0.2):y(0):w(s.scr_w * 0.8):h(s.scr_h):commit()
 end)
 
 -- 4 corners grid view
