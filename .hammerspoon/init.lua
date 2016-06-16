@@ -43,24 +43,20 @@ end
   function ModalYoLo:bind(key, mutator)
     self.binding:bind('', key, function()
       self.binding:exit()
-      mutator(State:new(), Mutation:new())
+      mutator(Mutation:new())
     end)
   end
 
 -- a mutation object is what allows chainable transforms
 Mutation = {}
 function Mutation:new()
-  local win = hs.window.focusedWindow()
-  local scr = win:screen()
-
   local obby = {
     frame_x = 0,
     frame_y = 0,
     frame_w = 1000,
     frame_h = 1000,
-    frame   = win:frame(),
-    screen  = scr,
-    window  = win
+    screen  = hs.screen.mainScreen():fullFrame(),
+    window  = hs.window.focusedWindow()
   }
 
   self.__index = self
@@ -68,7 +64,15 @@ function Mutation:new()
 end
 
   function Mutation:debug()
-    hs.alert.show( table.tostring(self), 6 )
+   -- hs.alert.show(
+    --   "Heights: frame:" .. scr:frame().h .. ", fullFrame:" .. scr:fullFrame().h .. "\n" ..
+    --   "\tframe / fullFrame:" .. scr:frame().h / scr:fullFrame().h
+    -- )
+
+    hs.alert.show(
+      "X / Y: " .. self.frame_x .. ", " .. self.frame_y .. "\n" ..
+      "W / H: " .. self.frame_w .. ", " .. self.frame.h
+    , 3)
   end
 
   function Mutation:x(ex)
@@ -91,89 +95,83 @@ end
     return self
   end
 
-  function Mutation:commit()
-    self.frame.x = self.frame_x
-    self.frame.y = self.frame_y
-    self.frame.w = self.frame_w
-    self.frame.h = self.frame_h
+  function Mutation:adjust_frame()
+    screen = hs.screen.mainScreen()
+    local y_offset = screen:fullFrame().h - screen:frame().h
+    local x_offset = screen:fullFrame().w - screen:frame().w
 
-    self.window:setFrame(self.frame)
+    h_multiplier = screen:frame().h / screen:fullFrame().h
+    w_multiplier = screen:frame().w / screen:fullFrame().w
+
+    self.frame_x = self.frame_x * w_multiplier + x_offset
+    self.frame_y = self.frame_y * h_multiplier + y_offset
+    self.frame_w = self.frame_w * w_multiplier
+    self.frame_h = self.frame_h * h_multiplier
+  end
+
+  function Mutation:commit()
+    self:adjust_frame()
+    self.window:setFrame(self:buildFrame())
+  end
+
+  function Mutation:buildFrame()
+    return hs.geometry(
+      self.frame_x,
+      self.frame_y,
+      self.frame_w,
+      self.frame_h
+    )
   end
 
 
--- State objects are constructed before each key responder
-State = {}
-function State:new()
-  local win = hs.window.focusedWindow()
-  local scr = win:screen()
-
-  local obby = {
-    frame_x = win:frame().x,
-    frame_y = win:frame().y,
-    frame_h = win:frame().h,
-    frame_w = win:frame().w,
-
-    scr_half_w  = scr:frame().w / 2,
-    scr_half_h  = scr:frame().h / 2,
-
-    scr_w   = scr:frame().w,
-    scr_h   = scr:frame().h
-  }
-
-  self.__index = self
-  return setmetatable(obby, self)
-end
-
-
 -- Main modal object
-
 modal = ModalYoLo:new('f6')
 
 -- Left, 80% wide
-modal:bind('7', function(s, mutator)
-  mutator:x(0):y(0):w(s.scr_w * 0.8):h(s.scr_h):commit()
+modal:bind('7', function(mutator)
+  mutator:x(0):y(0):w(mutator.screen.w * 0.8):h(mutator.screen.h):commit()
 end)
 
 -- Left
-modal:bind('8', function(s, mutator)
-  mutator:x(0):y(0):w(s.scr_half_w):h(s.scr_h):commit()
+modal:bind('8', function(mutator)
+  mutator:x(0):y(0):w(mutator.screen.w * 0.5):h(mutator.screen.h):commit()
 end)
 
 -- Right
-modal:bind('9', function(s, mutator)
-  mutator:x(s.scr_half_w):y(0):w(s.scr_half_w):h(s.scr_h):commit()
+modal:bind('9', function(mutator)
+  mutator:x(mutator.screen.w * 0.5):y(0):w(mutator.screen.w * 0.5):h(mutator.screen.h):commit()
 end)
 
 -- Right 80% wide
-modal:bind('0', function(s, mutator)
-  mutator:x(s.scr_w * 0.2):y(0):w(s.scr_w * 0.8):h(s.scr_h):commit()
+modal:bind('0', function(mutator)
+  mutator:x(mutator.screen.w * 0.2):y(0):w(mutator.screen.w * 0.8):h(mutator.screen.h):commit()
 end)
 
 -- 4 corners grid view
 -- top left
-modal:bind('1', function(s, mutator)
-  mutator:x(0):y(0):w(s.scr_half_w):h(s.scr_half_h):commit()
+modal:bind('1', function(mutator)
+  mutator:x(0):y(0):w(mutator.screen.w * 0.5):h(mutator.screen.h * 0.5):commit()
 end)
 
 -- top right
-modal:bind('2', function(s, mutator)
-  mutator:x(s.scr_half_w):y(0):w(s.scr_half_w):h(s.scr_half_h):commit()
+modal:bind('2', function(mutator)
+  mutator:x(mutator.screen.w * 0.5):y(0):w(mutator.screen.w * 0.5):h(mutator.screen.h * 0.5):commit()
 end)
 
 -- bottom left
-modal:bind('\'', function(s, mutator)
-  mutator:x(0):y(s.scr_half_h):w(s.scr_half_w):h(s.scr_half_h):commit()
+modal:bind('\'', function(mutator)
+  mutator:x(0):y(mutator.screen.h * 0.5):w(mutator.screen.w * 0.5):h(mutator.screen.h * 0.5):commit()
 end)
 
 -- bottom right
-modal:bind(',', function(s, mutator)
-  mutator:x(s.scr_half_w):y(s.scr_half_h):w(s.scr_half_w):h(s.scr_half_h):commit()
+modal:bind(',', function(mutator)
+  mutator:x(mutator.screen.w * 0.5):y(mutator.screen.h * 0.5):w(mutator.screen.w * 0.5):h(mutator.screen.h * 0.5):commit()
 end)
 
 -- full screen
-modal:bind('5', function(s, mutator)
-  mutator:x(0):y(0):w(s.scr_w):h(s.scr_h):commit()
+modal:bind('5', function(mutator)
+  mutator:x(0):y(0):w(mutator.screen.w):h(mutator.screen.h):commit()
 end)
 
-hs.alert.show('Config loaded', 1)
+hs.alert.show('HammerSpoon Activated.', 1)
 
