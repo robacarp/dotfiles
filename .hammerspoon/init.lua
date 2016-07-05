@@ -21,24 +21,37 @@ hs.hotkey.bind({"cmd", "alt"}, "V", function() hs.eventtap.keyStrokes(hs.pastebo
 -- Main modal object
 modal = ModalYoLo:new('f6')
 
--- Left, 80% wide
+-- Left Columns
+-- 20% wide
 modal:bind('7', function(mutator)
-  mutator:x(0):y(0):w(mutator.screen.w * 0.8):h(mutator.screen.h):commit()
+  mutator:x(0):y(0):w(mutator.screen.w * 0.2):h(mutator.screen.h):commit()
 end)
 
--- Left
+-- 50% wide
 modal:bind('8', function(mutator)
   mutator:x(0):y(0):w(mutator.screen.w * 0.5):h(mutator.screen.h):commit()
 end)
 
--- Right
+-- 80% wide
 modal:bind('9', function(mutator)
+  mutator:x(0):y(0):w(mutator.screen.w * 0.8):h(mutator.screen.h):commit()
+end)
+
+
+-- Right Columns
+-- 80% wide
+modal:bind('g', function(mutator)
+  mutator:x(mutator.screen.w * 0.2):y(0):w(mutator.screen.w * 0.8):h(mutator.screen.h):commit()
+end)
+
+-- 50% wide
+modal:bind('c', function(mutator)
   mutator:x(mutator.screen.w * 0.5):y(0):w(mutator.screen.w * 0.5):h(mutator.screen.h):commit()
 end)
 
--- Right 80% wide
-modal:bind('0', function(mutator)
-  mutator:x(mutator.screen.w * 0.2):y(0):w(mutator.screen.w * 0.8):h(mutator.screen.h):commit()
+-- 20% wide
+modal:bind('r', function(mutator)
+  mutator:x(mutator.screen.w * 0.8):y(0):w(mutator.screen.w * 0.2):h(mutator.screen.h):commit()
 end)
 
 -- 4 corners grid view
@@ -66,6 +79,19 @@ end)
 modal:bind('5', function(mutator)
   mutator:x(0):y(0):w(mutator.screen.w):h(mutator.screen.h):commit()
 end)
+
+
+-- Top and bottom split view
+-- Top
+modal:bind('d', function(mutator)
+  mutator:x(0):y(0):w(mutator.screen.w):h(mutator.screen.h * 0.5):commit()
+end)
+
+-- Bottom
+modal:bind('b', function(mutator)
+  mutator:x(0):y(mutator.screen.h * 0.5):w(mutator.screen.w):h(mutator.screen.h * 0.5):commit()
+end)
+
 
 hs.alert.show('HammerSpoon Activated.', 1)
 
