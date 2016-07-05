@@ -1,3 +1,5 @@
+hs.notify.withdrawAll()
+
 local ModalYoLo = require('yolo')
 
 hs.window.animationDuration = 0
@@ -13,10 +15,41 @@ function reloadConfig(files)
     hs.reload()
   end
 end
-hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', reloadConfig):start()
+-- hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', reloadConfig):start()
 
 -- from the example, send the clipboard as regular keystrokes
 hs.hotkey.bind({"cmd", "alt"}, "V", function() hs.eventtap.keyStrokes(hs.pasteboard.getContents()) end)
+
+-- AntiRSI watcher
+local antiRSINotification = nil
+function checkAntiRSI()
+  if hs.application.find('com.onnlucky.antirsi') == nil then
+
+    if antiRSINotification ~= nil then
+      antiRSINotification:withdraw()
+    end
+
+    antiRSINotification = hs.notify.new('AntiRSI launcher',
+      {
+        autoWithdraw = true,
+        title = 'PRACABOR HEAVY INDUSTRIES',
+        subTitle = 'Department of Health and Safety',
+        informativeText = 'AntiRSI is not running',
+        hasActionButton = true,
+        actionButtonTitle = 'Launch!'
+      }
+    ):send()
+  end
+end
+
+local applicationWatcher = hs.timer.new(60 * 15, checkAntiRSI)
+applicationWatcher:start()
+applicationWatcher:setNextTrigger(3)
+
+hs.notify.register('AntiRSI launcher', function()
+  antiRSINotification = nil
+  hs.application.launchOrFocusByBundleID('com.onnlucky.antirsi')
+end)
 
 -- Main modal object
 modal = ModalYoLo:new('f6')
