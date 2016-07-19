@@ -15,7 +15,7 @@ function reloadConfig(files)
     hs.reload()
   end
 end
--- hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', reloadConfig):start()
+hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', reloadConfig):start()
 
 -- from the example, send the clipboard as regular keystrokes
 hs.hotkey.bind({"cmd", "alt"}, "V", function() hs.eventtap.keyStrokes(hs.pasteboard.getContents()) end)
@@ -54,38 +54,60 @@ end)
 -- Main modal object
 modal = ModalYoLo:new('f6')
 
+
+
 -- Left Columns
 -- 20% wide
-modal:bind('7', function(mutator)
+modal:bind('h', function(mutator)
   mutator:x(0):y(0):w(mutator.screen.w * 0.2):h(mutator.screen.h):commit()
 end)
 
 -- 50% wide
-modal:bind('8', function(mutator)
+modal:bind('g', function(mutator)
   mutator:x(0):y(0):w(mutator.screen.w * 0.5):h(mutator.screen.h):commit()
 end)
 
 -- 80% wide
-modal:bind('9', function(mutator)
+modal:bind('7', function(mutator)
   mutator:x(0):y(0):w(mutator.screen.w * 0.8):h(mutator.screen.h):commit()
 end)
 
 
--- Right Columns
--- 80% wide
-modal:bind('g', function(mutator)
-  mutator:x(mutator.screen.w * 0.2):y(0):w(mutator.screen.w * 0.8):h(mutator.screen.h):commit()
+-- Centered Column
+-- 20% wide
+modal:bind('t', function(mutator)
+  mutator:x(mutator.screen.w * 0.4):y(0):w(mutator.screen.w * 0.2):h(mutator.screen.h):commit()
 end)
 
 -- 50% wide
 modal:bind('c', function(mutator)
+  mutator:x(mutator.screen.w * 0.25):y(0):w(mutator.screen.w * 0.5):h(mutator.screen.h):commit()
+end)
+
+-- 80% wide
+modal:bind('8', function(mutator)
+  mutator:x(mutator.screen.w * 0.1):y(0):w(mutator.screen.w * 0.8):h(mutator.screen.h):commit()
+end)
+
+
+
+-- Right Columns
+-- 20% wide
+modal:bind('n', function(mutator)
+  mutator:x(mutator.screen.w * 0.8):y(0):w(mutator.screen.w * 0.2):h(mutator.screen.h):commit()
+end)
+
+-- 50% wide
+modal:bind('r', function(mutator)
   mutator:x(mutator.screen.w * 0.5):y(0):w(mutator.screen.w * 0.5):h(mutator.screen.h):commit()
 end)
 
--- 20% wide
-modal:bind('r', function(mutator)
-  mutator:x(mutator.screen.w * 0.8):y(0):w(mutator.screen.w * 0.2):h(mutator.screen.h):commit()
+-- 80% wide
+modal:bind('9', function(mutator)
+  mutator:x(mutator.screen.w * 0.2):y(0):w(mutator.screen.w * 0.8):h(mutator.screen.h):commit()
 end)
+
+
 
 -- 4 corners grid view
 -- top left
