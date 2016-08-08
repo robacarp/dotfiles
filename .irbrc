@@ -93,4 +93,4 @@ end
 extend Robocarp
 
 irbrc = File.join(Dir.pwd, ".irbrc")
-load irbrc if File.exists?(irbrc)
+load irbrc if File.exists?(irbrc) unless irbrc == __FILE__
