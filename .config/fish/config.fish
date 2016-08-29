@@ -7,6 +7,7 @@ end
 
 function exec_start --on-event fish_preexec -d "Starts the execution clock of a process"
   set -g _exec_start (date +%s)
+  set -g _last_cmd $argv[1]
 end
 
 function exec_end --on-event fish_postexec -d "Stop the execution clock of a process and set _exec_delta"
@@ -117,8 +118,12 @@ function fish_prompt
     echo -s -n (set_color purple) " " $vars (set_color normal)
   end
 
-  # hidden data
-  echo -s -n (set_color black)
+  # colorize extra data only if there was a previous command
+  if test -z $_last_cmd
+    echo -s -n (set_color grey)
+  else
+    echo -s -n (set_color black)
+  end
 
   # current sha hash
   if test $hash

@@ -43,3 +43,6 @@
 [submodule ".config/nvim/bundle/CSApprox"]
 	path = .config/nvim/bundle/CSApprox
 	url = git@github.com:vim-scripts/CSApprox.git
+[submodule ".vim/bundle/syntastic"]
+	path = .vim/bundle/syntastic
+	url = git@github.com:scrooloose/syntastic.git
