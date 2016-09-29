@@ -16,7 +16,7 @@ set visualbell
 set ttyfast    "improves mouse support in x, etc
 set ruler      "line/col numbers
 set backspace=indent,eol,start   "better backspacing past line start
-set laststatus=1   "show status bar with >1 windows only (2 => always)
+set laststatus=2   "show status bar with >1 windows only (2 => always)
 
 set list
 set listchars=tab:>\ ,trail:·
@@ -76,6 +76,27 @@ if has('persistent_undo')
   set undofile
 endif
 
+" Syntastic github.com/scrooloose/syntastic.git
+set statusline=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+set statusline+=%t     " file name
+set statusline+=:%l    " line no
+set statusline+=:%c    " col no
+set statusline+=%=     " right justify from here on
+set statusline+=\ %r\  " read-only
+set statusline+=%m     " modified
+set statusline+=\ %p%% " percentage through the file
+set statusline+=\ %y   " file type
+
+let g:syntastic_enable_signs = 0
+let g:syntastic_enable_balloons = 0
+let g:syntastic_enable_highlighting = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_echo_current_error = 1       " print to the command area when cursor is over an error
+let g:syntastic_check_on_open = 1
+
 set background=dark
 "other great options: anotherdark, wombat, vividchalk
 color mustang
@@ -93,7 +114,7 @@ let NERDTreeMapOpenVSplit='i'
 let NERDTreeMapOpenSplit='s'
 let NERDTreeDirArrows=0
 
-set wildignore+=*/node_modules/*,*/doc/*,*/coverage/*,*/test/reports/*,*/node-app/*
+set wildignore+=*/node_modules/*,*/doc/*,*/coverage/*,*/test/reports/*,*/node-app/*,*/ui-boilerplates/*,*/public/app/*
 
 "tab-important languages
 autocmd FileType make setlocal noexpandtab
