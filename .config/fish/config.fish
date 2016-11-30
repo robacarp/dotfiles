@@ -231,7 +231,3 @@ function keyme
       echo "Success!"
   end
 end
-
-function keycopy -d "Copy public key to server"
-  cat ~/.ssh/id_rsa.pub | ssh $argv 'sh -c "mkdir -p .ssh; cat >> .ssh/authorized_keys && echo public key copied"'
-end
