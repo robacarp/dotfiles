@@ -16,7 +16,7 @@ function exec_end --on-event fish_postexec -d "Stop the execution clock of a pro
 end
 
 if test -d $HOME/.rbenv
-  set PATH $HOME/.rbenv/bin $PATH
+  set PATH $HOME/.rbenv/shims $PATH
   . (rbenv init -|psub)
 end
 
