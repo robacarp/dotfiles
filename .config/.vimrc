@@ -45,6 +45,7 @@ map <F9> :set invhlsearch<CR> :set invcursorcolumn<CR> :set invcursorline<CR>
 
 set timeoutlen=400
 map <Leader>a :NERDTreeFind<CR>
+map <Leader>o :NERDTreeToggle<CR>
 
 "more esc keys...because its right next to it anyways
 inoremap <F1> <ESC>
