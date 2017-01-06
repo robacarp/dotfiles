@@ -17,14 +17,16 @@ set ttyfast    "improves mouse support in x, etc
 set ruler      "line/col numbers
 set backspace=indent,eol,start   "better backspacing past line start
 set laststatus=2   "show status bar with >1 windows only (2 => always)
-
 set list
 set listchars=tab:>\ ,trail:·
 
 "gui options
 "   No menubar, no always scrollbars
-set guioptions=e
-set guifont=Monaco:h12
+if has('gui_running')
+  set guioptions=e
+  set macligatures
+  set guifont=Fira\ Code:h14
+endif
 
 "make j/k behave soundly.
 nnoremap j gj
@@ -77,6 +79,7 @@ if has('persistent_undo')
   set undofile
 endif
 
+
 " Syntastic github.com/scrooloose/syntastic.git
 set statusline=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -127,7 +130,6 @@ autocmd BufNewFile,BufRead *.ino setf c
 autocmd BufNewFile,BufRead Rakefile setf ruby
 autocmd BufNewFile,BufRead Gemfile setf ruby
 autocmd BufNewFile,BufRead Guardfile setf ruby
-
 
 " Open tabs for a Railsy environment.
 "
