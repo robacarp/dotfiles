@@ -1,3 +1,3 @@
 function dokku
-  ssh -t dokku@app.kassak.net -- $argv
+	ssh -t robert@robacarp.io -- $argv
 end
