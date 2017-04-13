@@ -24,7 +24,7 @@ set listchars=tab:>\ ,trail:·
 "   No menubar, no always scrollbars
 if has('gui_running')
   set guioptions=e
-  set macligatures
+  " set macligatures
   set guifont=Fira\ Code:h14
 endif
 
