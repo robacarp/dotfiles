@@ -132,6 +132,10 @@ function fish_prompt
 
   echo -s -n (date "+%b-%d %H:%M:%S")
 
+  if test -n '$_exec_delta'
+    set _exec_delta 0
+  end
+
   if test "$_exec_delta" -gt 5
     echo -s -n " ∆t=" (decode_time $_exec_delta)
   end
