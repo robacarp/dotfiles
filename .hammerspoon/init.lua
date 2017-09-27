@@ -9,7 +9,10 @@ hs.notify.withdrawAll()
 hs.window.animationDuration = 0
 
 -- from the online examples, send the clipboard as regular keystrokes
-hs.hotkey.bind({"cmd", "alt"}, "V", function() hs.eventtap.keyStrokes(hs.pasteboard.getContents()) end)
+hs.hotkey.bind({"cmd", "alt"}, "V", function()
+  hs.alert.show('pasting the hard way...')
+  hs.eventtap.keyStrokes(hs.pasteboard.getContents())
+end)
 
 -- timerManager = timerManager:new()
 -- timerManager:defineTrigger({

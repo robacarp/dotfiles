@@ -3,3 +3,7 @@
 .vim/doc/*
 .vim/backups/*
 .config/fish/fish_history-e
+.config/.mono
+.config/stetic
+.config/xbuild
+.config/NuGet
