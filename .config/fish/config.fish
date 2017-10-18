@@ -172,37 +172,3 @@ function tab -d "Open a new tab and run a command in that tab."
   end
 
 end
-
-function workflow -d "Start up my standard rails workflow"
-  tab rc
-  test -f Guardfile; and tab guard
-  tab
-  if not contains "!v" $argv
-    mvim . 2>/dev/null
-  end
-  rs
-end
-
-function gloo -d "Start up the Gloo vm and related tools"
-  cd ~/Sites/gloo/program_creator
-  tab rs
-  tab rc
-  tab "rake QUEUE=\\\* VERBOSE=1 resque:work"
-  tab "rake resque:scheduler"
-  tab "cd ../bfd/api-analytics" "play run"
-  exit
-end
-
-function backend -d "Start up the gloo bfd infrastructure"
-  cd ~/Sites/gloo/bfd
-  tab "redis-server /usr/local/etc/redis.conf"
-  tab "elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml"
-  tab "cd ~/Sites/gloo/kafka-0.7.2-incubating-src" "bin/zookeeper-server-start.sh config/zookeeper.properties"
-  tab "cd ~/Sites/gloo/kafka-0.7.2-incubating-src" "bin/kafka-server-start.sh config/server.properties"
-  exit
-end
-
-function notes -d "show the notes file"
-  test -f ~/notes.md; and less ~/notes.md
-end
-

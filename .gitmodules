@@ -46,3 +46,6 @@
 [submodule ".vim/bundle/ctrlp.vim"]
 	path = .vim/bundle/ctrlp.vim
 	url = git@github.com:ctrlpvim/ctrlp.vim.git
+[submodule ".vim/bundle/vim-crystal"]
+	path = .vim/bundle/vim-crystal
+	url = git@github.com:rhysd/vim-crystal.git
