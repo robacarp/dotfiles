@@ -4,8 +4,10 @@ function expand-dot-to-parent-directory-path -d 'expand ... to ../.. etc'
 
     # Match last line
     switch $cmd[-1]
-        case '*..'
-            commandline --insert '/..'
+        case '*../'
+            commandline --insert '../'
+        case '*.'
+            commandline --insert './'
         case '*'
             commandline --insert '.'
     end
