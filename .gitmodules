@@ -10,9 +10,6 @@
 [submodule ".vim/bundle/vcscommand"]
 	path = .vim/bundle/vcscommand
 	url = git@github.com:vim-scripts/vcscommand.vim.git
-[submodule ".vim/bundle/coffee-script"]
-	path = .vim/bundle/coffee-script
-	url = git@github.com:vim-scripts/vim-coffee-script.git
 [submodule ".vim/bundle/Align"]
 	path = .vim/bundle/Align
 	url = git@github.com:vim-scripts/Align.git
@@ -52,6 +49,3 @@
 [submodule ".vim/bundle/vim-terraform"]
 	path = .vim/bundle/vim-terraform
 	url = git@github.com:hashivim/vim-terraform.git
-[submodule ".vim/bundle/vim-startify"]
-	path = .vim/bundle/vim-startify
-	url = git@github.com:mhinz/vim-startify.git
