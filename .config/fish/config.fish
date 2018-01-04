@@ -35,6 +35,10 @@ if test -d /usr/local/sbin
   set PATH $PATH /usr/local/sbin
 end
 
+if test -d /usr/local/opt/python/libexec/bin
+  set PATH /usr/local/opt/python/libexec/bin $PATH
+end
+
 set -l uname (uname -a | sed -e 'y/ /\n/')
 if contains "Linux" $uname
   #echo "system: linux"
@@ -132,11 +136,12 @@ function fish_prompt
 
   echo -s -n (date "+%b-%d %H:%M:%S")
 
-  if test -n '$_exec_delta'
+  if test -z "$_exec_delta"
     set _exec_delta 0
+    echo -s -n " ~"
   end
 
-  if test "$_exec_delta" -gt 5
+  if test -n $_last_cmd
     echo -s -n " ∆t=" (decode_time $_exec_delta)
   end
 
