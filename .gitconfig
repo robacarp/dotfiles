@@ -1,12 +1,13 @@
 [user]
   name = Robert L Carpenter
   email = robert@robacarp.com
+	signingkey = A384CFD09D54E693
 [color]
   diff = auto
   status = auto
   branch = auto
 [push]
-  default = tracking
+	default = simple
 [alias]
   co = checkout
   br = branch
@@ -18,3 +19,5 @@
 	branch = magenta
 [merge]
 	tool = opendiff
+[commit]
+	gpgsign = true
