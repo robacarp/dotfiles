@@ -42,7 +42,7 @@ spoon.ClipboardWatcher:watch(
       local length = string.len(part)
       -- ASIN length = 10
       -- weird url prefix length = 2
-      if length == 10 or length == 2 then
+      if length == 10 or length == 2 or part == "product" then
         table.insert(new_path_parts, part)
       end
     end
