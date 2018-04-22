@@ -24,7 +24,6 @@ set listchars=tab:>\ ,trail:·
 "   No menubar, no always scrollbars
 if has('gui_running')
   set guioptions=e
-  set macligatures
   set guifont=Fira\ Code:h14
 endif
 
@@ -36,12 +35,11 @@ nnoremap k gk
 " vnoremap < <gv
 " vnoremap > >gv
 
-"shortcuts keys
-"man I'm lazy...
+" F row actions
 map <F2> :NERDTreeToggle<CR>
 map <F3> :set invnumber<CR>
-map <F4> :set relativenumber<CR>
 map <F5> :VCSBlame<CR>
+" Reset NerdTree to a sane place
 map <F8> :NERDTree<CR>
 map <F9> :set invhlsearch<CR> :set invcursorcolumn<CR> :set invcursorline<CR>
 
@@ -105,8 +103,8 @@ let g:syntastic_check_on_open = 1
 let g:loaded_syntastic_crystal_crystal_checker = 1
 
 set background=dark
-"other great options: anotherdark, wombat, vividchalk
-color mustang
+"other great options: anotherdark, wombat, vividchalk, mustang
+color zmrok
 
 "my little pinky isa bit slow coming off that shift key sometimes.
 command! W w
