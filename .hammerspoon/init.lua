@@ -1,6 +1,3 @@
-require('anti_rsi_watcher')
-require('window_management')
-local timerManager = require('timers')
 
 -- dismiss all active notifications
 hs.notify.withdrawAll()
@@ -16,7 +13,13 @@ end)
 hs.loadSpoon('ConfigReloader')
 spoon.ConfigReloader:start()
 
+hs.loadSpoon('ApplicationWatcher')
+spoon.ApplicationWatcher:watchFor({
+  bundleID = 'com.onnlucky.antirsi',
+  name     = 'AntiRSI',
+  interval = 23
 })
+spoon.ApplicationWatcher:start()
 
 
 hs.alert.show('HammerSpoon Activated.', 1)
