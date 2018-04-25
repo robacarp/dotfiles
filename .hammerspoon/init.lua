@@ -4,7 +4,6 @@ inspect = dofile("./downloaded_modules/inspect.lua")
 
 -- dismiss all active notifications
 hs.notify.withdrawAll()
-
 hs.window.animationDuration = 0
 
 -- from the online examples, send the clipboard as regular keystrokes
@@ -26,22 +25,29 @@ spoon.ApplicationWatcher:start()
 
 hs.loadSpoon('ClipboardWatcher')
 spoon.ClipboardWatcher.interval = 1
-spoon.ClipboardWatcher.dismissDelay = 0
+spoon.ClipboardWatcher.dismissDelay = 9
 spoon.ClipboardWatcher:watch(
   function(data)
+    if string.len(data) > 2000 then
+      return false
+    end
+
     return string.match(data, "https?://www%.amazon%.com")
   end,
 
   function(original)
     local parsed_url = url.parse(original)
+    -- Remove Amazon referral links
+    parsed_url:setQuery({})
 
     local path_parts = split(parsed_url.path, "/")
     local new_path_parts = {}
 
+    -- Remove extra url segments
     for i, part in pairs(path_parts) do
       local length = string.len(part)
       -- ASIN length = 10
-      -- weird url prefix length = 2
+      -- weird url prefix length = 2 (dp, gp, etc)
       if length == 10 or length == 2 or part == "product" then
         table.insert(new_path_parts, part)
       end

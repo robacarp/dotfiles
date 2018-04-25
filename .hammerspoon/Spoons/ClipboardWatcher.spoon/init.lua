@@ -1,3 +1,13 @@
+-- poor mans trim. only trims up to one character and only from the end.
+local function miniTrim(str)
+  local length = str:len()
+  local lastChar = str:sub(length)
+  if lastChar == "\n" then
+    return str:sub(1, -2)
+  end
+  return str
+end
+
 local clipboard = {}
 clipboard.__index = clipboard
 
@@ -30,12 +40,13 @@ function clipboard:start()
 end
 
 function clipboard:tick()
+  local contents = miniTrim(hs.pasteboard.readString())
+
   if not hs.pasteboard.typesAvailable()["string"] then
     self:markSeen(contents)
     return
   end
 
-  local contents = hs.pasteboard.readString()
   if self:haveSeen(contents) then return end
 
   self:markSeen(contents)
@@ -67,17 +78,31 @@ end
 
 function clipboard:dismissNotification()
   if self.notification then
+    self:clearDismissTimer()
     self.notification:withdraw()
     self.notification = nil
   end
 end
 
+function clipboard:clearDismissTimer()
+  if self.dismissTimer then
+    self.dismissTimer:stop()
+    self.dismissTimer = nil
+  end
+end
+
 function clipboard:displayNotification(originalText, watchNumber)
   local result = self.watches[watchNumber][2](originalText)
+
+  if result == originalText then
+    return
+  end
+
   self:dismissNotification()
 
-  self.notification = hs.notify.new(function()
+  self.notification = hs.notify.new(function(notification)
       self:markSeen(result)
+      self:clearDismissTimer()
       hs.pasteboard.writeObjects(result)
     end
     ,
@@ -89,9 +114,10 @@ function clipboard:displayNotification(originalText, watchNumber)
       hasActionButton = true,
       actionButtonTitle = "Replace!"
     }
-  ):send()
+  )
+  self.notification:send()
 
-  if self.dissmissDelay > 0 then
+  if self.dismissDelay > 0 then
     self.dismissTimer = hs.timer.doAfter(self.dismissDelay, function()
       self:dismissNotification()
     end)
