@@ -17,6 +17,8 @@ import traceback
 
 BASH = 'bash'
 
+def comment(string):
+    return '\n'.join(['# ' + line for line in string.split('\n')])
 
 def gen_script():
     divider = '-__-__-__bass___-env-output-__bass_-__-__-__-__'
@@ -42,20 +44,20 @@ def gen_script():
     old_env = json.loads(old_env)
     new_env = json.loads(new_env)
 
-    skips = ['PS1', 'SHLVL', 'XPC_SERVICE_NAME']
-
     script_lines = []
 
     for line in stdout.splitlines():
+        # some outputs might use documentation about the shell usage with dollar signs
+        line = line.replace(r'$', r'\$')
         script_lines.append("printf %s;printf '\\n'" % json.dumps(line))
     for k, v in new_env.items():
-        if k in skips:
+        if k in ['PS1', 'SHLVL', 'XPC_SERVICE_NAME'] or k.startswith("BASH_FUNC"):
             continue
         v1 = old_env.get(k)
         if not v1:
-            script_lines.append('# adding %s=%s' % (k, v))
+            script_lines.append(comment('adding %s=%s' % (k, v)))
         elif v1 != v:
-            script_lines.append('# updating %s=%s -> %s' % (k, v1, v))
+            script_lines.append(comment('updating %s=%s -> %s' % (k, v1, v)))
             # process special variables
             if k == 'PWD':
                 script_lines.append('cd %s' % json.dumps(v))
@@ -70,6 +72,11 @@ def gen_script():
             # use json.dumps to reliably escape quotes and backslashes
             value = json.dumps(v)
         script_lines.append('set -g -x %s %s' % (k, value))
+
+    for var in set(old_env.keys()) - set(new_env.keys()):
+        script_lines.append(comment('removing %s' % var))
+        script_lines.append('set -e %s' % var)
+
     script = '\n'.join(script_lines)
 
     return script + '\n' + alias
@@ -89,3 +96,4 @@ except Exception as e:
     print('__error', end='')
 else:
     print(script, end='')
+
