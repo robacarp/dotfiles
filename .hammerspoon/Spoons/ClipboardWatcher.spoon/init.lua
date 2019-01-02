@@ -40,12 +40,10 @@ function clipboard:start()
 end
 
 function clipboard:tick()
-  local contents = miniTrim(hs.pasteboard.readString())
+  local contents = hs.pasteboard.readString()
+  if contents == nil then return end
 
-  if not hs.pasteboard.typesAvailable()["string"] then
-    self:markSeen(contents)
-    return
-  end
+  contents = miniTrim(contents)
 
   if self:haveSeen(contents) then return end
 
