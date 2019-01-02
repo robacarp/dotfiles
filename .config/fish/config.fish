@@ -1,5 +1,7 @@
 . ~/.config/aliases
 
+#set PATH /Users/robert/Documents/repositories/crystal-lang/crystal/bin $PATH
+
 function fish_user_key_bindings
   bind . 'expand-dot-to-parent-directory-path'
   bind \cs 'sudo-my-prompt-yo'
@@ -16,6 +18,13 @@ function exec_end --on-event fish_postexec -d "Stop the execution clock of a pro
   set -g _formatted_time (decode_time $_exec_delta)
 end
 
+# integrate with pyenv
+if test -f /usr/local/bin/pyenv
+  if status --is-interactive
+    source (pyenv init -|psub)
+  end
+end
+
 # to enable on a machine, set -U _long_command_finished_notification true
 function auto_alert --on-event fish_postexec -d "Check the execution delta and send an alert on long running commands"
   if test "$_long_command_finished_notification" != true
@@ -29,7 +38,6 @@ function auto_alert --on-event fish_postexec -d "Check the execution delta and s
 end
 
 if test -d $HOME/.rbenv
-  set PATH $HOME/.rbenv/shims $PATH
   . (rbenv init -|psub)
 end
 
@@ -46,10 +54,6 @@ end
 # homebrew path
 if test -d /usr/local/sbin
   set PATH $PATH /usr/local/sbin
-end
-
-if test -d /usr/local/opt/python/libexec/bin
-  set PATH /usr/local/opt/python/libexec/bin $PATH
 end
 
 set -l uname (uname -a | sed -e 'y/ /\n/')
@@ -96,6 +100,10 @@ function _env_vars
     echo -n " "
     echo -n (basename $TEST)
   end
+
+  if set -q AWS_PROFILE
+    echo -n "amzn: $AWS_PROFILE"
+  end
 end
 
 function _prompt_character
@@ -117,7 +125,7 @@ function fish_prompt
 
   # previous command status if nonzero
   if test $previous_command -gt 0
-    echo -s -n (set_color -b red) status: " "  $previous_command (set_color normal) " "
+    echo -s -n (set_color -b red) status: " "  $previous_command (set_color normal)
   end
 
   # ! for modified files
@@ -127,7 +135,7 @@ function fish_prompt
 
   # branch name
   if test $stats[1]
-    echo -s -n (set_color cyan) $stats[1] " " (set_color normal)
+    echo -s -n (set_color cyan) " " $stats[1] (set_color normal)
   end
 
   # environment vars
@@ -144,10 +152,10 @@ function fish_prompt
 
   # current sha hash
   if test $hash
-    echo -s -n (_git_hash) " "
+    echo -s -n " " (_git_hash)
   end
 
-  echo -s -n (date "+%b-%d %H:%M:%S")
+  echo -s -n " " (date "+%b-%d %H:%M:%S")
 
   if test -z "$_exec_delta"
     set _exec_delta 0

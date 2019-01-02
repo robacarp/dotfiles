@@ -1,0 +1,8 @@
+syntax: glob
+
+plan.out
+terraform.tfstate.*.backup
+.*.swp
+.*.swo
+*.swp
+*.swo

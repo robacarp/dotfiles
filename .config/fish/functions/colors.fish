@@ -18,6 +18,10 @@ ruby -e '
 
   print pre + "1" + post + "1 - Bold"
   puts clear
+  print pre + "2" + post + "2 - Faint"
+  puts clear
+  print pre + "3" + post + "3 - Italic/Inverse"
+  puts clear
   print pre + "4" + post + "4 - Underline"
   puts clear
   print pre + "5" + post + "5 - Blink"
