@@ -2,6 +2,7 @@
 .config/fish/fishd.*
 .vim/doc/*
 .vim/backups/*
+.vim/plugged
 .config/fish/fish_history-e
 .config/.mono
 .config/stetic

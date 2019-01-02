@@ -1,0 +1,28 @@
+" https://github.com/junegunn/vim-plug
+" Gotcha: don't use .git at the end of the repository url
+" - Install plugins added here with :PlugInstall / :PlugUpdate
+" - Update vim-plug with :PlugUpgrade
+
+call plug#begin('~/.vim/plugged')
+" Fix bugs in the way vim and I interact
+Plug 'aliva/vim-fish'
+
+" Alter or Extend the behavior of vim
+Plug 'terryma/vim-multiple-cursors'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-vinegar'
+Plug 'vim-scripts/vcscommand.vim'
+Plug 'vim-scripts/Align'
+
+" Plugins which provide syntax highlighting
+Plug 'rhysd/vim-crystal'
+Plug 'hashivim/vim-terraform'
+
+" Other
+Plug 'vim-scripts/Colour-Sampler-Pack'
+Plug 'vim-scripts/CSApprox'
+
+" Plug 'junegunn/vim-easy-align'
+" Plug 'scrooloose/nerdtree'
+
+call plug#end()
