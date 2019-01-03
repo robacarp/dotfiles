@@ -2,10 +2,10 @@
 
 function decode_time -d "Converts a unix timestamp delta into d:hh:mm:ss"
   set -l seconds $argv[1]
-  set -l days (math $seconds / 86400)
-  set -l hours (math "$seconds / 3600 % 24")
-  set -l minutes (math "$seconds / 60 % 60")
-  set -l seconds (math "$seconds % 60")
+  set -l days (math -s0  $seconds / 86400)
+  set -l hours (math -s0 "$seconds / 3600 % 24")
+  set -l minutes (math -s0 "$seconds / 60 % 60")
+  set -l seconds (math -s0 "$seconds % 60")
 
   set -l sent_days 0
   set -l sent_hours 0
