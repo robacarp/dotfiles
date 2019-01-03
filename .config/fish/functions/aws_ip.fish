@@ -1,4 +1,4 @@
-# Defined in - @ line 2
 function aws_ip
-	aws ec2 describe-instances | jq --exit-status --raw-output '.Reservations[] | select(.Instances[] | select(.InstanceId == "'$argv[1]'")) | .Instances[0] | .PublicIpAddress'
+  aws ec2 describe-instances --filters 'Name=instance-id,Values=i-0b33038d5133264c5' --query "Reservations[0].Instances[0].PublicIpAddress" --output=text
+  return $status
 end

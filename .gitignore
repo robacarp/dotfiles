@@ -1,4 +1,5 @@
 .config/fish/fish_history
+.config/fish/fish_variables
 .config/fish/fishd.*
 .vim/doc/*
 .vim/backups/*

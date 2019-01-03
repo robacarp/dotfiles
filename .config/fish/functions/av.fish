@@ -1,4 +1,4 @@
 function av
-  echo "# aws-vault profile=$AWS_PROFILE"
+  echo "# aws-vault AWS_PROFILE=$AWS_PROFILE" 1>&2
   aws-vault exec "$AWS_PROFILE" -- $argv
 end
