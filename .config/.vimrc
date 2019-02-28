@@ -1,5 +1,7 @@
 source ~/.dotfiles/.config/.vim-plugins
 
+set noswapfile
+
 set shell=bash
 set nocompatible
 set modelines=0
