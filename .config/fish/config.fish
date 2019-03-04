@@ -85,14 +85,12 @@ end
 
 function _env_vars
   if set -q RAILS_ENV
+    echo -n " "
     echo -n $RAILS_ENV
   end
 
-  if set -q RAILS_ENV NODE_ENV
-    echo -n " "
-  end
-
   if set -q NODE_ENV
+    echo -n " "
     echo -n $NODE_ENV
   end
 
@@ -101,8 +99,9 @@ function _env_vars
     echo -n (basename $TEST)
   end
 
-  if set -q AWS_PROFILE
-    echo -n "amzn: $AWS_PROFILE"
+  if set -q AWS_VAULT
+    echo -n " "
+    echo -n "$AWS_VAULT"
   end
 end
 
@@ -125,22 +124,17 @@ function fish_prompt
 
   # previous command status if nonzero
   if test $previous_command -gt 0
-    echo -s -n (set_color -b red) status: " "  $previous_command (set_color normal)
-  end
-
-  # ! for modified files
-  if test $dirty -gt 0
-    echo -s -n (set_color red) ! (set_color normal)
+    echo -s -n (set_color -b red) $previous_command (set_color normal) " "
   end
 
   # branch name
   if test $stats[1]
-    echo -s -n (set_color cyan) " " $stats[1] (set_color normal)
+    echo -s -n (set_color cyan) $stats[1] (set_color normal)
   end
 
   # environment vars
   if test $vars
-    echo -s -n (set_color purple) " " $vars (set_color normal)
+    echo -s -n (set_color purple) $vars (set_color normal)
   end
 
   # colorize extra data only if there was a previous command
