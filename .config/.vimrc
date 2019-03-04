@@ -40,16 +40,11 @@ nnoremap k gk
 " vnoremap > >gv
 
 " F row actions
-map <F2> :NERDTreeToggle<CR>
 map <F3> :set invnumber<CR>
 map <F5> :VCSBlame<CR>
-" Reset NerdTree to a sane place
-map <F8> :NERDTree<CR>
 map <F9> :set invhlsearch<CR> :set invcursorcolumn<CR> :set invcursorline<CR>
 
 set timeoutlen=400
-map <Leader>a :NERDTreeFind<CR>
-map <Leader>o :NERDTreeToggle<CR>
 
 "more esc keys...because its right next to it anyways
 inoremap <F1> <ESC>
@@ -92,11 +87,6 @@ command! Wq wq
 command! Wbn w|bn
 command! Wbp w|bp
 
-" NERDTree enhancements/fixes
-"   Nerdtree defaults for window splitting are backwards from vim defaults.
-let NERDTreeMapOpenVSplit='i'
-let NERDTreeMapOpenSplit='s'
-let NERDTreeDirArrows=0
 
 set wildignore+=*/node_modules/*,*/doc/*,*/coverage/*,*/test/reports/*,*/node-app/*,*/ui-boilerplates/*,*/public/app/*
 
