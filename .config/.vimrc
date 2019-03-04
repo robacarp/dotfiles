@@ -62,6 +62,11 @@ set incsearch
 set showmatch
 set nohlsearch
 
+"netrw settings
+" Hide hidden files by default, credit: https://vi.stackexchange.com/questions/18650/how-to-make-netrw-start-with-dotfiles-hidden/18678#18678
+let ghregex='\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_list_hide=ghregex
+
 "global regexin easier
 set gdefault    "automagically adds /g on a regex. /g to disable
 
