@@ -51,10 +51,6 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
-"Switch between tabs rather intuitively
-nnoremap th :tabprev<CR>
-nnoremap tl :tabnext<CR>
-
 "dealing with opening files
 set wildmenu
 set wildmode=longest
@@ -82,11 +78,10 @@ color zmrok
 
 "my little pinky isa bit slow coming off that shift key sometimes.
 command! W w
+command! Wall wall
+command! Bd bd
 command! Q q
 command! Wq wq
-command! Wbn w|bn
-command! Wbp w|bp
-
 
 set wildignore+=*/node_modules/*,*/doc/*,*/coverage/*,*/test/reports/*,*/node-app/*,*/ui-boilerplates/*,*/public/app/*
 
