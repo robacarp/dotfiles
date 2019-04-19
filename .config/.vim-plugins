@@ -1,28 +1,28 @@
 " https://github.com/junegunn/vim-plug
 " Gotcha: don't use .git at the end of the repository url
-" - Install plugins added here with :PlugInstall / :PlugUpdate
+" - Install plugins added here with:
+"   - :so %
+"   - :PlugInstall / :PlugUpdate
 " - Update vim-plug with :PlugUpgrade
-
 call plug#begin('~/.vim/plugged')
-" Fix bugs in the way vim and I interact
-Plug 'aliva/vim-fish'
 
-" Alter or Extend the behavior of vim
-Plug 'terryma/vim-multiple-cursors'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tpope/vim-vinegar'
-Plug 'vim-scripts/vcscommand.vim'
-Plug 'vim-scripts/Align'
+Plug 'aliva/vim-fish'                         " Informs vim that fish is my shell.
+Plug 'ctrlpvim/ctrlp.vim'                     " ^p to do a kind of fuzzy file open.
+Plug 'kana/vim-scratch'                       " Provides :Scratch to easily make ephemeral buffers.
+Plug 'terryma/vim-multiple-cursors'           " Provides (a primitive form of) multiple cursors.
+Plug 'tpope/vim-fugitive'                     " A Git wrapper so awesome.
+Plug 'tpope/vim-rsi'                          " Provides ^a and ^e support in the command line.
+Plug 'tpope/vim-vinegar'                      " Tweaks to netrw file browser.
+Plug 'vim-scripts/Align'                      " Provides (a primitive) string alignment.
+Plug 'vim-scripts/vcscommand.vim'             " Another Git wrapper. Provides VCSBlame.
 
-" Plugins which provide syntax highlighting
+" Plugins which provide syntax highlighting for uncommon languages:
 Plug 'rhysd/vim-crystal'
 Plug 'hashivim/vim-terraform'
 
-" Other
+" Coloring enhancements:
 Plug 'vim-scripts/Colour-Sampler-Pack'
+Plug 'vim-scripts/ScrollColors'
 Plug 'vim-scripts/CSApprox'
-
-" Plug 'junegunn/vim-easy-align'
-" Plug 'scrooloose/nerdtree'
 
 call plug#end()
