@@ -191,3 +191,4 @@ function tab -d "Open a new tab and run a command in that tab."
   end
 
 end
+source ~/.asdf/asdf.fish
