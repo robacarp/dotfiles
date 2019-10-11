@@ -5,5 +5,6 @@ alias pull="git pull"
 alias push="git push"
 alias check="git checkout"
 alias servers="grep -e \"Host \"  ~/.ssh/config"
+alias mvim="/Applications/MacVim.app/Contents/bin/mvim"
 
 alias redis="redis-server /usr/local/etc/redis.conf"
