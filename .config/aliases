@@ -4,6 +4,7 @@ alias gs="git status"
 alias pull="git pull"
 alias push="git push"
 alias check="git checkout"
+alias swtch="git switch"
 alias servers="grep -e \"Host \"  ~/.ssh/config"
 alias mvim="/Applications/MacVim.app/Contents/bin/mvim"
 
