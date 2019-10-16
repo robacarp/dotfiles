@@ -1,3 +1,3 @@
 function tao
-  terraform apply plan.out
+  terraform apply .plan.out
 end
