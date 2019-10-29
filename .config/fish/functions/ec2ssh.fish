@@ -7,7 +7,7 @@ function ec2ssh
   if test "$_flag_user" != ""
     set user "$_flag_user"
   else
-    set user ubuntu
+    set user (whoami)
   end
 
   set -l ip_address (aws_ip $argv[1])
