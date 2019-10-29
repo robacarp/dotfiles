@@ -11,10 +11,10 @@ Plug 'ctrlpvim/ctrlp.vim'                     " ^p to do a kind of fuzzy file op
 Plug 'kana/vim-scratch'                       " Provides :Scratch to easily make ephemeral buffers.
 Plug 'terryma/vim-multiple-cursors'           " Provides (a primitive form of) multiple cursors.
 Plug 'tpope/vim-fugitive'                     " A Git wrapper so awesome.
+Plug 'tpope/vim-rhubarb'                      " Enale Gbrowse for Github
 Plug 'tpope/vim-rsi'                          " Provides ^a and ^e support in the command line.
 Plug 'tpope/vim-vinegar'                      " Tweaks to netrw file browser.
 Plug 'vim-scripts/Align'                      " Provides (a primitive) string alignment.
-Plug 'vim-scripts/vcscommand.vim'             " Another Git wrapper. Provides VCSBlame.
 
 " Plugins which provide syntax highlighting for uncommon languages:
 Plug 'rhysd/vim-crystal'
