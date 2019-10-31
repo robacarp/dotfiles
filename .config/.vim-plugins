@@ -14,7 +14,7 @@ Plug 'tpope/vim-fugitive'                     " A Git wrapper so awesome.
 Plug 'tpope/vim-rhubarb'                      " Enale Gbrowse for Github
 Plug 'tpope/vim-rsi'                          " Provides ^a and ^e support in the command line.
 Plug 'tpope/vim-vinegar'                      " Tweaks to netrw file browser.
-Plug 'vim-scripts/Align'                      " Provides (a primitive) string alignment.
+Plug 'godlygeek/tabular'                      " String alignment
 
 " Plugins which provide syntax highlighting for uncommon languages:
 Plug 'rhysd/vim-crystal'
