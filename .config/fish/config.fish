@@ -68,6 +68,8 @@ function fish_prompt
 
   set -l dirty (math $stats[3] + $stats[2] + $stats[4])
 
+  _unknown_env_vars
+
   # previous command status if nonzero
   if test $previous_command -gt 0
     echo -s -n (set_color -b red) $previous_command (set_color normal) " "
