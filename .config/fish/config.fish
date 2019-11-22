@@ -18,13 +18,6 @@ function exec_end --on-event fish_postexec -d "Stop the execution clock of a pro
   set -g _formatted_time (decode_time $_exec_delta)
 end
 
-# integrate with pyenv
-if test -f /usr/local/bin/pyenv
-  if status --is-interactive
-    source (pyenv init -|psub)
-  end
-end
-
 # to enable on a machine, set -U _long_command_finished_notification true
 function auto_alert --on-event fish_postexec -d "Check the execution delta and send an alert on long running commands"
   if test "$_long_command_finished_notification" != true
@@ -37,13 +30,11 @@ function auto_alert --on-event fish_postexec -d "Check the execution delta and s
   end
 end
 
-if test -d $HOME/.rbenv
-  . (rbenv init -|psub)
-end
-
-# Postgres.app CLI tools
-if test -d /Applications/Postgres.app/Contents/Versions/latest/bin
-  set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
+# integrate with pyenv
+if test -f /usr/local/bin/pyenv
+  if status --is-interactive
+    source (pyenv init -|psub)
+  end
 end
 
 # homedirectory bin folder
@@ -129,21 +120,4 @@ function fish_prompt
   echo -s -n (_prompt_character) " "
 end
 
-function tab -d "Open a new tab and run a command in that tab."
-  osascript             -e 'tell application "System Events"' \
-                          -e 'tell process "Terminal" to keystroke "t" using command down' \
-                        -e 'end'
-  osascript             -e 'tell application "Terminal"' \
-                          -e 'activate' \
-                          -e "do script with command \"cd $PWD\" in window 1" \
-                        -e 'end tell'
-
-  for current_arg in $argv
-    osascript             -e 'tell application "Terminal"' \
-                            -e 'activate' \
-                            -e "do script with command \"$current_arg\" in window 1" \
-                          -e 'end tell'
-  end
-
-end
 source ~/.asdf/asdf.fish
