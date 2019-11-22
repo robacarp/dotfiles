@@ -9,3 +9,5 @@
 .config/stetic
 .config/xbuild
 .config/NuGet
+.config/stripe/config.toml
+.vim/.netrwbook
