@@ -56,11 +56,11 @@ end
 function fish_prompt
   set -l previous_command $status
   set -l stats (_gitstatus)
-  set -l vars (_env_vars)
   set -l hash (_git_hash)
 
   set -l dirty (math $stats[3] + $stats[2] + $stats[4])
 
+  # List environment variables/values which are atypical
   _unknown_env_vars
 
   # previous command status if nonzero

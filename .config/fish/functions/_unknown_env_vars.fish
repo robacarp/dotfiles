@@ -1,6 +1,20 @@
 function _unknown_env_vars
   # env vars which should never be shown
-  set -l env_var_blacklist "ASDF_DIR" "HOME" "LANG" "LOGNAME" "LaunchInstanceID" "PATH" "PKG_CONFIG_PATH" "PWD" "SECURITYSESSIONID" "SHELL" "SHLVL" "SSH_AUTH_SOCK" "TERM" "TERM_PROGRAM" "TERM_PROGRAM_VERSION" "TERM_SESSION_ID" "TMPDIR" "USER" "XPC_FLAGS" "XPC_SERVICE_NAME"
+  set -l env_var_blacklist \
+    ASDF_DIR \
+    HOME USER LANG LOGNAME PATH PWD \
+    PKG_CONFIG_PATH \
+    LaunchInstanceID SECURITYSESSIONID SSH_AUTH_SOCK \
+    SHELL SHLVL TERM TERM_PROGRAM TERM_PROGRAM_VERSION TERM_SESSION_ID \
+    MAIL SUDO_COMMAND SUDO_GID SUDO_UID SUDO_USER USERNAME \
+    TMPDIR XPC_FLAGS XPC_SERVICE_NAME \
+    AWS_ACCESS_KEY_ID \
+    AWS_DEFAULT_REGION \
+    AWS_REGION \
+    AWS_SECRET_ACCESS_KEY
+
+
+  set -l value_whitelist RAILS_ENV NODE_ENV AWS_VAULT
 
   set -l env_var_names (printenv | awk -F '=' '{print $1}')
 
@@ -13,8 +27,17 @@ function _unknown_env_vars
   end
 
   for var in $vars_to_show
-    echo -s (set_color -d grey) "$var" (set_color black) "$$var"
+    set_color -d grey
+    echo -n (echo "$var" | tr '[:upper:]' '[:lower:]')
+
+    if contains $var $value_whitelist
+      echo -n "=$$var"
+    end
+
+    echo -n ' '
   end
 
-  echo -n (set_color normal)
+  echo ''
+
+  set_color normal
 end
