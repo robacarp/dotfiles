@@ -69,54 +69,9 @@ else
   echo "could not detect operating system"
 end
 
-function cs -d "Change directory then ls contents"
-  cd $argv; and ls
-end
-
-alias cld="cd (command ls -t | head -n1)"
-
-function _git_hash
-  echo -n (git log -1 ^/dev/null | sed -n -e 's/^commit \([a-z0-9]\{8\}\)[a-z0-9]\{32\}/\1/p')
-end
-
-function _hostname
-  echo (hostname ^&- | cut -d . -f 1)
-end
-
-function _env_vars
-  if set -q RAILS_ENV
-    echo -n " "
-    echo -n $RAILS_ENV
-  end
-
-  if set -q NODE_ENV
-    echo -n " "
-    echo -n $NODE_ENV
-  end
-
-  if set -q TEST
-    echo -n " "
-    echo -n (basename $TEST)
-  end
-
-  if set -q AWS_VAULT
-    echo -n " "
-    echo -n "$AWS_VAULT"
-  end
-end
-
-function _prompt_character
-  switch $USER
-  case root
-    echo '#'
-  case '*'
-    echo '>'
-  end
-end
-
 function fish_prompt
   set -l previous_command $status
-  set -l stats (gitstatus)
+  set -l stats (_gitstatus)
   set -l vars (_env_vars)
   set -l hash (_git_hash)
 

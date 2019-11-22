@@ -1,4 +1,4 @@
-function gitstatus
+function _gitstatus
   git status --porcelain -b ^ /dev/null | awk '
     BEGIN {
       status["untracked"] = 0
