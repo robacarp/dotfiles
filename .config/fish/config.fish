@@ -65,24 +65,24 @@ function fish_prompt
 
   # previous command status if nonzero
   if test $previous_command -gt 0
-    echo -s -n (set_color -b red) $previous_command (set_color normal) " "
+    set_color -b red
+    echo -s -n $previous_command
+    set_color normal
+    echo -n ' '
   end
 
   # branch name
   if test $stats[1]
-    echo -s -n (set_color cyan) $stats[1] (set_color normal)
-  end
-
-  # environment vars
-  if test $vars
-    echo -s -n (set_color purple) $vars (set_color normal)
+    set_color cyan
+    echo -n $stats[1]
+    set_color normal
   end
 
   # colorize extra data only if there was a previous command
   if test -z $_last_cmd
-    echo -s -n (set_color grey)
+    set_color grey
   else
-    echo -s -n (set_color black)
+    set_color black
   end
 
   # current sha hash
@@ -102,12 +102,18 @@ function fish_prompt
   echo -s (set_color normal)
 
   if test $USER = 'root'
-    echo -s -n (set_color -o magenta) $USER (set_color normal) @
+    set_color -o magenta
+    echo -s -n $USER
+    set_color normal
+    echo -s -n '@'
   end
 
   echo -s -n (_hostname) " "
 
-  echo -s -n (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
+  set_color $fish_color_cwd
+  echo -n (prompt_pwd)
+  set_color normal
+
   echo -s -n (_prompt_character) " "
 end
 
