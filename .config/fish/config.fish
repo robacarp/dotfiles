@@ -7,15 +7,8 @@ function fish_user_key_bindings
   bind \cs 'sudo-my-prompt-yo'
 end
 
-function exec_start --on-event fish_preexec -d "Starts the execution clock of a process"
-  set -g _exec_start (date +%s)
+function exec_start --on-event fish_preexec -d "Keep track of the last command string"
   set -g _last_cmd $argv[1]
-end
-
-function exec_end --on-event fish_postexec -d "Stop the execution clock of a process and set _exec_delta"
-  set -g _exec_delta (math (date +%s) - $_exec_start)
-  set -e -g _exec_start
-  set -g _formatted_time (decode_time $_exec_delta)
 end
 
 # to enable on a machine, set -U _long_command_finished_notification true
@@ -24,7 +17,7 @@ function auto_alert --on-event fish_postexec -d "Check the execution delta and s
     return
   end
 
-  if test $_exec_delta -gt 12
+  if test $CMD_DURATION -gt 12000
     set -l first_word (string split -m 1 " " "$argv[1]")[1]
     alert -m "$first_word command finished ($_formatted_time)"
   end
@@ -99,12 +92,8 @@ function fish_prompt
 
   echo -s -n " " (date "+%b-%d %H:%M:%S")
 
-  if test -z "$_exec_delta"
-    set _exec_delta 0
-  end
-
   if test -n $_last_cmd
-    echo -s -n " ∆t="$_formatted_time
+    echo -n -s ' ∆t=' (decode_time -m $CMD_DURATION)
   end
 
   echo -s -n (set_color normal)
