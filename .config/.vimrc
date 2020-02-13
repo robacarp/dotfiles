@@ -88,6 +88,8 @@ endif
 set background=dark
 "other great options: anotherdark, wombat, vividchalk, mustang
 color zmrok
+let g:colorizer_auto_filetype='css,html,js,scss'
+
 
 "my little pinky isa bit slow coming off that shift key sometimes.
 command! W w

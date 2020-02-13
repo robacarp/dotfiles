@@ -27,5 +27,6 @@ Plug 'hashivim/vim-terraform'
 Plug 'vim-scripts/Colour-Sampler-Pack'
 Plug 'vim-scripts/ScrollColors'
 Plug 'vim-scripts/CSApprox'
+Plug 'chrisbra/Colorizer'
 
 call plug#end()
