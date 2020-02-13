@@ -11,3 +11,4 @@
 .config/NuGet
 .config/stripe/config.toml
 .vim/.netrwbook
+.config/fish/fish_history.*
