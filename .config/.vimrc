@@ -56,6 +56,8 @@ set incsearch
 set showmatch
 set nohlsearch
 
+" ctrl-p: open the file again and again
+let g:ctrlp_switch_buffer = 'et'
 
 " Systastic
 set statusline+=%#warningmsg#
