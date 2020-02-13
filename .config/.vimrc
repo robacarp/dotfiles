@@ -36,9 +36,7 @@ nnoremap j gj
 nnoremap k gk
 
 " F row actions
-map <F3> :set invnumber<CR>
-map <F5> :VCSBlame<CR>
-map <F9> :set invhlsearch<CR> :set invcursorcolumn<CR> :set invcursorline<CR>
+map <F5> :GBlame<CR>
 
 set timeoutlen=400
 
@@ -176,3 +174,7 @@ function! OpenTabs (tabs)
   endfor
 
 endfunction
+
+
+nmap <leader>f :let @" = expand("%") . "\n"<CR>
+map <leader>g :GetCurrentBranchLink<CR>
