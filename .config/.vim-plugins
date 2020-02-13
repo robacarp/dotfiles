@@ -15,6 +15,7 @@ Plug 'tpope/vim-rhubarb'                      " Enale Gbrowse for Github
 Plug 'tpope/vim-rsi'                          " Provides ^a and ^e support in the command line.
 Plug 'tpope/vim-vinegar'                      " Tweaks to netrw file browser.
 Plug 'godlygeek/tabular'                      " String alignment
+Plug 'vim-syntastic/syntastic'                " Code linting
 
 " Plugins which provide syntax highlighting for uncommon languages:
 Plug 'rhysd/vim-crystal'

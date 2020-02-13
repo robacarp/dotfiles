@@ -35,10 +35,6 @@ endif
 nnoremap j gj
 nnoremap k gk
 
-" dont deselect on indent
-" vnoremap < <gv
-" vnoremap > >gv
-
 " F row actions
 map <F3> :set invnumber<CR>
 map <F5> :VCSBlame<CR>
@@ -61,6 +57,18 @@ set smartcase
 set incsearch
 set showmatch
 set nohlsearch
+
+
+" Systastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_quiet_messages = { "type": "style" }
 
 "netrw settings
 " Hide hidden files by default, credit: https://vi.stackexchange.com/questions/18650/how-to-make-netrw-start-with-dotfiles-hidden/18678#18678
