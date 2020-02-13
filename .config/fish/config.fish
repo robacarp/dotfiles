@@ -63,8 +63,10 @@ function fish_prompt
 
   set -l dirty (math $stats[3] + $stats[2] + $stats[4])
 
-  # List environment variables/values which are atypical
-  _unknown_env_vars
+  # List environment variables/values which are atypical, but not when running in vim
+  if ! set -q VIM_TERMINAL
+    _unknown_env_vars
+  end
 
   # previous command status if nonzero
   if test $previous_command -gt 0
