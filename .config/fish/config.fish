@@ -79,7 +79,7 @@ function fish_prompt
   # branch name
   if test $stats[1]
     set_color cyan
-    echo -n $stats[1]
+    echo -n -s $stats[1] " "
     set_color normal
   end
 
@@ -92,13 +92,13 @@ function fish_prompt
 
   # current sha hash
   if test $hash
-    echo -s -n " " (_git_hash)
+    echo -s -n (_git_hash) " "
   end
 
-  echo -s -n " " (date "+%b-%d %H:%M:%S")
+  echo -s -n (date "+%b-%d %H:%M:%S") " "
 
   if test -n $_last_cmd
-    echo -n -s ' ∆t=' (decode_time -m $CMD_DURATION)
+    echo -n -s '∆t=' (decode_time -m $CMD_DURATION) ' '
   end
 
   echo -s -n (set_color normal)
