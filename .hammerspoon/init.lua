@@ -59,8 +59,12 @@ spoon.ClipboardWatcher:watch(
 )
 spoon.ClipboardWatcher:start()
 
+success_image = hs.image.imageFromPath("/Users/robert/.hammerspoon/pass.png")
+failure_image = hs.image.imageFromPath("/Users/robert/.hammerspoon/fail.png")
+
 hs.urlevent.bind("task_completed", function(eventName, params)
   local message = params['message']
+  local status = params['status']
   local timeout = tonumber(params['timeout'])
 
   if not message or message:len() == 0 then
@@ -79,6 +83,17 @@ hs.urlevent.bind("task_completed", function(eventName, params)
       hasActionButton = false
     }
   )
+
+  if status == "0" then
+    if success_image then
+      notification:setIdImage(success_image)
+    end
+  else
+    if failure_image then
+      notification:setIdImage(failure_image)
+    end
+  end
+
   notification:send()
 
   if timeout > 0 then

@@ -13,13 +13,16 @@ end
 
 # to enable on a machine, set -U _long_command_finished_notification true
 function auto_alert --on-event fish_postexec -d "Check the execution delta and send an alert on long running commands"
+  set -l exit_code $status
+
   if test "$_long_command_finished_notification" != true
     return
   end
 
   if test $CMD_DURATION -gt 12000
     set -l first_word (string split -m 1 " " "$argv[1]")[1]
-    alert -m "$first_word command finished ($_formatted_time)"
+    set -l formatted_time (decode_time -m $CMD_DURATION)
+    alert -m "$first_word command finished ($formatted_time)" -s $exit_code
   end
 end
 
