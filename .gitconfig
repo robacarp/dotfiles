@@ -1,6 +1,6 @@
 [user]
-  name = Robert L Carpenter
-  email = robert@robacarp.com
+	name = 
+	email = 
 	signingkey = A384CFD09D54E693
 [color]
   diff = auto
@@ -14,10 +14,17 @@
   s = status
 [core]
   editor = /usr/bin/vim
-  excludesfile = ~/.gitignore_global
+	excludesfile = /Users/robert/.gitignore_global
+	autocrlf = input
 [color "status"]
 	branch = magenta
 [merge]
 	tool = opendiff
 [commit]
-	gpgsign = true
+	template = /Users/robert/.stCommitMsg
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Users/robert/Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

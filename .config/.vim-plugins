@@ -8,8 +8,8 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'aliva/vim-fish'                         " Informs vim that fish is my shell.
 Plug 'ctrlpvim/ctrlp.vim'                     " ^p to do a kind of fuzzy file open.
-Plug 'terryma/vim-multiple-cursors'           " Provides (a primitive form of) multiple cursors.
 Plug 'mtth/scratch.vim'                       " Provides :Scratch to easily make ephemeral buffers.
+Plug 'mg979/vim-visual-multi'                 " Provides (a primitive form of) multiple cursors.
 Plug 'tpope/vim-fugitive'                     " A Git wrapper so awesome.
 Plug 'tpope/vim-rhubarb'                      " Enale Gbrowse for Github
 Plug 'tpope/vim-rsi'                          " Provides ^a and ^e support in the command line.
@@ -17,11 +17,19 @@ Plug 'tpope/vim-vinegar'                      " Tweaks to netrw file browser.
 Plug 'godlygeek/tabular'                      " String alignment
 Plug 'knsh14/vim-github-link'                 " Links to github from files
 
-Plug 'vim-syntastic/syntastic'                " Code linting
+" Plug 'puremourning/vimspector'                " supossedly Interactive Debugger
+" Plug 'ycm-core/YouCompleteMe'                 " something for the debugger
+
+Plug 'editorconfig/editorconfig-vim'
+
+Plug 'dense-analysis/ale'                     " Code linting
 
 " Plugins which provide syntax highlighting for uncommon languages:
 Plug 'rhysd/vim-crystal'
 Plug 'hashivim/vim-terraform'
+Plug 'juanchanco/vim-jbuilder'
+Plug 'plasticboy/vim-markdown'
+Plug 'elixir-editors/vim-elixir'
 
 " Coloring enhancements:
 Plug 'vim-scripts/Colour-Sampler-Pack'

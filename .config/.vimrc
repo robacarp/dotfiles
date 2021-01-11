@@ -1,5 +1,8 @@
 source ~/.dotfiles/.config/.vim-plugins
 
+" autosave on focus lost
+au FocusLost * :wa
+
 set noswapfile
 
 set shell=bash
@@ -36,7 +39,7 @@ nnoremap j gj
 nnoremap k gk
 
 " F row actions
-map <F5> :GBlame<CR>
+map <F5> :Gblame<CR>
 
 set timeoutlen=400
 

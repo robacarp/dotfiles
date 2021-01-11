@@ -1,6 +1,7 @@
 function _unknown_env_vars
   # env vars which should never be shown
   set -l env_var_blacklist \
+    JAVA_HOME \
     ASDF_DIR \
     HOME USER LANG LOGNAME PATH PWD \
     PKG_CONFIG_PATH \
@@ -12,7 +13,15 @@ function _unknown_env_vars
     AWS_ACCESS_KEY_ID \
     AWS_DEFAULT_REGION \
     AWS_REGION \
-    AWS_SECRET_ACCESS_KEY
+    AWS_SECRET_ACCESS_KEY \
+    COLORFGBG \
+    COLORTERM \
+    ITERM_PROFILE \
+    ITERM_SESSION_ID \
+    LC_TERMINAL \
+    LC_TERMINAL_VERSION \
+    __CF_USER_TEXT_ENCODING \
+    __CFBundleIdentifier
 
 
   set -l value_whitelist RAILS_ENV NODE_ENV AWS_VAULT

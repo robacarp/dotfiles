@@ -6,3 +6,6 @@
 .netrwhist
 .byebug_history
 .plan.out
+.tool-versions
+.ccls-cache
+compile_commands.json
