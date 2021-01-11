@@ -8,8 +8,8 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'aliva/vim-fish'                         " Informs vim that fish is my shell.
 Plug 'ctrlpvim/ctrlp.vim'                     " ^p to do a kind of fuzzy file open.
-Plug 'kana/vim-scratch'                       " Provides :Scratch to easily make ephemeral buffers.
 Plug 'terryma/vim-multiple-cursors'           " Provides (a primitive form of) multiple cursors.
+Plug 'mtth/scratch.vim'                       " Provides :Scratch to easily make ephemeral buffers.
 Plug 'tpope/vim-fugitive'                     " A Git wrapper so awesome.
 Plug 'tpope/vim-rhubarb'                      " Enale Gbrowse for Github
 Plug 'tpope/vim-rsi'                          " Provides ^a and ^e support in the command line.
