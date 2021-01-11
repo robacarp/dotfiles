@@ -58,6 +58,7 @@ set nohlsearch
 
 " ctrl-p: open the file again and again
 let g:ctrlp_switch_buffer = 'et'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " Systastic
 " set statusline+=%#warningmsg#
