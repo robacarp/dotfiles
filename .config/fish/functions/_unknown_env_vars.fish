@@ -20,6 +20,7 @@ function _unknown_env_vars
     ITERM_SESSION_ID \
     LC_TERMINAL \
     LC_TERMINAL_VERSION \
+    EDITOR \
     __CF_USER_TEXT_ENCODING \
     __CFBundleIdentifier
 

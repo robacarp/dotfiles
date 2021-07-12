@@ -16,6 +16,7 @@ Plug 'tpope/vim-rsi'                          " Provides ^a and ^e support in th
 Plug 'tpope/vim-vinegar'                      " Tweaks to netrw file browser.
 Plug 'godlygeek/tabular'                      " String alignment
 Plug 'knsh14/vim-github-link'                 " Links to github from files
+Plug 'rizzatti/dash.vim'                      " Dash.app integration
 
 " Plug 'puremourning/vimspector'                " supossedly Interactive Debugger
 " Plug 'ycm-core/YouCompleteMe'                 " something for the debugger
@@ -25,6 +26,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'dense-analysis/ale'                     " Code linting
 
 " Plugins which provide syntax highlighting for uncommon languages:
+Plug 'cespare/vim-toml'
 Plug 'rhysd/vim-crystal'
 Plug 'hashivim/vim-terraform'
 Plug 'juanchanco/vim-jbuilder'

@@ -1,1 +1,1 @@
-complete -x -c check -a "(checkouts -n 5)"
+complete -x -c check -a "(branches -n 5)"

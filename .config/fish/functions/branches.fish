@@ -1,4 +1,4 @@
-function checkouts -d "list recently checked out branches"
+function branches -d "list recently checked out branches"
   set count 7
   # what is scripting and how do I operand
   if test 1 -lt (count $argv)

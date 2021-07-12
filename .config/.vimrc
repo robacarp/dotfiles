@@ -89,9 +89,9 @@ if has('persistent_undo')
   set undofile
 endif
 
+"other great options: zmrok, wombat, vividchalk, mustang
 set background=dark
-"other great options: anotherdark, wombat, vividchalk, mustang
-color zmrok
+color anotherdark
 let g:colorizer_auto_filetype='css,html,js,scss'
 
 
@@ -114,6 +114,9 @@ autocmd BufNewFile,BufRead *.ino setf c
 autocmd BufNewFile,BufRead Rakefile setf ruby
 autocmd BufNewFile,BufRead Gemfile setf ruby
 autocmd BufNewFile,BufRead Guardfile setf ruby
+
+let g:scratch_autohide=0
+let g:scratch_horizontal=1
 
 " Open tabs for a Railsy environment.
 "
