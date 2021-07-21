@@ -1,5 +1,5 @@
 function _gitstatus
-  git status --porcelain -b ^ /dev/null | awk '
+  git status --porcelain -b 2> /dev/null | awk '
     BEGIN {
       status["untracked"] = 0
       status["modifications"] = 0
