@@ -1,4 +1,3 @@
-# Defined in - @ line 1
 function ave
-	aws-vault exec --no-session $argv
+        aws-vault exec --duration=6h $argv
 end
