@@ -1,3 +1,3 @@
 function tpl
-  terraform plan -out=.plan.out $argv | landscape
+  terraform plan -out=.plan.out $argv
 end
