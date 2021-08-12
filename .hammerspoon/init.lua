@@ -57,6 +57,19 @@ spoon.ClipboardWatcher:watch(
     return parsed_url:build()
   end
 )
+
+spoon.ClipboardWatcher:watch(
+  function(data)
+    if string.len(data) > 150 then return false end
+    return string.match(data, "^https://music%.apple%.com.+")
+  end,
+
+  function(original)
+    return "https://songwhip.com/" .. original
+  end,
+
+  true
+)
 spoon.ClipboardWatcher:start()
 
 success_image = hs.image.imageFromPath("/Users/robert/.hammerspoon/pass.png")

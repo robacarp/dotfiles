@@ -27,9 +27,11 @@ function clipboard:init()
   )
 end
 
-function clipboard:watch(fxn, fxn2)
+function clipboard:watch(fxn, fxn2, automatic)
+  automatic = automatic or false
+
   if type(fxn) == "function" and type(fxn2) == "function" then
-    table.insert(self.watches, {fxn, fxn2})
+    table.insert(self.watches, {fxn, fxn2, automatic})
   end
 end
 
@@ -52,10 +54,22 @@ function clipboard:tick()
   self:runWatches(contents)
 end
 
-function clipboard:runWatches(data)
+function clipboard:runWatches(originalText)
   for i,watch in pairs(self.watches) do
-    if watch[1](data) then
-      self:displayNotification(data, i)
+    local matches = watch[1]
+    local replace = watch[2]
+    local autoReplace = watch[3]
+    local replacement = replace(originalText)
+
+    if matches(originalText) then
+      if autoReplace then
+        hs.pasteboard.writeObjects(replacement)
+        self:markSeen(replacement)
+        self:notifyReplaced(originalText, replacement)
+      else
+        hs.alert.show("requesting confirmation", 1)
+        self:requestConfirmation(originalText, replacement)
+      end
     end
   end
 end
@@ -74,6 +88,59 @@ end
 
 
 
+function clipboard:requestConfirmation(originalText, replacement)
+  if replacement == originalText then
+    return
+  end
+
+  self:dismissNotification()
+
+  self.notification = hs.notify.new(function(notification)
+      self:markSeen(replacement)
+      self:clearDismissTimer()
+      hs.pasteboard.writeObjects(replacement)
+    end,
+    {
+      autoWithdraw = false,
+      title = "Clipboard modification suggested",
+      subTitle = "Replace your clipboard with: ",
+      informativeText = result,
+      hasActionButton = true,
+      actionButtonTitle = "Replace!"
+    }
+  )
+  self.notification:send()
+  self:setDismissalTimer()
+end
+
+function clipboard:notifyReplaced(originalText, result)
+  if result == originalText then
+    return
+  end
+
+  self:dismissNotification()
+
+  self.notification = hs.notify.new(nil,
+    {
+      autoWithdraw = false,
+      title = "Clipboard modified",
+      informativeText = originalText .. " has been replaced with " .. result,
+      hasActionButton = false
+    }
+  )
+  self.notification:send()
+  self:setDismissalTimer()
+end
+
+
+function clipboard:setDismissalTimer()
+  if self.dismissDelay > 0 then
+    self.dismissTimer = hs.timer.doAfter(self.dismissDelay, function()
+      self:dismissNotification()
+    end)
+  end
+end
+
 function clipboard:dismissNotification()
   if self.notification then
     self:clearDismissTimer()
@@ -89,38 +156,6 @@ function clipboard:clearDismissTimer()
   end
 end
 
-function clipboard:displayNotification(originalText, watchNumber)
-  local result = self.watches[watchNumber][2](originalText)
-
-  if result == originalText then
-    return
-  end
-
-  self:dismissNotification()
-
-  self.notification = hs.notify.new(function(notification)
-      self:markSeen(result)
-      self:clearDismissTimer()
-      hs.pasteboard.writeObjects(result)
-    end
-    ,
-    {
-      autoWithdraw = false,
-      title = "Clipboard modification suggested",
-      subTitle = "Replace your clipboard with: ",
-      informativeText = result,
-      hasActionButton = true,
-      actionButtonTitle = "Replace!"
-    }
-  )
-  self.notification:send()
-
-  if self.dismissDelay > 0 then
-    self.dismissTimer = hs.timer.doAfter(self.dismissDelay, function()
-      self:dismissNotification()
-    end)
-  end
-end
 
 function clipboard:stop()
   clipboard.timer:stop()

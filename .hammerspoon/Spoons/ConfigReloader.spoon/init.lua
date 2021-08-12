@@ -3,7 +3,6 @@ reloader.__index = reloader
 
 reloader.name = "Config Reloader"
 reloader.version = "0.1"
-reloader.author = "Robert Carpenter"
 reloader.license = "MIT - https://opensource.org/licenses/MIT"
 
 reloader.watcher = nil
