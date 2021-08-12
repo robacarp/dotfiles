@@ -115,6 +115,10 @@ autocmd BufNewFile,BufRead Rakefile setf ruby
 autocmd BufNewFile,BufRead Gemfile setf ruby
 autocmd BufNewFile,BufRead Guardfile setf ruby
 
+"set crystal files to handle comment strings properly
+autocmd BufNewFile,BufRead *.cr set formatoptions+=roj
+let g:crystal_indent_assignment_style = "variable"
+
 let g:scratch_autohide=0
 let g:scratch_horizontal=1
 
