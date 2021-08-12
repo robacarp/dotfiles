@@ -116,36 +116,4 @@ hs.urlevent.bind("task_completed", function(eventName, params)
   end
 end)
 
--- Zoom stuff
-
-hs.loadSpoon("Zoom")
-
--- This lets you click on the menu bar item to toggle the mute state
-zoomStatusMenuBarItem = hs.menubar.new(nil)
-zoomStatusMenuBarItem:setClickCallback(function()
-    spoon.Zoom:toggleMute()
-end)
-
-updateZoomStatus = function(event)
-  if (event == "from-running-to-meeting") then
-    zoomStatusMenuBarItem:returnToMenuBar()
-  elseif (event == "muted") then
-    zoomStatusMenuBarItem:setTitle("🔴")
-  elseif (event == "unmuted") then
-    zoomStatusMenuBarItem:setTitle("🟢")
-  elseif (event == "from-meeting-to-running") or (event == "from-running-to-closed") then
-    zoomStatusMenuBarItem:removeFromMenuBar()
-  end
-end
-spoon.Zoom:setStatusCallback(updateZoomStatus)
-spoon.Zoom:start()
-
--- Next up:
--- https://github.com/adamyonk/PushToTalk.spoon/blob/master/init.lua
-hs.hotkey.bind('', 'f13', function()
-  spoon.Zoom:toggleMute()
-end)
-
-----------------------------------------------------------------
-
 hs.alert.show('HammerSpoon Activated.', 1)
