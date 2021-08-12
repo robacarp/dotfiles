@@ -34,9 +34,9 @@ Plug 'plasticboy/vim-markdown'
 Plug 'elixir-editors/vim-elixir'
 
 " Coloring enhancements:
+Plug 'altercation/vim-colors-solarized'
 Plug 'vim-scripts/Colour-Sampler-Pack'
 Plug 'vim-scripts/ScrollColors'
-Plug 'vim-scripts/CSApprox'
 Plug 'chrisbra/Colorizer'
 
 call plug#end()
