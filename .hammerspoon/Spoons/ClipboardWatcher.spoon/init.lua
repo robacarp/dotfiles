@@ -19,7 +19,7 @@ clipboard.watches = {}
 clipboard.notification = nil
 clipboard.dismissTimer = nil
 
-inspect = dofile("/Users/robert/.dotfiles/.hammerspoon/downloaded_modules/inspect.lua")
+inspect = dofile(os.getenv('HOME') .. "/.hammerspoon/" .. "downloaded_modules/inspect.lua")
 
 function clipboard:init()
   self:markSeen(
