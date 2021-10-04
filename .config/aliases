@@ -10,3 +10,4 @@ alias mvim="/Applications/MacVim.app/Contents/bin/mvim"
 
 alias redis="redis-server /usr/local/etc/redis.conf"
 alias icloud="cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/"
+alias dots="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"

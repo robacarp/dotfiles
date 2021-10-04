@@ -1,4 +1,4 @@
-source ~/.dotfiles/.config/.vim-plugins
+source ~/.config/.vim-plugins
 
 " autosave on focus lost
 au FocusLost * :wa
