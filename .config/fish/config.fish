@@ -122,4 +122,7 @@ function fish_prompt
   echo -s -n (_prompt_character) " "
 end
 
-source ~/.asdf/asdf.fish
+fish_add_path ~/bin
+source /opt/homebrew/opt/asdf/libexec/asdf.fish
+fish_add_path /opt/homebrew/bin
+fish_add_path /opt/homebrew/sbin
