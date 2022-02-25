@@ -6,10 +6,12 @@ Prerequisites:
 
 - install fish shell
 
+Copy and paste this snippet into a running fish shell @ ~:
+
 ```
 alias dots="/usr/bin/git --git-dir=$HOME/.dots.git/ --work-tree=$HOME"
 echo ".dots.git" >> .gitignore
 git clone --bare git@github.com:robacarp/config_files.git $HOME/.dots.git
-dots checkout
+dots checkout -f
 dots config --local status.showUntrackedFiles no
 ```
