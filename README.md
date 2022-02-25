@@ -7,7 +7,7 @@ Prerequisites:
 - install fish shell
 
 ```
-alias dots="/usr/bin/git --git-dir=$HOME/.dots.git/ --work-tree=$HOME"'
+alias dots="/usr/bin/git --git-dir=$HOME/.dots.git/ --work-tree=$HOME"
 echo ".dots.git" >> .gitignore
 git clone --bare git@github.com:robacarp/config_files.git $HOME/.dots.git
 dots checkout
