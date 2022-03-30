@@ -4,7 +4,15 @@ Various dot files to keep things portable and so I can always feel 'at home' whe
 
 Prerequisites:
 
-- install fish shell
+#### Install fish shell
+
+Might look something like this:
+
+```
+sudo add-apt-repository -y ppa:fish-shell/release-3
+sudo apt install -y fish
+sudo chsh $(whoami) -s $(which fish)
+```
 
 Copy and paste this snippet into a running fish shell:
 
