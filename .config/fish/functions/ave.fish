@@ -1,3 +1,3 @@
 function ave
-        aws-vault exec --duration=6h $argv
+    aws-vault exec --duration=4h $argv
 end

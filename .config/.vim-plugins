@@ -17,21 +17,25 @@ Plug 'tpope/vim-vinegar'                      " Tweaks to netrw file browser.
 Plug 'godlygeek/tabular'                      " String alignment
 Plug 'knsh14/vim-github-link'                 " Links to github from files
 Plug 'rizzatti/dash.vim'                      " Dash.app integration
+Plug 'github/copilot.vim'
+
+Plug 'tpope/vim-commentary'
 
 " Plug 'puremourning/vimspector'                " supossedly Interactive Debugger
-" Plug 'ycm-core/YouCompleteMe'                 " something for the debugger
 
 Plug 'editorconfig/editorconfig-vim'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'dense-analysis/ale'                     " Code linting
+" Plug 'dense-analysis/ale'                     " Code linting
+" Plug 'ycm-core/YouCompleteMe'                 " Code completion
 
 " Plugins which provide syntax highlighting for uncommon languages:
 Plug 'cespare/vim-toml'
 Plug 'rhysd/vim-crystal'
 Plug 'hashivim/vim-terraform'
-Plug 'juanchanco/vim-jbuilder'
 Plug 'plasticboy/vim-markdown'
-Plug 'elixir-editors/vim-elixir'
+" Plug 'juanchanco/vim-jbuilder'
+" Plug 'elixir-editors/vim-elixir'
 
 " Coloring enhancements:
 Plug 'altercation/vim-colors-solarized'

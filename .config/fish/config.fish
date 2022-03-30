@@ -1,7 +1,5 @@
 . ~/.config/aliases
 
-#set PATH /Users/robert/Documents/repositories/crystal-lang/crystal/bin $PATH
-
 function fish_user_key_bindings
   bind . 'expand-dot-to-parent-directory-path'
   bind \cs 'sudo-my-prompt-yo'
@@ -31,16 +29,6 @@ if test -f /usr/local/bin/pyenv
   if status --is-interactive
     source (pyenv init -|psub)
   end
-end
-
-# homedirectory bin folder
-if test -d ~/.dotfiles/bin
-  set PATH $PATH ~/.dotfiles/bin
-end
-
-# homebrew path
-if test -d /usr/local/sbin
-  set PATH $PATH /usr/local/sbin
 end
 
 set -l uname (uname -a | sed -e 'y/ /\n/')
@@ -122,7 +110,19 @@ function fish_prompt
   echo -s -n (_prompt_character) " "
 end
 
-fish_add_path ~/bin
-source /opt/homebrew/opt/asdf/libexec/asdf.fish
-fish_add_path /opt/homebrew/bin
-fish_add_path /opt/homebrew/sbin
+# source ~/.asdf/asdf.fish
+fish_add_path ~/.asdf/shims ~/.asdf/bin
+source ~/.asdf/lib/asdf.fish
+
+if test -d /opt/homebrew/bin
+  fish_add_path -g /opt/homebrew/bin
+end
+
+if test -d /opt/homebrew/sbin
+  fish_add_path -g /opt/homebrew/sbin
+end
+
+# homedirectory bin folder
+if test -d ~/bin
+  fish_add_path -g ~/bin
+end

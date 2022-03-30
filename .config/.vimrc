@@ -63,17 +63,6 @@ set nohlsearch
 let g:ctrlp_switch_buffer = 'et'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
-" Systastic
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" 
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 0
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_quiet_messages = { "type": "style" }
-
 "netrw settings
 " Hide hidden files by default, credit: https://vi.stackexchange.com/questions/18650/how-to-make-netrw-start-with-dotfiles-hidden/18678#18678
 let ghregex='\(^\|\s\s\)\zs\.\S\+'
@@ -193,3 +182,4 @@ endfunction
 
 nmap <leader>f :let @" = expand("%") . "\n"<CR>
 map <leader>g :GetCurrentBranchLink<CR>
+let g:coc_node_path = '/Users/robert/.asdf/installs/nodejs/16.10.0/bin/node'
