@@ -17,6 +17,7 @@ sudo chsh $(whoami) -s $(which fish)
 Copy and paste this snippet into a running fish shell:
 
 ```
+ssh-keyscan github.com >> ~/.ssh/known_hosts
 alias dots="/usr/bin/git --git-dir=$HOME/.dots.git/ --work-tree=$HOME"
 git clone --bare git@github.com:robacarp/config_files.git $HOME/.dots.git
 dots checkout -f
