@@ -23,5 +23,5 @@ git clone --bare git@github.com:robacarp/config_files.git $HOME/.dots.git
 dots checkout -f
 dots config --local status.showUntrackedFiles no
 dots config user.name 'rob' ; dots config user.email 'robacarp@users.noreply.github.com'
-vim +'PlugInstall' +'qall!'
+vim --cmd 'so ~/.config/.vim-plugins' --cmd 'PlugInstall' +'qall!'
 ```
