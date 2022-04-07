@@ -23,6 +23,6 @@ function auto_alert --on-event fish_postexec -d "Check the execution delta and s
 end
 
 if status --is-interactive
-  source ./.config/fish/interactive-config.fish
+  source ~/.config/fish/interactive-config.fish
   . ~/.config/aliases
 end

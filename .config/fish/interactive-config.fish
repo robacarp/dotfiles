@@ -1,4 +1,3 @@
-
 set -l uname (uname -a | sed -e 'y/ /\n/')
 if contains "Linux" $uname
   #echo "system: linux"
@@ -31,7 +30,6 @@ if test -d /opt/homebrew/sbin
   fish_add_path -g /opt/homebrew/sbin
 end
 
-# homedirectory bin folder
 if test -d ~/bin
   fish_add_path -g ~/bin
 end
