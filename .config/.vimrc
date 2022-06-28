@@ -182,4 +182,4 @@ endfunction
 
 nmap <leader>f :let @" = expand("%") . "\n"<CR>
 map <leader>g :GetCurrentBranchLink<CR>
-let g:coc_node_path = '/Users/robert/.asdf/installs/nodejs/16.10.0/bin/node'
+let g:copilot_node_command = '/Users/robert/.asdf/installs/nodejs/16.10.0/bin/node'
