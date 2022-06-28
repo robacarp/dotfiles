@@ -13,7 +13,7 @@ appWatcher.license = "MIT - https://opensource.org/licenses/MIT"
 
 spoonDir = script_path()
 watcher = dofile(spoonDir.."watcher.lua")
-inspect = dofile("/Users/robert/.dotfiles/.hammerspoon/downloaded_modules/inspect.lua")
+inspect = dofile("/Users/robert/.hammerspoon/downloaded_modules/inspect.lua")
 
 appWatcher.watchers = {}
 
