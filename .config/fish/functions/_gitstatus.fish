@@ -7,7 +7,7 @@ function _gitstatus
     }
 
     $1 ~ /##/ {
-      split($2, branch_names, ".")
+      branch_name = $2
     }
 
     $1 ~ /\?\?/       { status["untracked"] ++     }
@@ -15,7 +15,7 @@ function _gitstatus
     $1 ~ /[DAU][DAU]/ { status["unmerged"] ++ }
 
     END {
-      print branch_names[1]
+      print branch_name
       print status["untracked"]
       print status["modifications"]
       print status["unmerged"]
