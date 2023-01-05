@@ -2,6 +2,7 @@ function _unknown_env_vars
   # env vars which should never be shown
   set -l env_var_blacklist \
     JAVA_HOME \
+    ERL_AFLAGS \
     ASDF_DIR \
     HOME USER LANG LOGNAME PATH PWD \
     PKG_CONFIG_PATH \
