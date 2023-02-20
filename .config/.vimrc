@@ -109,5 +109,10 @@ nmap <leader>f :let @+ = expand("%") . "\n"<CR>
 map <leader>g :GetCurrentBranchLink<CR>
 let g:copilot_node_command = '/Users/robert/.asdf/installs/nodejs/16.10.0/bin/node'
 
+" populate and open the quickfix list with an ag search term
+function! s:AgSearch(search_term)
+  cexpr system('ag ' . a:search_term)
+  copen
 endfunction
 
+command! -nargs=1 Ag call s:AgSearch(<q-args>)
