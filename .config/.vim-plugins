@@ -35,7 +35,7 @@ Plug 'rhysd/vim-crystal'
 Plug 'hashivim/vim-terraform'
 Plug 'plasticboy/vim-markdown'
 " Plug 'juanchanco/vim-jbuilder'
-" Plug 'elixir-editors/vim-elixir'
+Plug 'elixir-editors/vim-elixir'
 
 " Coloring enhancements:
 Plug 'altercation/vim-colors-solarized'

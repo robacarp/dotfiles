@@ -32,21 +32,14 @@ set listchars=tab:>\ ,trail:·
 if has('gui_running')
   set guioptions=e
   set guifont=Fira\ Code:h14
+  set macligatures
 endif
 
 "make j/k behave soundly.
 nnoremap j gj
 nnoremap k gk
 
-" F row actions
-map <F5> :Gblame<CR>
-
 set timeoutlen=400
-
-"more esc keys...because its right next to it anyways
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
 
 "dealing with opening files
 set wildmenu
@@ -80,7 +73,7 @@ endif
 
 "other great options: zmrok, wombat, vividchalk, mustang
 set background=dark
-color anotherdark
+color autumn2
 let g:colorizer_auto_filetype='css,html,js,scss'
 
 
@@ -103,6 +96,7 @@ autocmd BufNewFile,BufRead *.ino setf c
 autocmd BufNewFile,BufRead Rakefile setf ruby
 autocmd BufNewFile,BufRead Gemfile setf ruby
 autocmd BufNewFile,BufRead Guardfile setf ruby
+autocmd BufNewFile,BufRead .vim-plugins setf vim
 
 "set crystal files to handle comment strings properly
 autocmd BufNewFile,BufRead *.cr set formatoptions+=roj
@@ -111,75 +105,9 @@ let g:crystal_indent_assignment_style = "variable"
 let g:scratch_autohide=0
 let g:scratch_horizontal=1
 
-" Open tabs for a Railsy environment.
-"
-function! Rails()
-  let tabs = [
-           \ ['/',               'config/routes.rb'],
-           \ ['test',            'test_helper.rb'],
-           \ ['app/support',     ''],
-           \ ['app/models',      'user.rb'],
-           \ ['app/controllers', 'application_controller.rb'],
-           \ ['app/helpers',     'application_helper.rb'],
-           \ ['app/views',       'layouts/application.html.haml'],
-           \ ['app/assets',      'stylesheets/application.css.scss']
-        \ ]
-
-  call OpenTabs(tabs)
-
-  " controller
-  " test
-  " view
-  " model
-  " route
-endfunction
-
-" Hook in the command :Rails to the Rails function
-command! -nargs=0 Rails :call Rails()
-
-
-"
-"  Open a collection of files in tabs.
-"
-"  List of ordered pairs where the car is the nerd-tree directory
-"  for a tab and the cdr is the relevant file to open in that tab.
-"
-"  If the directory specified in the car doesn't exist, the tab will
-"  not be opened.
-"
-function! OpenTabs (tabs)
-  let success = 0
-
-  for i in a:tabs
-
-    let directory = getcwd() . '/' . i[0] . '/'
-    let default_file = directory . i[1]
-    let file_type = getftype(default_file)
-
-    if isdirectory(directory) || file_type == 'file'
-      if success
-        execute 'tabnew'
-      endif
-
-      if file_type == 'file'
-        "execute 'normal a e ' . default_file
-        execute 'e ' . default_file
-      endif
-
-
-      if isdirectory(directory)
-        execute 'NERDTree ' . directory
-        wincmd l
-      endif
-
-      let success = 1
-    endif
-
-  endfor
-
-endfunction
-
-
-nmap <leader>f :let @" = expand("%") . "\n"<CR>
+nmap <leader>f :let @+ = expand("%") . "\n"<CR>
 map <leader>g :GetCurrentBranchLink<CR>
 let g:copilot_node_command = '/Users/robert/.asdf/installs/nodejs/16.10.0/bin/node'
+
+endfunction
+
