@@ -26,7 +26,7 @@ Plug 'tpope/vim-commentary'
 Plug 'editorconfig/editorconfig-vim'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Plug 'dense-analysis/ale'                     " Code linting
+Plug 'dense-analysis/ale'                     " Code linting
 " Plug 'ycm-core/YouCompleteMe'                 " Code completion
 
 " Plugins which provide syntax highlighting for uncommon languages:

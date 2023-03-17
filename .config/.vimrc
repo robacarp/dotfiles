@@ -84,6 +84,8 @@ command! Bd bd
 command! Q q
 command! Wq wq
 
+let g:ale_disable_lsp = 1
+
 set wildignore+=*/node_modules/*,*/doc/*,*/coverage/*,*/test/reports/*,*/node-app/*,*/ui-boilerplates/*,*/public/app/*
 
 "tab-important languages
