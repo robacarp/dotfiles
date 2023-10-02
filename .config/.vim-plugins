@@ -6,6 +6,7 @@
 " - Update vim-plug with :PlugUpgrade
 call plug#begin('~/.vim/plugged')
 
+Plug 'jeffkreeftmeijer/vim-nightfall'         " magically switch between dark and light backgrounds according to the system dark mode
 Plug 'aliva/vim-fish'                         " Informs vim that fish is my shell.
 Plug 'ctrlpvim/ctrlp.vim'                     " ^p to do a kind of fuzzy file open.
 Plug 'mtth/scratch.vim'                       " Provides :Scratch to easily make ephemeral buffers.
@@ -17,9 +18,12 @@ Plug 'tpope/vim-vinegar'                      " Tweaks to netrw file browser.
 Plug 'godlygeek/tabular'                      " String alignment
 Plug 'knsh14/vim-github-link'                 " Links to github from files
 Plug 'rizzatti/dash.vim'                      " Dash.app integration
-Plug 'github/copilot.vim'
+
+" Plug 'github/copilot.vim'
+Plug 'Exafunction/codeium.vim'
 
 Plug 'tpope/vim-commentary'
+Plug 'vimwiki/vimwiki'
 
 " Plug 'puremourning/vimspector'                " supossedly Interactive Debugger
 
@@ -27,6 +31,7 @@ Plug 'editorconfig/editorconfig-vim'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'dense-analysis/ale'                     " Code linting
+Plug 'mhinz/vim-mix-format'                   " Elixir formatter
 " Plug 'ycm-core/YouCompleteMe'                 " Code completion
 
 " Plugins which provide syntax highlighting for uncommon languages:

@@ -35,9 +35,8 @@ if has('gui_running')
   set macligatures
 endif
 
-"make j/k behave soundly.
-nnoremap j gj
-nnoremap k gk
+nmap <leader>- <Plug>VinegarUp
+nmap - <Plug>VinegarUp
 
 set timeoutlen=400
 

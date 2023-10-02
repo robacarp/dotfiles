@@ -5,9 +5,13 @@ function fish_prompt
 
   set -l dirty (math $stats[3] + $stats[2] + $stats[4])
 
+  echo ''
+
   # List environment variables/values which are atypical, but not when running in vim
   if ! set -q VIM_TERMINAL
+    set_color black
     _unknown_env_vars
+    set_color normal
   end
 
   # previous command status if nonzero
@@ -25,28 +29,17 @@ function fish_prompt
     set_color normal
   end
 
-  # colorize extra data only if there was a previous command
-  if test -z $_last_cmd
-    set_color grey
-  else
-    set_color black
-  end
-
-  # current sha hash
-  if test $hash
-    echo -s -n (_git_hash) " "
-  end
-
   echo -s -n (date "+%b-%d %H:%M:%S") " "
 
-  if test -n $_last_cmd
+  if test -n "$_last_cmd" -a $CMD_DURATION -gt 200
     echo -n -s '∆t=' (decode_time -m $CMD_DURATION) ' '
   end
 
-  echo -s -n (set_color normal)
+  echo
+
+  set_color normal
 
   # prompt line
-  echo -s (set_color normal)
 
   if test $USER = 'root'
     set_color -o magenta

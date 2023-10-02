@@ -7,7 +7,14 @@ function _gitstatus
     }
 
     $1 ~ /##/ {
-      branch_name = $2
+      if (index($0, "No commits yet on") > 0) {
+        branch_name = "⁞"
+        next
+      }
+
+      branch_name = substr($0, 4)
+      dots = index(branch_name, "...")
+      if (dots > 0) branch_name = substr(branch_name, 0, dots - 1)
     }
 
     $1 ~ /\?\?/       { status["untracked"] ++     }

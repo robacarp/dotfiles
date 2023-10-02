@@ -15,13 +15,13 @@ end)
 hs.loadSpoon('ConfigReloader')
 spoon.ConfigReloader:start()
 
-hs.loadSpoon('ApplicationWatcher')
-spoon.ApplicationWatcher:watchFor({
-  bundleID = 'com.onnlucky.antirsi',
-  name     = 'AntiRSI',
-  interval = 23
-})
-spoon.ApplicationWatcher:start()
+-- hs.loadSpoon('ApplicationWatcher')
+-- spoon.ApplicationWatcher:watchFor({
+--   bundleID = 'com.onnlucky.antirsi',
+--   name     = 'AntiRSI',
+--   interval = 23
+-- })
+-- spoon.ApplicationWatcher:start()
 
 hs.loadSpoon('ClipboardWatcher')
 spoon.ClipboardWatcher.interval = 1

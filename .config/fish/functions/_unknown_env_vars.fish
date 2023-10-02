@@ -1,32 +1,32 @@
 function _unknown_env_vars
   # env vars which should never be shown
   set -l env_var_blacklist \
-    JAVA_HOME \
-    ERL_AFLAGS \
-    ASDF_DIR \
-    HOME USER LANG LOGNAME PATH PWD \
-    PKG_CONFIG_PATH \
-    LaunchInstanceID SECURITYSESSIONID SSH_AUTH_SOCK \
-    fish_user_paths \
-    SHELL SHLVL TERM TERM_PROGRAM TERM_PROGRAM_VERSION TERM_SESSION_ID \
-    MAIL SUDO_COMMAND SUDO_GID SUDO_UID SUDO_USER USERNAME \
-    TMPDIR XPC_FLAGS XPC_SERVICE_NAME \
-    AWS_ACCESS_KEY_ID \
-    AWS_DEFAULT_REGION \
-    AWS_REGION \
-    AWS_SECRET_ACCESS_KEY \
-    COLORFGBG \
-    COLORTERM \
-    ITERM_PROFILE \
-    ITERM_SESSION_ID \
-    LC_TERMINAL \
-    LC_TERMINAL_VERSION \
-    EDITOR \
-    __CF_USER_TEXT_ENCODING \
-    __CFBundleIdentifier
+   SECURITYSESSIONID \
+   ERL_AFLAGS \
+   EXTENSION_KIT_EXTENSION_TYPE \
+   HOME \
+   LANG \
+   LOGNAME \
+   LaunchInstanceID \
+   MallocNanoZone \
+   MallocSpaceEfficient \
+   PATH \
+   PWD \
+   SHELL \
+   SHLVL \
+   SSH_AUTH_SOCK \
+   TERM \
+   TERM_PROGRAM \
+   TERM_PROGRAM_VERSION \
+   TERM_SESSION_ID \
+   TMPDIR \
+   USER \
+   XPC_FLAGS \
+   XPC_SERVICE_NAME \
+   __CFBundleIdentifier
 
 
-  set -l value_whitelist RAILS_ENV NODE_ENV AWS_VAULT
+  set -l value_whitelist RAILS_ENV NODE_ENV AWS_VAULT MIX_ENV
 
   set -l env_var_names (printenv | awk -F '=' '{print $1}')
 
@@ -38,18 +38,27 @@ function _unknown_env_vars
     end
   end
 
+  set -l sep
+  set -l var_count (count $vars_to_show)
+
+  if test $var_count -gt 3
+    set sep "\n"
+  else
+    set sep " "
+  end
+
   for var in $vars_to_show
-    set_color -d grey
-    echo -n (echo "$var" | tr '[:upper:]' '[:lower:]')
+    echo -n "$var" | tr '[:upper:]' '[:lower:]'
 
     if contains $var $value_whitelist
       echo -n "=$$var"
+      echo -en "$sep"
+    else
+      echo -en "$sep"
     end
-
-    echo -n ' '
   end
 
-  echo ''
-
-  set_color normal
+  if test $var_count -gt 0
+    echo ''
+  end
 end
