@@ -22,3 +22,5 @@
 	tool = opendiff
 [pull]
 	ff = only
+[init]
+	defaultBranch = master

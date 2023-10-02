@@ -108,7 +108,7 @@ let g:scratch_horizontal=1
 
 nmap <leader>f :let @+ = expand("%") . "\n"<CR>
 map <leader>g :GetCurrentBranchLink<CR>
-let g:copilot_node_command = '/Users/robert/.asdf/installs/nodejs/16.10.0/bin/node'
+let g:copilot_node_command = '/Users/robert/.asdf/installs/nodejs/16.18.1/bin/node'
 
 " populate and open the quickfix list with an ag search term
 function! s:AgSearch(search_term)

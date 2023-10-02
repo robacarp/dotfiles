@@ -23,9 +23,10 @@ function fish_prompt
   end
 
   # branch name
-  if test $stats[1]
+  set -l branch (git branch --show-current)
+  if test $branch
     set_color cyan
-    echo -n -s $stats[1] " "
+    echo -n -s $branch " "
     set_color normal
   end
 
