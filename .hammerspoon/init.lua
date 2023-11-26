@@ -55,7 +55,9 @@ spoon.ClipboardWatcher:watch(
 
     parsed_url.path = table.concat(new_path_parts, "/")
     return parsed_url:build()
-  end
+  end,
+
+  true
 )
 
 spoon.ClipboardWatcher:watch(
