@@ -10,7 +10,7 @@ Plug 'jeffkreeftmeijer/vim-nightfall'         " magically switch between dark an
 Plug 'aliva/vim-fish'                         " Informs vim that fish is my shell.
 Plug 'ctrlpvim/ctrlp.vim'                     " ^p to do a kind of fuzzy file open.
 Plug 'mtth/scratch.vim'                       " Provides :Scratch to easily make ephemeral buffers.
-Plug 'mg979/vim-visual-multi'                 " Provides (a primitive form of) multiple cursors.
+Plug 'mg979/vim-visual-multi'                 " Provides multiple cursors support.
 Plug 'tpope/vim-fugitive'                     " A Git wrapper so awesome.
 Plug 'tpope/vim-rhubarb'                      " Enale Gbrowse for Github
 Plug 'tpope/vim-rsi'                          " Provides ^a and ^e support in the command line.
