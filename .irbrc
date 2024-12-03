@@ -1,4 +1,3 @@
-require 'irb/ext/save-history'
 require 'irb/completion'
 require 'pp'
 
@@ -67,4 +66,5 @@ end
 extend Robocarp
 
 irbrc = File.join(Dir.pwd, ".irbrc")
-load irbrc if File.exists?(irbrc) unless irbrc == __FILE__
+load irbrc if File.exist?(irbrc) unless irbrc == __FILE__
+IRB.conf[:USE_AUTOCOMPLETE] = false

@@ -7,7 +7,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'aliva/vim-fish'                         " Informs vim that fish is my shell.
-Plug 'ctrlpvim/ctrlp.vim'                     " ^p to do a kind of fuzzy file open.
+" Plug 'ctrlpvim/ctrlp.vim'                     " ^p to do a kind of fuzzy file open.
 Plug 'mtth/scratch.vim'                       " Provides :Scratch to easily make ephemeral buffers.
 Plug 'mg979/vim-visual-multi'                 " Provides multiple cursors support.
 Plug 'tpope/vim-fugitive'                     " A Git wrapper so awesome.
@@ -15,33 +15,38 @@ Plug 'tpope/vim-rhubarb'                      " Enale Gbrowse for Github
 Plug 'tpope/vim-rsi'                          " Provides ^a and ^e support in the command line.
 Plug 'tpope/vim-vinegar'                      " Tweaks to netrw file browser.
 Plug 'godlygeek/tabular'                      " String alignment
-Plug 'knsh14/vim-github-link'                 " Links to github from files
-Plug 'rizzatti/dash.vim'                      " Dash.app integration
 
-" Plug 'github/copilot.vim'
-Plug 'Exafunction/codeium.vim'
+Plug 'knsh14/vim-github-link'                 " Links to github from files
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+Plug 'github/copilot.vim'
+" Plug 'Exafunction/codeium.vim'
 
 Plug 'tpope/vim-commentary'
-Plug 'vimwiki/vimwiki'
+" Plug 'vimwiki/vimwiki'
 
 " Plug 'puremourning/vimspector'                " supossedly Interactive Debugger
 
 Plug 'editorconfig/editorconfig-vim'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'dense-analysis/ale'                     " Code linting
-Plug 'mhinz/vim-mix-format'                   " Elixir formatter
+" Plug 'dense-analysis/ale'                     " Code linting
+" Plug 'mhinz/vim-mix-format'                   " Elixir formatter
 " Plug 'ycm-core/YouCompleteMe'                 " Code completion
 
 " Plugins which provide syntax highlighting for uncommon languages:
-Plug 'cespare/vim-toml'
+" Plug 'cespare/vim-toml'
 Plug 'rhysd/vim-crystal'
 Plug 'hashivim/vim-terraform'
 Plug 'plasticboy/vim-markdown'
 " Plug 'juanchanco/vim-jbuilder'
-Plug 'elixir-editors/vim-elixir'
+" Plug 'elixir-editors/vim-elixir'
+Plug 'kchmck/vim-coffee-script'
 
 " Coloring enhancements:
+Plug 'gruvbox-community/gruvbox'
 Plug 'altercation/vim-colors-solarized'
 Plug 'vim-scripts/Colour-Sampler-Pack'
 Plug 'vim-scripts/ScrollColors'

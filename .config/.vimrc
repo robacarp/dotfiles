@@ -55,6 +55,10 @@ set nohlsearch
 let g:ctrlp_switch_buffer = 'et'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
+" vim-fzf bindings
+nmap <silent> <C-p> :Files<CR>
+let g:fzf_action = { 'ctrl-a': 'toggle-all' }
+
 "netrw settings
 " Hide hidden files by default, credit: https://vi.stackexchange.com/questions/18650/how-to-make-netrw-start-with-dotfiles-hidden/18678#18678
 let ghregex='\(^\|\s\s\)\zs\.\S\+'
@@ -102,18 +106,19 @@ autocmd BufNewFile,BufRead .vim-plugins setf vim
 "set crystal files to handle comment strings properly
 autocmd BufNewFile,BufRead *.cr set formatoptions+=roj
 let g:crystal_indent_assignment_style = "variable"
+let g:crystal_enable_completion = 0
 
 let g:scratch_autohide=0
 let g:scratch_horizontal=1
 
 nmap <leader>f :let @+ = expand("%") . "\n"<CR>
 map <leader>g :GetCurrentBranchLink<CR>
-let g:copilot_node_command = '/Users/robert/.asdf/installs/nodejs/16.18.1/bin/node'
+
+let g:copilot_node_command = '/Users/robert/.asdf/installs/nodejs/22.11.0/bin/node'
 
 " populate and open the quickfix list with an ag search term
-function! s:AgSearch(search_term)
-  cexpr system('ag ' . a:search_term)
-  copen
-endfunction
-
-command! -nargs=1 Ag call s:AgSearch(<q-args>)
+" function! s:AgSearch(search_term)
+"   cexpr system('ag ' . a:search_term)
+"   copen
+" endfunction
+" command! -nargs=1 Ag call s:AgSearch(<q-args>)

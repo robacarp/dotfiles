@@ -2,6 +2,11 @@ function _unknown_env_vars
   # env vars which should never be shown
   set -l env_var_blacklist \
    SECURITYSESSIONID \
+   EDITOR \
+   asdf_data_dir \
+   ASDF_DIR \
+   DISPLAY \
+   CR_PAT \
    ERL_AFLAGS \
    EXTENSION_KIT_EXTENSION_TYPE \
    HOME \

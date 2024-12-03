@@ -8,6 +8,7 @@
   branch = auto
 [push]
 	default = simple
+	autoSetupRemote = true
 [alias]
   co = checkout
   br = branch
