@@ -31,7 +31,7 @@ function _unknown_env_vars
    __CFBundleIdentifier
 
 
-  set -l value_whitelist RAILS_ENV NODE_ENV AWS_VAULT MIX_ENV
+  set -l value_whitelist RAILS_ENV NODE_ENV AWS_VAULT MIX_ENV DISTRICT ATHLETIC_ASSOCIATION
 
   set -l env_var_names (printenv | awk -F '=' '{print $1}')
 
