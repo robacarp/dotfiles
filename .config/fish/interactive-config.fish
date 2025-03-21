@@ -1,19 +1,8 @@
-# integrate with pyenv
 if test -f /usr/local/bin/pyenv
   source (pyenv init -|psub)
 end
 
-if test -d /opt/homebrew/bin
-  fish_add_path -g /opt/homebrew/bin
-end
-
-if test -d /opt/homebrew/sbin
-  fish_add_path -g /opt/homebrew/sbin
-end
-
 if test -d ~/.asdf
-  # source ~/.asdf/asdf.fish
-  fish_add_path ~/.asdf/shims ~/.asdf/bin
   source ~/.asdf/asdf.fish
 end
 

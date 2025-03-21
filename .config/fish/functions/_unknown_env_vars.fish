@@ -1,22 +1,24 @@
 function _unknown_env_vars
   # env vars which should never be shown
   set -l env_var_blacklist \
-   SECURITYSESSIONID \
-   EDITOR \
+   __CFBundleIdentifier \
    asdf_data_dir \
    ASDF_DIR \
-   DISPLAY \
    CR_PAT \
+   DISPLAY \
+   EDITOR \
    ERL_AFLAGS \
    EXTENSION_KIT_EXTENSION_TYPE \
    HOME \
    LANG \
-   LOGNAME \
    LaunchInstanceID \
+   LOGNAME \
    MallocNanoZone \
    MallocSpaceEfficient \
+   MISE_SHELL \
    PATH \
    PWD \
+   SECURITYSESSIONID \
    SHELL \
    SHLVL \
    SSH_AUTH_SOCK \
@@ -27,8 +29,7 @@ function _unknown_env_vars
    TMPDIR \
    USER \
    XPC_FLAGS \
-   XPC_SERVICE_NAME \
-   __CFBundleIdentifier
+   XPC_SERVICE_NAME
 
 
   set -l value_whitelist RAILS_ENV NODE_ENV AWS_VAULT MIX_ENV DISTRICT ATHLETIC_ASSOCIATION
@@ -38,7 +39,14 @@ function _unknown_env_vars
   set -l vars_to_show
 
   for var in $env_var_names
-    if ! contains $var $env_var_blacklist
+    # don't print any vars which are in the blacklist
+    if contains $var $env_var_blacklist
+
+    # don't print any vars which are prefixed with __mise
+    else if string match --quiet --regex '^__MISE' $var
+
+    # print everything else
+    else
       set -a vars_to_show $var
     end
   end
