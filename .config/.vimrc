@@ -51,10 +51,6 @@ set incsearch
 set showmatch
 set nohlsearch
 
-" ctrl-p: open the file again and again
-let g:ctrlp_switch_buffer = 'et'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
 " vim-fzf bindings
 nmap <silent> <C-p> :Files<CR>
 let g:fzf_action = { 'ctrl-a': 'toggle-all' }
