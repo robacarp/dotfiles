@@ -1,4 +1,7 @@
-source ~/.config/.vim-plugins
+filetype off
+filetype plugin indent on
+
+source ~/.config/vim/vim-plugins
 
 " autosave on focus lost
 au FocusLost * :wa

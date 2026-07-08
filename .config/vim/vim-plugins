@@ -4,7 +4,7 @@
 "   - :so %
 "   - :PlugInstall / :PlugUpdate
 " - Update vim-plug with :PlugUpgrade
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/vim/plugged')
 
 Plug 'aliva/vim-fish'                         " Informs vim that fish is my shell.
 " Plug 'ctrlpvim/ctrlp.vim'                     " ^p to do a kind of fuzzy file open.
@@ -15,6 +15,7 @@ Plug 'tpope/vim-rhubarb'                      " Enale Gbrowse for Github
 Plug 'tpope/vim-rsi'                          " Provides ^a and ^e support in the command line.
 Plug 'tpope/vim-vinegar'                      " Tweaks to netrw file browser.
 Plug 'godlygeek/tabular'                      " String alignment
+Plug 'vimpostor/vim-lumen'                    " system dark mode?
 
 Plug 'robacarp/rubyfmt', { 'rtp': 'editor_plugins/vim', 'branch': 'vim-plugin' } " Ruby formatter
 
