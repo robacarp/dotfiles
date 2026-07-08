@@ -1,49 +1,29 @@
 function _unknown_env_vars
   # env vars which should never be shown
-  set -l env_var_blacklist \
-   __CFBundleIdentifier \
-   asdf_data_dir \
-   ASDF_DIR \
-   CR_PAT \
-   DISPLAY \
-   EDITOR \
-   ERL_AFLAGS \
-   EXTENSION_KIT_EXTENSION_TYPE \
-   HOME \
-   LANG \
-   LaunchInstanceID \
-   LOGNAME \
-   MallocNanoZone \
-   MallocSpaceEfficient \
-   MISE_SHELL \
-   PATH \
-   PWD \
-   SECURITYSESSIONID \
-   SHELL \
-   SHLVL \
-   SSH_AUTH_SOCK \
-   TERM \
-   TERM_PROGRAM \
-   TERM_PROGRAM_VERSION \
-   TERM_SESSION_ID \
-   TMPDIR \
-   USER \
-   XPC_FLAGS \
-   XPC_SERVICE_NAME
+  set -f env_var_blacklist
 
+  # read env vars from blacklist file if it exists
+  if test -f "$HOME/.config/fish/env_var_blacklist.txt"
+    set -a env_var_blacklist (cat ~/.config/fish/env_var_blacklist.txt)
+  end
 
-  set -l value_whitelist RAILS_ENV NODE_ENV AWS_VAULT MIX_ENV DISTRICT ATHLETIC_ASSOCIATION
+  if test -f "$HOME/.config/fish/env_var_blacklist.local.txt"
+    set -a env_var_blacklist (cat ~/.config/fish/env_var_blacklist.local.txt)
+  end
 
-  set -l env_var_names (printenv | awk -F '=' '{print $1}')
+  set -f value_whitelist RAILS_ENV NODE_ENV AWS_VAULT MIX_ENV DISTRICT ATHLETIC_ASSOCIATION
 
-  set -l vars_to_show
+  set -f env_var_names (printenv | sort | awk -F '=' '{print $1}')
+
+  set -f vars_to_show
 
   for var in $env_var_names
     # don't print any vars which are in the blacklist
     if contains $var $env_var_blacklist
 
-    # don't print any vars which are prefixed with __mise
+    # don't print any vars which are prefixed with __mise or __wezterm
     else if string match --quiet --regex '^__MISE' $var
+    else if string match --quiet --regex '^WEZTERM' $var
 
     # print everything else
     else

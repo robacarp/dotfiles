@@ -9,12 +9,14 @@ call plug#begin('~/.vim/plugged')
 Plug 'aliva/vim-fish'                         " Informs vim that fish is my shell.
 " Plug 'ctrlpvim/ctrlp.vim'                     " ^p to do a kind of fuzzy file open.
 Plug 'mtth/scratch.vim'                       " Provides :Scratch to easily make ephemeral buffers.
-Plug 'mg979/vim-visual-multi'                 " Provides multiple cursors support.
+" Plug 'mg979/vim-visual-multi'                 " Provides multiple cursors support.
 Plug 'tpope/vim-fugitive'                     " A Git wrapper so awesome.
 Plug 'tpope/vim-rhubarb'                      " Enale Gbrowse for Github
 Plug 'tpope/vim-rsi'                          " Provides ^a and ^e support in the command line.
 Plug 'tpope/vim-vinegar'                      " Tweaks to netrw file browser.
 Plug 'godlygeek/tabular'                      " String alignment
+
+Plug 'robacarp/rubyfmt', { 'rtp': 'editor_plugins/vim', 'branch': 'vim-plugin' } " Ruby formatter
 
 Plug 'knsh14/vim-github-link'                 " Links to github from files
 

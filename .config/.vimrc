@@ -2,6 +2,7 @@ source ~/.config/.vim-plugins
 
 " autosave on focus lost
 au FocusLost * :wa
+set autoread
 
 set noswapfile
 
@@ -109,5 +110,6 @@ let g:scratch_horizontal=1
 
 nmap <leader>f :let @+ = expand("%") . "\n"<CR>
 map <leader>g :GetCurrentBranchLink<CR>
+vmap <leader>g :GetCurrentBranchLink<CR>
 
-let g:copilot_node_command = '/Users/robert/.asdf/installs/nodejs/23.3.0/bin/node'
+let g:copilot_node_command = '/Users/robert/.local/share/mise/installs/node/22.14.0/bin/node'

@@ -2,10 +2,6 @@ if test -f /usr/local/bin/pyenv
   source (pyenv init -|psub)
 end
 
-if test -d ~/.asdf
-  source ~/.asdf/asdf.fish
-end
-
 function fish_user_key_bindings
   bind . 'expand-dot-to-parent-directory-path'
   bind \cs 'sudo-my-prompt-yo'
@@ -33,3 +29,5 @@ end
 abbr --add ave "aws-vault exec --duration=4h"
 abbr --add tpl "terraform plan -out=.plan.out"
 abbr --add tao "terraform apply .plan.out"
+abbr --add gs "git status"
+abbr --add rc "bin/rails c"

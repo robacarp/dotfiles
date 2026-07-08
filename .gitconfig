@@ -1,27 +1,23 @@
-[user]
-	name = 
-	email = 
-	signingkey = A384CFD09D54E693
 [color]
   diff = auto
   status = auto
   branch = auto
 [push]
-	default = simple
-	autoSetupRemote = true
+  default = simple
+  autoSetupRemote = true
 [alias]
   co = checkout
   br = branch
   s = status
 [core]
   editor = /usr/bin/vim
-	excludesfile = /Users/robert/.gitignore_global
-	autocrlf = input
+  excludesfile = /Users/robert/.gitignore_global
+  autocrlf = input
 [color "status"]
-	branch = magenta
+  branch = magenta
 [merge]
-	tool = opendiff
+  tool = opendiff
 [pull]
-	ff = only
+  ff = only
 [init]
-	defaultBranch = master
+  defaultBranch = master
