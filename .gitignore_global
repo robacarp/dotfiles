@@ -11,3 +11,4 @@ compile_commands.json
 mise.local.toml
 
 **/.claude/settings.local.json
+jjt.toml
