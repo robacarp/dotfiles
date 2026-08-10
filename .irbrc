@@ -61,6 +61,10 @@ module Robocarp
     costs[b.length]
   end
 
+  def import_routes
+    include Rails.application.routes.url_helpers
+  end
+
 end
 
 extend Robocarp

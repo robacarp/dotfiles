@@ -40,6 +40,28 @@ function fish_prompt
 
   set_color normal
 
+  # jjt workspace: nearest ancestor of $PWD with its own .jj is the
+  # workspace root. Only look when JJT_REPO_ROOT is set (i.e. we're inside
+  # a jjt-spawned subshell) so plain jj repos outside jjt don't match.
+  set -l jjt_ws
+  if set -q JJT_REPO_ROOT
+    set -l dir $PWD
+    while test "$dir" != /
+      if test -d $dir/.jj
+        set jjt_ws $dir
+        break
+      end
+      set dir (path dirname $dir)
+    end
+  end
+
+  if test -n "$jjt_ws"
+    set_color red
+    echo -s -n '[' (path basename $jjt_ws) ']'
+    set_color normal
+    echo
+  end
+
   # prompt line
 
   if test $USER = 'root'
@@ -52,7 +74,12 @@ function fish_prompt
   echo -s -n (_hostname) " "
 
   set_color $fish_color_cwd
-  echo -n (prompt_pwd)
+  if test -n "$jjt_ws"
+    set -l subpath (string replace -- $jjt_ws '' $PWD)
+    echo -n (prompt_pwd "$JJT_REPO_ROOT$subpath")
+  else
+    echo -n (prompt_pwd)
+  end
   set_color normal
 
   echo -s -n (_prompt_character) " "
