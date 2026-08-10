@@ -1,0 +1,7 @@
+brew "fish"
+cask "font-fira-code"
+cask "1password-cli"
+cask "wezterm"
+cask "alfred"
+cask "firefox"
+cask "hammerspoon"
