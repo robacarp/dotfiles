@@ -14,6 +14,14 @@ sudo apt install -y fish
 sudo chsh $(whoami) -s $(which fish)
 ```
 
+Or like this (on a mac):
+
+```
+brew install fish
+echo $(which fish) | sudo tee -a /etc/shells
+chsh -s $(which fish)
+```
+
 Copy and paste this snippet into a running fish shell:
 
 ```
