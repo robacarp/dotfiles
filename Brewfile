@@ -1,15 +1,17 @@
-brew "fish"
-brew "shellcheck"
-brew "the_silver_searcher"
-brew "gpg"
-brew "jj"
+brew("fish")
+brew("gpg")
+brew("herdr")
+brew("jj")
+brew("shellcheck")
+brew("the_silver_searcher")
 
-cask "1password-cli"
-cask "alfred"
-cask "firefox"
-cask "font-fira-code"
-cask "hammerspoon"
-cask "macvim-app"
-cask "tresorit"
-cask "wezterm"
-cask "zoom"
+cask("1password-cli")
+cask("alfred")
+cask("firefox")
+cask("font-fira-code")
+cask("hammerspoon")
+cask("macvim-app")
+cask("macvim")
+cask("tresorit")
+cask("wezterm")
+cask("zoom")
