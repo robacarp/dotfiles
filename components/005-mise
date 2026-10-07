@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "${1:-}" = "--uninstall" ] ; then
+  mise implode
+  echo "mise has been uninstalled."
+
+  exit
+fi
+
+if which mise ; then
+  echo "mise is already installed"
+  exit
+fi
+
+echo "Installing mise...if this fails, update this script with instructions from https://mise.jdx.dev/"
+
+curl https://mise.run | sh

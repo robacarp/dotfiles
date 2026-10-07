@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "${1:-}" = "--uninstall" ] ; then
+  echo "There is no uninstall for the dots repo"
+  exit
+fi
+
+dots() {
+  /usr/bin/git --git-dir="$HOME/.dots.git/" --work-tree="$HOME" "$@"
+}
+
+dots config --local status.showUntrackedFiles no
+dots config user.name 'rob'
+dots config user.email 'robacarp@users.noreply.github.com'

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "${1:-}" = "--uninstall" ] ; then
+  rm -f ~/.local/bin/claude
+  rm -rf ~/.local/share/claude
+  echo "Claude has been uninstalled."
+
+  exit
+fi
+
+if which claude ; then
+  echo "Claude is already installed"
+  exit
+fi
+
+echo "Installing claude...if this fails, update this script with instructions from https://code.claude.com/docs/en/quickstart#step-1-install-claude-code"
+
+curl -fsSL https://claude.ai/install.sh | bash

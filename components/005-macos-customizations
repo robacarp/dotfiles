@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "${1:-}" = "--uninstall" ] ; then
+  defaults delete -g KeyRepeat || true
+  defaults delete -g InitialKeyRepeat || true
+  defaults delete -g ApplePressAndHoldEnabled || true
+  defaults delete com.apple.universalaccess mouseDriverCursorSize || true
+  for c in tl tr bl br; do
+    defaults delete com.apple.dock "wvous-$c-corner" || true
+    defaults delete com.apple.dock "wvous-$c-modifier" || true
+  done
+  killall Dock
+  echo "macOS customizations have been reset to defaults. The Dvorak layout must be removed by hand in System Settings > Keyboard > Input Sources."
+  exit
+fi
+
+# Dvorak keyboard layout, added alongside the existing layouts
+if defaults read com.apple.HIToolbox AppleEnabledInputSources | grep -q '"KeyboardLayout Name" = Dvorak'; then
+  echo "Dvorak layout is already enabled"
+else
+  defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
+    '<dict><key>InputSourceKind</key><string>Keyboard Layout</string><key>KeyboardLayout ID</key><integer>16300</integer><key>KeyboardLayout Name</key><string>Dvorak</string></dict>'
+fi
+
+# fastest key repeat and shortest delay available in System Settings
+defaults write -g KeyRepeat -int 2
+defaults write -g InitialKeyRepeat -int 15
+
+# hold a key to repeat it instead of showing the accent pop-up
+defaults write -g ApplePressAndHoldEnabled -bool false
+
+# hot corners: 1 = off, 2 = Mission Control, 4 = Desktop, 13 = Lock Screen
+defaults write com.apple.dock wvous-tl-corner -int 13
+defaults write com.apple.dock wvous-tl-modifier -int 0
+defaults write com.apple.dock wvous-tr-corner -int 2
+defaults write com.apple.dock wvous-tr-modifier -int 0
+defaults write com.apple.dock wvous-bl-corner -int 1
+defaults write com.apple.dock wvous-bl-modifier -int 0
+defaults write com.apple.dock wvous-br-corner -int 4
+defaults write com.apple.dock wvous-br-modifier -int 0
+killall Dock
+
+# bigger cursor (1.0 is normal, 4.0 is the max)
+defaults write com.apple.universalaccess mouseDriverCursorSize -float 2.11
+
+echo "Log out and back in for the keyboard changes to take effect"

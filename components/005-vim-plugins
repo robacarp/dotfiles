@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "${1:-}" = "--uninstall" ] ; then
+  echo "There is no scripted uninstall for vim-plugins"
+  exit
+fi
+
+vim --cmd 'so ~/.config/vim/vim-plugins' --cmd 'PlugInstall' +'qall!'

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "${1:-}" = "--uninstall" ] ; then
+  echo "There is no uninstall for the brew bundle, removing brew itself will accomplish this"
+  exit
+fi
+
+brew bundle --file="$HOME/Brewfile"

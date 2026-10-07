@@ -2,6 +2,10 @@ if test -f /usr/local/bin/pyenv
   source (pyenv init -|psub)
 end
 
+if test -f ~/.local/bin/mise
+  mise activate fish | source
+end
+
 function fish_user_key_bindings
   bind . 'expand-dot-to-parent-directory-path'
   bind \cs 'sudo-my-prompt-yo'

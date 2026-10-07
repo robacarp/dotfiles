@@ -29,9 +29,5 @@ ssh-keyscan github.com >> ~/.ssh/known_hosts
 alias dots="/usr/bin/git --git-dir=$HOME/.dots.git/ --work-tree=$HOME"
 git clone --bare git@github.com:robacarp/config_files.git $HOME/.dots.git
 dots checkout -f
-dots config --local status.showUntrackedFiles no
-dots config user.name 'rob' ; dots config user.email 'robacarp@users.noreply.github.com'
-vim --cmd 'so ~/.config/vim/vim-plugins' --cmd 'PlugInstall' +'qall!'
-.dots.git/install.pl
-brew bundle
+./install.sh
 ```

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "${1:-}" = "--uninstall" ] ; then
+  fish -c 'set -eU fish_user_paths'
+  echo "Fish user path variables have been removed."
+  exit
+fi
+
+fish -c 'fish_add_path --prepend "$HOME/.local/bin"'
