@@ -1,0 +1,13 @@
+# Runtime logs and state
+soundboard-activity.log
+SoundHelper.log
+SoundHelper.log.*
+soundhelper-paused.flag
+soundhelper-loglevel
+
+# SoundHelper build output (rebuild per machine with SoundHelper-src/build.sh)
+SoundHelper-src/soundhelper_bin
+SoundHelper.app/
+
+# macOS
+.DS_Store

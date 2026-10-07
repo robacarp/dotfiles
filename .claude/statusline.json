@@ -1,0 +1,57 @@
+{
+  "session_id": "33c9ba27-39ea-4843-87d9-14a3ed99d50c",
+  "transcript_path": "/Users/robert/.claude/projects/-Users-robert-Repositories-robacarp-calendar-ink/33c9ba27-39ea-4843-87d9-14a3ed99d50c.jsonl",
+  "cwd": "/Users/robert/Repositories/robacarp/calendar-ink",
+  "session_name": "Clarify next steps for coding session",
+  "model": {
+    "id": "claude-opus-4-7[1m]",
+    "display_name": "Opus 4.7 (1M context)"
+  },
+  "workspace": {
+    "current_dir": "/Users/robert/Repositories/robacarp/calendar-ink",
+    "project_dir": "/Users/robert/Repositories/robacarp/calendar-ink",
+    "added_dirs": []
+  },
+  "version": "2.1.123",
+  "output_style": {
+    "name": "default"
+  },
+  "cost": {
+    "total_cost_usd": 9.483334050000003,
+    "total_duration_ms": 21962688,
+    "total_api_duration_ms": 1946509,
+    "total_lines_added": 358,
+    "total_lines_removed": 68
+  },
+  "context_window": {
+    "total_input_tokens": 533,
+    "total_output_tokens": 134591,
+    "context_window_size": 1000000,
+    "current_usage": {
+      "input_tokens": 1,
+      "output_tokens": 264,
+      "cache_creation_input_tokens": 699,
+      "cache_read_input_tokens": 203627
+    },
+    "used_percentage": 20,
+    "remaining_percentage": 80
+  },
+  "exceeds_200k_tokens": true,
+  "fast_mode": false,
+  "effort": {
+    "level": "high"
+  },
+  "thinking": {
+    "enabled": true
+  },
+  "rate_limits": {
+    "five_hour": {
+      "used_percentage": 4,
+      "resets_at": 1777521600
+    },
+    "seven_day": {
+      "used_percentage": 64,
+      "resets_at": 1777939200
+    }
+  }
+}

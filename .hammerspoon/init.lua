@@ -1,6 +1,7 @@
 split = dofile('./downloaded_modules/split.lua').split
 url   = dofile('./downloaded_modules/url.lua')
 inspect = dofile("./downloaded_modules/inspect.lua")
+streamdeck = dofile('./streamdeck-media.lua')
 
 -- dismiss all active notifications
 hs.notify.withdrawAll()
@@ -26,6 +27,7 @@ spoon.ConfigReloader:start()
 hs.loadSpoon('ClipboardWatcher')
 spoon.ClipboardWatcher.interval = 1
 spoon.ClipboardWatcher.dismissDelay = 9
+spoon.ClipboardWatcher:start()
 spoon.ClipboardWatcher:watch(
   function(data)
     if string.len(data) > 2000 then
@@ -38,7 +40,7 @@ spoon.ClipboardWatcher:watch(
   function(original)
     local parsed_url = url.parse(original)
     -- Remove Amazon referral links
-    parsed_url:setQuery({})
+    -- parsed_url:setQuery({tag = "tornado01e-20"})
 
     local path_parts = split(parsed_url.path, "/")
     local new_path_parts = {}
@@ -60,22 +62,119 @@ spoon.ClipboardWatcher:watch(
   true
 )
 
-spoon.ClipboardWatcher:watch(
-  function(data)
-    if string.len(data) > 150 then return false end
-    return string.match(data, "^https://music%.apple%.com.+")
-  end,
+-- ClickUp "shared" notetaker for Google Meet links.
+-- Auth token lives in Keychain (service below), not here - it's a session
+-- bearer token that expires in ~24h. Refresh with:
+--   security add-generic-password -U -a "clickup-notetaker" \
+--     -s "hammerspoon-clickup-notetaker" -w "<bearer token>"
+local CLICKUP_KEYCHAIN_SERVICE = "hammerspoon-clickup-notetaker"
+local CLICKUP_WORKSPACE_ID = "90131407359"
+local meetWatcherNotification = nil
+local meetWatcherDismissTimer = nil
+local meetWatcherDismissDelay = 10
 
-  function(original)
-    return "https://songwhip.com/" .. original
+local function clickupBearerToken()
+  local output, status = hs.execute(
+    "security find-generic-password -s " .. CLICKUP_KEYCHAIN_SERVICE .. " -w 2>/dev/null"
+  )
+  if not status or not output then return nil end
+  local token = output:gsub("%s+$", "")
+  if token == "" then return nil end
+  return token
+end
+
+local function addClickupNotetaker(meetingUrl)
+  local token = clickupBearerToken()
+  if not token then
+    hs.alert.show("No ClickUp token in Keychain - see init.lua for setup")
+    return
+  end
+
+  local headers = {
+    ["Content-Type"] = "application/json",
+    ["Accept"] = "application/json",
+    ["Authorization"] = "Bearer " .. token,
+    ["X-Workspace-ID"] = CLICKUP_WORKSPACE_ID,
+    ["X-CSRF"] = "1",
+    ["Origin"] = "https://app.clickup.com",
+    ["Referer"] = "https://app.clickup.com/",
+  }
+
+  local body = hs.json.encode({
+    meetingUrl = meetingUrl,
+    noteTakerLevel = "shared"
+  })
+
+  hs.http.asyncPost(
+    "https://frontdoor-prod-us-east-2-1.clickup.com/data/v3/workspaces/" .. CLICKUP_WORKSPACE_ID .. "/meeting_bot/send",
+    body,
+    headers,
+    function(status, responseBody, responseHeaders)
+      if status >= 200 and status < 300 then
+        hs.notify.new(nil, {
+          autoWithdraw = true,
+          title = "ClickUp Notetaker added",
+          informativeText = "Shared notetaker is joining " .. meetingUrl
+        }):send()
+      elseif status == 401 or status == 403 then
+        hs.alert.show("ClickUp auth expired - refresh token in Keychain")
+      else
+        hs.alert.show("ClickUp notetaker request failed (" .. status .. ")")
+      end
+    end
+  )
+end
+
+local function isMeetLink(text)
+  return string.match(text, "https?://meet%.google%.com/[%a%-]+") ~= nil
+end
+
+-- Registered through the same watch() the Amazon link cleanup uses above,
+-- so it shares that one polling/dedup timer instead of running its own.
+-- "replace" here doesn't change the clipboard text - it always returns the
+-- input unchanged, so the Spoon's own auto-write/notifyReplaced end up as
+-- harmless no-ops. Its real job is firing our own action notification,
+-- gated by isMeetLink() since replace() runs on every clipboard change,
+-- not just matches.
+spoon.ClipboardWatcher:watch(
+  isMeetLink,
+
+  function(text)
+    if not isMeetLink(text) then return text end
+
+    local meetingUrl = string.match(text, "https?://meet%.google%.com/[%a%-]+")
+
+    if meetWatcherDismissTimer then meetWatcherDismissTimer:stop() end
+    if meetWatcherNotification then meetWatcherNotification:withdraw() end
+
+    meetWatcherNotification = hs.notify.new(function()
+        addClickupNotetaker(meetingUrl)
+      end,
+      {
+        autoWithdraw = false,
+        title = "Google Meet link copied",
+        informativeText = "Add the ClickUp shared notetaker to this meeting?",
+        hasActionButton = true,
+        actionButtonTitle = "Add Notetaker"
+      }
+    )
+    meetWatcherNotification:send()
+
+    meetWatcherDismissTimer = hs.timer.doAfter(meetWatcherDismissDelay, function()
+      if meetWatcherNotification then
+        meetWatcherNotification:withdraw()
+        meetWatcherNotification = nil
+      end
+    end)
+
+    return text
   end,
 
   true
 )
-spoon.ClipboardWatcher:start()
 
-success_image = hs.image.imageFromPath("/Users/robert/.hammerspoon/pass.png")
-failure_image = hs.image.imageFromPath("/Users/robert/.hammerspoon/fail.png")
+success_image = hs.image.imageFromPath(hs.configdir .. "/pass.png")
+failure_image = hs.image.imageFromPath(hs.configdir .. "/fail.png")
 
 hs.urlevent.bind("task_completed", function(eventName, params)
   local message = params['message']
