@@ -1,0 +1,18 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[ui]
+default-command = ["log", "-n", "12"]
+# diff-editor = "meld"
+
+[merge-tools.meld]
+# program = "meld"      # Defaults to the name of the tool if not specified
+program = "/Applications/Meld.app/Contents/MacOS/Meld" # May be necessary if `meld` is not in the PATH
+edit-args = ["--newtab", "$left", "$right"]
+
+[aliases]
+log-main = ["log", "-r", "main::@"]
+log-workspace = ["log", "-r", "all:(trunk()::roots(@))"]
+log-me = ["log", "-r", "@ | ancestors(trunk()..(visible_heads() & mine() ~bookmarks(backup)), 2) | trunk()"]
+
+[templates]
+git_push_bookmark = '"rob/push-" ++ change_id.short()'
