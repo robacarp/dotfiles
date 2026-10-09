@@ -4,8 +4,11 @@ set -euo pipefail
 
 if [ "${1:-}" = "--uninstall" ] ; then
   fish -c 'set -eU fish_user_paths'
-  echo "Fish user path variables have been removed."
+  fish -c 'set -eU EDITOR'
+
+  echo "Fish universal variables have been removed."
   exit
 fi
 
 fish -c 'fish_add_path --prepend "$HOME/.local/bin"'
+fish -c "set -U EDITOR '$(which vim)'"
