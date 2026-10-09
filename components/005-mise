@@ -21,3 +21,9 @@ fi
 if ! mise settings get idiomatic_version_file_enable_tools | grep -q '"ruby"'; then
   mise settings add idiomatic_version_file_enable_tools ruby
 fi
+
+# the mise installer puts the binary in ~/.local/bin, which may not be on PATH yet
+export PATH="$HOME/.local/bin:$PATH"
+
+echo "Installing ruby..."
+mise use --global ruby@latest
