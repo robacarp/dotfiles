@@ -11,9 +11,13 @@ fi
 
 if which mise ; then
   echo "mise is already installed"
-  exit
+else
+  echo "Installing mise...if this fails, update this script with instructions from https://mise.jdx.dev/"
+
+  curl https://mise.run | sh
 fi
 
-echo "Installing mise...if this fails, update this script with instructions from https://mise.jdx.dev/"
-
-curl https://mise.run | sh
+# use .ruby-version files
+if ! mise settings get idiomatic_version_file_enable_tools | grep -q '"ruby"'; then
+  mise settings add idiomatic_version_file_enable_tools ruby
+fi
