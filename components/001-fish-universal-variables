@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -uo pipefail
 
 if [ "${1:-}" = "--uninstall" ] ; then
   fish -c 'set -eU fish_user_paths'
@@ -11,4 +11,4 @@ if [ "${1:-}" = "--uninstall" ] ; then
 fi
 
 fish -c 'fish_add_path --prepend "$HOME/.local/bin"'
-fish -c "set -U EDITOR '$(which vim)'"
+fish -c "set -Ux EDITOR '$(which vim)'"
