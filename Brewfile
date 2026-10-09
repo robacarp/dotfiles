@@ -1,9 +1,13 @@
+brew("aws-vault")
 brew("fish")
+brew("fzf")
+brew("gh")
 brew("gpg")
 brew("herdr")
 brew("jj")
 brew("shellcheck")
 brew("the_silver_searcher")
+brew("postgresql")
 
 cask("1password-cli")
 cask("alfred")
