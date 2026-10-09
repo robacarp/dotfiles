@@ -3,7 +3,7 @@ if test -f /usr/local/bin/pyenv
 end
 
 if test -f ~/.local/bin/mise
-  mise activate fish | source
+  ~/.local/bin/mise activate fish | source
 end
 
 function fish_user_key_bindings
