@@ -7,7 +7,9 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 APP=~/.hammerspoon/SoundHelper.app
-swiftc main.swift -o soundhelper_bin
+# Pin the SDK the CLT symlinks as default: xcrun otherwise picks the newest
+# SDK on disk, which may have been built by a newer Swift than swiftc.
+swiftc -sdk /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk main.swift -o soundhelper_bin
 mkdir -p "$APP/Contents/MacOS"
 cp soundhelper_bin "$APP/Contents/MacOS/SoundHelper"
 cp Info.plist "$APP/Contents/Info.plist"
