@@ -3,7 +3,7 @@
 set -euo pipefail
 
 if [ "${1:-}" = "--uninstall" ] ; then
-  mise implode
+  mise implode --yes
   echo "mise has been uninstalled."
 
   exit
