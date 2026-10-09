@@ -7,6 +7,7 @@ if [ "${1:-}" = "--uninstall" ] ; then
   defaults delete -g InitialKeyRepeat || true
   defaults delete -g ApplePressAndHoldEnabled || true
   defaults delete com.apple.universalaccess mouseDriverCursorSize || true
+  defaults -currentHost delete -g com.apple.keyboard.modifiermapping.0-0-0 || true
   for c in tl tr bl br; do
     defaults delete com.apple.dock "wvous-$c-corner" || true
     defaults delete com.apple.dock "wvous-$c-modifier" || true
@@ -30,6 +31,11 @@ defaults write -g InitialKeyRepeat -int 15
 
 # hold a key to repeat it instead of showing the accent pop-up
 defaults write -g ApplePressAndHoldEnabled -bool false
+
+# caps lock as left control on the built-in keyboard (vendor 0, product 0)
+# 30064771129 = caps lock (0x700000039), 30064771296 = left control (0x7000000E0)
+defaults -currentHost write -g com.apple.keyboard.modifiermapping.0-0-0 -array \
+  '<dict><key>HIDKeyboardModifierMappingSrc</key><integer>30064771129</integer><key>HIDKeyboardModifierMappingDst</key><integer>30064771296</integer></dict>'
 
 # hot corners: 1 = off, 2 = Mission Control, 4 = Desktop, 13 = Lock Screen
 defaults write com.apple.dock wvous-tl-corner -int 13
