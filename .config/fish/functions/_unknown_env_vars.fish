@@ -24,6 +24,7 @@ function _unknown_env_vars
     # don't print any vars which are prefixed with __mise or __wezterm
     else if string match --quiet --regex '^__MISE' $var
     else if string match --quiet --regex '^WEZTERM' $var
+    else if string match --quiet --regex '^HERDR' $var
 
     # print everything else
     else
