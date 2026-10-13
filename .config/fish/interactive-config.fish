@@ -35,3 +35,5 @@ abbr --add tpl "terraform plan -out=.plan.out"
 abbr --add tao "terraform apply .plan.out"
 abbr --add gs "git status"
 abbr --add rc "bin/rails c"
+
+dots_fetch_daily

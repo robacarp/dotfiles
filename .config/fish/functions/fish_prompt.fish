@@ -71,6 +71,18 @@ function fish_prompt
     echo -s -n '@'
   end
 
+  if _dots_dirty
+    set_color red
+    echo -n '↑ '
+    set_color normal
+  end
+
+  if _dots_behind
+    set_color yellow
+    echo -n '↓ '
+    set_color normal
+  end
+
   echo -s -n (_hostname) " "
 
   set_color $fish_color_cwd
