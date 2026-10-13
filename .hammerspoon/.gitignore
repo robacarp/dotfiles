@@ -5,8 +5,8 @@ SoundHelper.log.*
 soundhelper-paused.flag
 soundhelper-loglevel
 
-# SoundHelper build output (rebuild per machine with SoundHelper-src/build.sh)
-SoundHelper-src/soundhelper_bin
+# SoundHelper build output (rebuild per machine with streamdeck-things/sound-helper/build.sh)
+streamdeck-things/sound-helper/soundhelper_bin
 SoundHelper.app/
 
 # macOS

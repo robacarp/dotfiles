@@ -1,4 +1,5 @@
-local ICON_DIR = hs.configdir .. "/streamdeck-icons/"
+local STREAMDECK_DIR = hs.configdir .. "/streamdeck-things"
+local ICON_DIR = STREAMDECK_DIR .. "/icons/"
 local BRIGHTNESS_STEP = 10
 local MIN_BRIGHTNESS = 10 -- keep keys visible even at "all the way down"
 local MAX_BRIGHTNESS = 100
@@ -555,7 +556,7 @@ end
 -- flagging this plainly since it's a different risk category than an
 -- AppleScript call or a Dock-badge read.
 local SOUND_HELPER_PORT = 17722
-local SOUND_HELPER_APP = hs.configdir .. "/SoundHelper.app"
+local SOUND_HELPER_APP = STREAMDECK_DIR .. "/sound-helper/SoundHelper.app"
 local SOUND_SLOT_STEP = 6
 -- Column 6 (device buttons 6/14/22/30) belongs to the Meet mic/camera/
 -- hang-up buttons, and column 5 to the Meet reaction buttons - see
@@ -907,9 +908,7 @@ end
 --------------------------------------------------------------------------
 -- browser-bridge WebSocket bridge - hosts the WS server background.js
 -- connects out to (ws://127.0.0.1:17721/); see
--- streamdeckthings/browser-bridge/AGENTS.md for the wire protocol. This
--- script is standing in for the "native plugin" that repo doesn't have
--- built yet.
+-- browser-bridge/AGENTS.md for the wire protocol.
 --------------------------------------------------------------------------
 
 local BRIDGE_PORT = 17721

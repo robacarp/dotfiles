@@ -1,7 +1,7 @@
 split = dofile('./downloaded_modules/split.lua').split
 url   = dofile('./downloaded_modules/url.lua')
 inspect = dofile("./downloaded_modules/inspect.lua")
-streamdeck = dofile('./streamdeck-media.lua')
+streamdeck = dofile('./streamdeck-things/streamdeck-media.lua')
 
 -- dismiss all active notifications
 hs.notify.withdrawAll()

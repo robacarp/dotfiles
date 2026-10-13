@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Stream Deck Bridge",
+  "version": "0.1.0",
+  "description": "Relays commands from a local Stream Deck plugin to browser tabs. First site handler: Google Meet call control.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "streamdeck-bridge@robacarp.dev",
+      "strict_min_version": "121.0"
+    }
+  },
+  "permissions": ["alarms", "tabs"],
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["background.js"],
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://meet.google.com/*"],
+      "js": ["content-scripts/google-meet.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://teams.microsoft.com/*"],
+      "js": ["content-scripts/teams.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
