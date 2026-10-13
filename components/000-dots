@@ -12,5 +12,6 @@ dots() {
 }
 
 dots config --local status.showUntrackedFiles no
+dots config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
 dots config user.name 'rob'
 dots config user.email 'robacarp@users.noreply.github.com'
