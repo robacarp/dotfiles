@@ -969,6 +969,7 @@ end
 local function startBridgeServer()
   bridgeServer = hs.httpserver.new()
   bridgeServer:setPort(BRIDGE_PORT)
+  bridgeServer:setInterface("localhost")
   bridgeServer:websocket("/", handleBridgeMessage)
   bridgeServer:start()
 end
