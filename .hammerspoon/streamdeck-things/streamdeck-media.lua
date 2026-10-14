@@ -577,8 +577,8 @@ local SOUND_SLOT_COLORS = {
 
 -- soundSlots[i] = { pid, name, gain, lastGainBeforeMute } or nil (empty).
 -- A pid keeps its data across snapshots while it stays active, but its
--- column can shift left over time - see handleSoundHelperSnapshot, which
--- re-packs survivors starting at column 1 on every snapshot so a slot
+-- column can shift right over time - see reconcileSoundSlots, which
+-- re-packs survivors from the rightmost slot column on every snapshot so a slot
 -- going away collapses the gap instead of leaving a hole.
 local soundSlots = {}
 for i = 1, SOUND_SLOT_COUNT do soundSlots[i] = nil end
@@ -588,11 +588,42 @@ local function truncateName(name)
   return name:sub(1, 6)
 end
 
+-- Slots fill right to left - slot 1 sits in column SOUND_SLOT_COUNT (next
+-- to the Meet reaction column), later slots extend leftward - since the
+-- deck's left edge is often hidden behind the monitor, so the columns
+-- most likely to be in use should be the ones still visible.
+local function soundSlotColumn(i)
+  return SOUND_SLOT_COUNT + 1 - i
+end
+
+-- Same tile as badgeCountImage, but with an icon glyph (a white-on-
+-- transparent PNG from icons/) centered on it instead of text, so the
+-- slot keeps its column color.
+local function iconTileImage(size, iconFile, bgColor)
+  local canvas = hs.canvas.new({ x = 0, y = 0, w = size, h = size })
+  canvas:appendElements({
+    type = "rectangle",
+    action = "fill",
+    fillColor = bgColor,
+    roundedRectRadii = { xRadius = size * 0.15, yRadius = size * 0.15 },
+    frame = { x = 0, y = 0, w = size, h = size },
+  }, {
+    type = "image",
+    image = hs.image.imageFromPath(ICON_DIR .. iconFile),
+    imageScaling = "scaleProportionally",
+    frame = { x = size * 0.1, y = size * 0.1, w = size * 0.8, h = size * 0.8 },
+  })
+  local image = canvas:imageFromCanvas()
+  canvas:delete()
+  return image
+end
+
 -- Each slot now takes the full column height: name (press = focus that
 -- process's window) / up / level+mute / down.
 local function updateSoundSlot(i)
   if not currentDevice or currentPage ~= "media" then return end -- PAGE GUARD
-  local nameButton, upButton, levelButton, downButton = i, i + 8, i + 16, i + 24
+  local col = soundSlotColumn(i)
+  local nameButton, upButton, levelButton, downButton = col, col + 8, col + 16, col + 24
   local slot = soundSlots[i]
   if not slot then
     currentDevice:setButtonColor(nameButton, INDICATOR_IDLE_COLOR)
@@ -603,7 +634,11 @@ local function updateSoundSlot(i)
   end
   local color = SOUND_SLOT_COLORS[i]
   local size = currentDevice:imageSize().w
-  currentDevice:setButtonImage(nameButton, badgeCountImage(size, truncateName(slot.name), color))
+  if slot.airplay then
+    currentDevice:setButtonImage(nameButton, iconTileImage(size, "airplay-audio.png", color))
+  else
+    currentDevice:setButtonImage(nameButton, badgeCountImage(size, truncateName(slot.name), color))
+  end
   currentDevice:setButtonImage(upButton, badgeCountImage(size, "+", color))
   local levelText = slot.gain <= 0 and "mute" or tostring(math.floor(slot.gain * 100 + 0.5))
   currentDevice:setButtonImage(levelButton, badgeCountImage(size, levelText, color))
@@ -647,14 +682,38 @@ local function logNewSoundSlotProcess(name, pid)
   f:close()
 end
 
--- Reconciles the live snapshot from the helper against current slot
--- assignments: drops slots whose pid is no longer active, then re-packs
--- the survivors starting at column 1 (in their prior left-to-right order)
--- so a slot going away collapses the gap instead of leaving a hole, and
--- finally appends newly-active pids into whatever columns are left
--- (dropped silently if all slots are full - no queueing/eviction).
-local function handleSoundHelperSnapshot(processes)
-  soundHelperSnapshotCount = soundHelperSnapshotCount + 1
+-- Latest process list from SoundHelper, kept so the Music AirPlay poll
+-- below can re-reconcile slots between helper snapshots (and while the
+-- helper is paused/dead) without wiping the helper's slots.
+local lastHelperProcesses = {}
+
+-- Music playing to AirPlay is invisible to SoundHelper: Music streams
+-- straight to the receiver rather than through this Mac's CoreAudio
+-- output, so there's no output-running process to tap (seen live as a
+-- "tap added: Music" immediately followed by "tap removed" on switching
+-- to AirPlay), and the system volume keys only move this Mac's own
+-- output device, not the receiver. This synthesizes a soundboard slot for
+-- it instead, driven by Music's own AppleScript `sound volume` - the same
+-- value as Music's volume slider, which is what scales AirPlay receivers.
+-- pid is a sentinel (never a real pid), so it can coexist with a real
+-- Music tap slot if Music is playing to this Mac *and* AirPlay at once.
+local MUSIC_AIRPLAY_PID = -1
+local MUSIC_BUNDLE_ID = "com.apple.Music"
+local musicAirPlayProcess = nil -- { pid, name, gain, airplay = true } while playing to AirPlay, else nil
+
+-- Reconciles the live process list against current slot assignments:
+-- drops slots whose pid is no longer active, then re-packs the survivors
+-- starting at slot 1 (in their prior order; see soundSlotColumn) so a slot
+-- going away collapses the gap instead of leaving a hole, and finally
+-- appends newly-active pids into whatever columns are left (dropped
+-- silently if all slots are full - no queueing/eviction). The Music
+-- AirPlay entry goes first so it gets a column before helper processes
+-- when the board is full.
+local function reconcileSoundSlots()
+  local processes = {}
+  if musicAirPlayProcess then table.insert(processes, musicAirPlayProcess) end
+  for _, p in ipairs(lastHelperProcesses) do table.insert(processes, p) end
+
   local activeByPID = {}
   for _, p in ipairs(processes) do activeByPID[p.pid] = p end
 
@@ -672,7 +731,7 @@ local function handleSoundHelperSnapshot(processes)
 
   for _, p in ipairs(processes) do
     if not trackedPIDs[p.pid] and #kept < SOUND_SLOT_COUNT then
-      table.insert(kept, { pid = p.pid, name = p.name, gain = p.gain, lastGainBeforeMute = 1.0 })
+      table.insert(kept, { pid = p.pid, name = p.name, gain = p.gain, airplay = p.airplay, lastGainBeforeMute = 1.0 })
       trackedPIDs[p.pid] = true
       logNewSoundSlotProcess(p.name, p.pid)
     end
@@ -683,6 +742,95 @@ local function handleSoundHelperSnapshot(processes)
   end
 
   updateAllSoundSlots()
+end
+
+local function handleSoundHelperSnapshot(processes)
+  soundHelperSnapshotCount = soundHelperSnapshotCount + 1
+  lastHelperProcesses = processes
+  reconcileSoundSlots()
+end
+
+-- Returns Music's sound volume (0-100) while it's playing to at least one
+-- non-local AirPlay device, -1 while it's playing only to this Mac, or -2
+-- while it isn't playing at all. The `is running` check comes before
+-- `tell` so polling never launches Music, and the timeout keeps a hung
+-- Music from blocking Hammerspoon's single thread for AppleScript's
+-- default 2 minutes. Filters with a `whose` clause rather than looping
+-- over `current AirPlay devices` - confirmed live that with a single
+-- device selected, that property returns a bare device reference rather
+-- than a list, so `repeat with d in` / `name of` over it both fail.
+-- Setting Music's `sound volume` was also confirmed live to move the
+-- selected receiver's own volume along with it (40 -> 38 took the
+-- speaker 39 -> 37).
+local MUSIC_AIRPLAY_QUERY = [[
+  if application "Music" is not running then return -2
+  tell application "Music"
+    with timeout of 2 seconds
+      if player state is not playing then return -2
+      if (count of (every AirPlay device whose selected is true and kind is not computer)) is 0 then return -1
+      return sound volume
+    end timeout
+  end tell
+]]
+
+-- Gates the backstop timer in startMusicAirPlayWatching - set from the
+-- query result itself rather than parsing playerInfo's userInfo, so
+-- there's one source of truth for "is Music playing".
+local musicPlaying = false
+
+local function pollMusicAirPlay()
+  local previous = musicAirPlayProcess
+  musicAirPlayProcess = nil
+  musicPlaying = false
+  if streamdeckConnected and hs.application.get(MUSIC_BUNDLE_ID) then
+    local ok, volume = hs.osascript.applescript(MUSIC_AIRPLAY_QUERY)
+    musicPlaying = ok and type(volume) == "number" and volume ~= -2
+    if ok and type(volume) == "number" and volume >= 0 then
+      musicAirPlayProcess = { pid = MUSIC_AIRPLAY_PID, name = "AirPly", gain = volume / 100, airplay = true }
+    end
+  end
+  -- Only repaint on an actual change - otherwise every poll would repaint
+  -- all slots for nothing.
+  local changed = (previous == nil) ~= (musicAirPlayProcess == nil)
+    or (previous and musicAirPlayProcess and previous.gain ~= musicAirPlayProcess.gain)
+  if changed then reconcileSoundSlots() end
+end
+
+local function setMusicAirPlayVolume(gain)
+  local volume = math.floor(gain * 100 + 0.5)
+  -- Keep the cached poll result in step, or the next helper snapshot's
+  -- reconcile would snap the slot back to the pre-press value until the
+  -- next Music poll.
+  if musicAirPlayProcess then musicAirPlayProcess.gain = volume / 100 end
+  hs.osascript.applescript(string.format([[
+    if application "Music" is running then
+      tell application "Music" to set sound volume to %d
+    end if
+  ]], volume))
+end
+
+-- Event-driven rather than a tight poll: each query is a synchronous
+-- AppleEvent round-trip measured at ~50ms, all of it blocking
+-- Hammerspoon's single thread (and so button handling) - every 2s
+-- whenever Music is merely open was too much to pay for this. Instead
+-- this re-queries on:
+--   - com.apple.Music.playerInfo, which Music posts on play/pause/stop/
+--     track change,
+--   - the media page being shown (see updateAllIndicators), which covers
+--     picking an AirPlay speaker *after* hitting play, since you'd be
+--     heading to the media page to adjust volume anyway,
+--   - a slow backstop, only while Music is playing, for AirPlay route or
+--     volume changes made elsewhere (Music's own slider, a phone) that no
+--     notification covers.
+local MUSIC_AIRPLAY_BACKSTOP_INTERVAL = 15
+
+local function startMusicAirPlayWatching()
+  keptAlive(hs.distributednotifications.new(function()
+    pollMusicAirPlay()
+  end, "com.apple.Music.playerInfo")):start()
+  keptAlive(hs.timer.doEvery(MUSIC_AIRPLAY_BACKSTOP_INTERVAL, function()
+    if musicPlaying then pollMusicAirPlay() end
+  end))
 end
 
 local function handleSoundHelperMessage(message)
@@ -780,9 +928,10 @@ local function toggleSoundHelperKillSwitch()
     hs.alert.show("Sound Helper stopped")
     -- Nothing will report these as gone anymore (the process that would
     -- tell us so is the one just killed) - clear them now rather than
-    -- leaving stale slots on screen.
-    for i = 1, SOUND_SLOT_COUNT do soundSlots[i] = nil end
-    updateAllSoundSlots()
+    -- leaving stale slots on screen. The Music AirPlay slot doesn't come
+    -- from the helper, so it survives this.
+    lastHelperProcesses = {}
+    reconcileSoundSlots()
   else
     hs.alert.show("Sound Helper resuming")
     ensureSoundHelperRunning()
@@ -849,7 +998,7 @@ end
 local function focusSoundSlot(i)
   local slot = soundSlots[i]
   if not slot then return end
-  local app = findFocusableAncestorApp(slot.pid)
+  local app = slot.airplay and hs.application.get(MUSIC_BUNDLE_ID) or findFocusableAncestorApp(slot.pid)
   if not app then return end
   app:activate(true)
   -- activate() alone can leave the app frontmost without actually
@@ -859,12 +1008,20 @@ local function focusSoundSlot(i)
   if win then win:focus() end
 end
 
+local function applySoundSlotGain(slot)
+  if slot.airplay then
+    setMusicAirPlayVolume(slot.gain)
+  else
+    sendSetGain(slot.pid, slot.gain)
+  end
+end
+
 local function adjustSoundSlot(i, delta)
   local slot = soundSlots[i]
   if not slot then return end
   local newGain = math.max(0, math.min(1, slot.gain + delta / 100))
   slot.gain = newGain
-  sendSetGain(slot.pid, newGain)
+  applySoundSlotGain(slot)
   updateSoundSlot(i)
 end
 
@@ -877,7 +1034,7 @@ local function toggleSoundSlotMute(i)
   else
     slot.gain = slot.lastGainBeforeMute or 1.0
   end
-  sendSetGain(slot.pid, slot.gain)
+  applySoundSlotGain(slot)
   updateSoundSlot(i)
 end
 
@@ -901,6 +1058,10 @@ local function updateAllIndicators()
   updateSoundHelperKillSwitchIndicator()
   updateVolumeIndicator()
   updateAllSoundSlots()
+  -- AppleScript round-trip too, same as the Dock badges below - after the
+  -- slots so they paint first; this only repaints them if the AirPlay
+  -- slot actually changed.
+  if currentPage == "media" then pollMusicAirPlay() end
   updateMessagesIndicator()
   updateSlackIndicator()
 end
@@ -1025,7 +1186,7 @@ end
 
 local PAGES = {
   media = {
-    -- Columns 1-4: universal per-app dynamic soundboard slots, each using
+    -- Columns 1-4: universal per-app dynamic soundboard slots (filled right to left), each using
     -- the full column height (name/up/level+mute/down = i/i+8/i+16/i+24) -
     -- generated below the table (see the SOUND_SLOT_COUNT loop right after
     -- this literal) rather than spelled out by hand, so SOUND_SLOT_COUNT
@@ -1100,16 +1261,17 @@ local PAGES = {
   },
 }
 
--- Generates PAGES.media's per-slot buttons (name/up/mute/down = i/i+8/
--- i+16/i+24) instead of writing all SOUND_SLOT_COUNT slots out by hand -
--- see the comment on PAGES.media above. Lua's numeric `for` gives each
--- iteration its own `i`, so each closure correctly captures its own slot
--- index.
+-- Generates PAGES.media's per-slot buttons (name/up/mute/down = col/
+-- col+8/col+16/col+24, col from soundSlotColumn - right to left) instead
+-- of writing all SOUND_SLOT_COUNT slots out by hand - see the comment on
+-- PAGES.media above. Lua's numeric `for` gives each iteration its own
+-- `i`, so each closure correctly captures its own slot index.
 for i = 1, SOUND_SLOT_COUNT do
-  PAGES.media[i] = { action = function() focusSoundSlot(i) end }
-  PAGES.media[i + 8] = { action = function() adjustSoundSlot(i, SOUND_SLOT_STEP) end, repeatable = true, repeatInterval = SOUND_SLOT_REPEAT_INTERVAL }
-  PAGES.media[i + 16] = { action = function() toggleSoundSlotMute(i) end }
-  PAGES.media[i + 24] = { action = function() adjustSoundSlot(i, -SOUND_SLOT_STEP) end, repeatable = true, repeatInterval = SOUND_SLOT_REPEAT_INTERVAL }
+  local col = soundSlotColumn(i)
+  PAGES.media[col] = { action = function() focusSoundSlot(i) end }
+  PAGES.media[col + 8] = { action = function() adjustSoundSlot(i, SOUND_SLOT_STEP) end, repeatable = true, repeatInterval = SOUND_SLOT_REPEAT_INTERVAL }
+  PAGES.media[col + 16] = { action = function() toggleSoundSlotMute(i) end }
+  PAGES.media[col + 24] = { action = function() adjustSoundSlot(i, -SOUND_SLOT_STEP) end, repeatable = true, repeatInterval = SOUND_SLOT_REPEAT_INTERVAL }
 end
 
 -- Generates PAGES.media's 3 reaction buttons from REACTION_BUTTONS instead
@@ -1269,6 +1431,7 @@ safeStart("keyboard layout watching", startKeyboardLayoutWatching)
 safeStart("volume watching", startVolumeWatching)
 safeStart("sound helper server", startSoundHelperServer)
 safeStart("sound helper health check", startSoundHelperHealthCheck)
+safeStart("music airplay watching", startMusicAirPlayWatching)
 
 -- SoundHelper's own launch is no longer triggered here at startup - it's
 -- gated entirely on streamdeckConnected now (see ensureSoundHelperRunning),
@@ -1284,6 +1447,8 @@ hs.streamdeck.init(function(connected, dev)
     -- the persisted flag, since that's a deliberate user choice that should
     -- survive a temporary unplug and not get silently flipped by it either way.
     stopSoundHelper()
+    lastHelperProcesses = {}
+    musicAirPlayProcess = nil
     for i = 1, SOUND_SLOT_COUNT do soundSlots[i] = nil end
     return
   end
