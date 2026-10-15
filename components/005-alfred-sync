@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "${1:-}" = "--uninstall" ] ; then
+  defaults delete com.runningwithcrayons.Alfred-Preferences syncfolder || true
+  echo "Alfred sync folder has been unset. Alfred itself is removed with the brew bundle."
+  exit
+fi
+
+# Alfred expands the tilde itself, so store it literally the same way the preferences window does
+# shellcheck disable=SC2088
+sync_folder='~/Library/Mobile Documents/com~apple~CloudDocs/Alfred Preferences'
+
+if [ "$(defaults read com.runningwithcrayons.Alfred-Preferences syncfolder 2>/dev/null || true)" = "$sync_folder" ]; then
+  echo "Alfred sync is already configured"
+  exit
+fi
+
+# Alfred only picks up the sync folder when it launches
+if pgrep -xq Alfred; then
+  osascript -e 'quit app "Alfred 5"'
+fi
+
+defaults write com.runningwithcrayons.Alfred-Preferences syncfolder -string "$sync_folder"
+
+echo "Alfred will sync from iCloud Drive on next launch. Syncing needs the Powerpack, which is not synced; activate it from Alfred Preferences > Powerpack."
