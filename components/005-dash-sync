@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "${1:-}" = "--uninstall" ] ; then
+  defaults delete com.kapeli.dashdoc syncFolderPath || true
+  echo "Dash sync folder has been unset. Dash itself is removed with the brew bundle."
+  exit
+fi
+
+# Dash expands the tilde itself, so store it literally the same way the preferences window does
+# shellcheck disable=SC2088
+sync_folder='~/Library/Mobile Documents/com~apple~CloudDocs/Dash App Sync'
+
+if [ "$(defaults read com.kapeli.dashdoc syncFolderPath 2>/dev/null || true)" = "$sync_folder" ]; then
+  echo "Dash sync is already configured"
+  exit
+fi
+
+# a running Dash would overwrite the preference when it quits
+if pgrep -xq Dash; then
+  osascript -e 'quit app "Dash"'
+fi
+
+defaults write com.kapeli.dashdoc syncFolderPath -string "$sync_folder"
+defaults write com.kapeli.dashdoc shouldSyncGeneral -bool true
+defaults write com.kapeli.dashdoc shouldSyncView -bool true
+defaults write com.kapeli.dashdoc shouldSyncDocsets -bool true
+defaults write com.kapeli.dashdoc shouldSyncBookmarks -bool true
+
+echo "Dash will sync from iCloud Drive on next launch. The license is not synced; restore it from Dash > Settings > License."
