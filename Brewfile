@@ -12,6 +12,7 @@ brew("postgresql")
 
 cask("1password-cli")
 cask("alfred")
+cask("dash")
 cask("firefox")
 cask("font-fira-code")
 cask("hammerspoon")
