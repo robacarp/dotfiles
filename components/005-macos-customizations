@@ -8,6 +8,9 @@ if [ "${1:-}" = "--uninstall" ] ; then
   defaults delete -g ApplePressAndHoldEnabled || true
   defaults delete com.apple.universalaccess mouseDriverCursorSize || true
   defaults -currentHost delete -g com.apple.keyboard.modifiermapping.0-0-0 || true
+  defaults delete com.apple.AppleMultitouchTrackpad Clicking || true
+  defaults delete com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking || true
+  defaults -currentHost delete -g com.apple.mouse.tapBehavior || true
   for c in tl tr bl br; do
     defaults delete com.apple.dock "wvous-$c-corner" || true
     defaults delete com.apple.dock "wvous-$c-modifier" || true
@@ -37,6 +40,11 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 defaults -currentHost write -g com.apple.keyboard.modifiermapping.0-0-0 -array \
   '<dict><key>HIDKeyboardModifierMappingSrc</key><integer>30064771129</integer><key>HIDKeyboardModifierMappingDst</key><integer>30064771296</integer></dict>'
 
+# tap to click, for the built-in and bluetooth trackpads
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write -g com.apple.mouse.tapBehavior -int 1
+
 # hot corners: 1 = off, 2 = Mission Control, 4 = Desktop, 13 = Lock Screen
 defaults write com.apple.dock wvous-tl-corner -int 13
 defaults write com.apple.dock wvous-tl-modifier -int 0
@@ -51,4 +59,4 @@ killall Dock
 # bigger cursor (1.0 is normal, 4.0 is the max)
 defaults write com.apple.universalaccess mouseDriverCursorSize -float 2.11
 
-echo "Log out and back in for the keyboard changes to take effect"
+echo "Log out and back in for the keyboard and trackpad changes to take effect"
