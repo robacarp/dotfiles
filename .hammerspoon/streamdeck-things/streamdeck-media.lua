@@ -277,8 +277,12 @@ local function zoomMeetingWindow(app)
   return app:mainWindow()
 end
 
+-- Bundle ID, not the app name: Zoom 7.x renamed the app from "zoom.us" to
+-- "Zoom", so name lookups silently return nil (same fix as Zoom.spoon).
+local ZOOM_BUNDLE_ID = "us.zoom.xos"
+
 local function zoomLeaveMeeting()
-  local app = hs.application.get("zoom.us")
+  local app = hs.application.get(ZOOM_BUNDLE_ID)
   if not app then return end
   app:activate(true)
   local win = zoomMeetingWindow(app)
@@ -1142,13 +1146,13 @@ end
 -- the content script running the call can't do that itself).
 local function focusCallService(service)
   if service == "zoom" then
-    local app = hs.application.get("zoom.us") -- matches the process name Zoom.spoon itself watches for
+    local app = hs.application.get(ZOOM_BUNDLE_ID) -- same bundle ID Zoom.spoon itself watches for
     if app then
       app:activate(true)
       local win = zoomMeetingWindow(app) -- the meeting window specifically, not just whichever Zoom window is main
       if win then win:focus() end
     else
-      hs.application.launchOrFocus("zoom.us")
+      hs.application.launchOrFocusByBundleID(ZOOM_BUNDLE_ID)
     end
   elseif service == "meet" then
     sendFocusTab("meet.google.com")

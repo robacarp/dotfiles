@@ -1,3 +1,4 @@
+require("hs.ipc") -- enables the `hs` command-line tool
 split = dofile('./downloaded_modules/split.lua').split
 url   = dofile('./downloaded_modules/url.lua')
 inspect = dofile("./downloaded_modules/inspect.lua")

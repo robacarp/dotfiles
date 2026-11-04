@@ -89,8 +89,26 @@ local timerCallback = function()
   if currentVideoStatus ~= videoStatus then obj:_change(videoStatus) end
 end
 
+-- Matched by bundle ID, not app name: Zoom 7.x ("Zoom Workplace") renamed
+-- its app from "zoom.us" to "Zoom", which silently broke every name-based
+-- lookup here (hs.application.get("zoom.us") just returns nil). The bundle
+-- ID has stayed us.zoom.xos across versions. The name checks remain as a
+-- fallback for the terminated event, where appObject's bundleID() may
+-- already be unavailable.
+local ZOOM_BUNDLE_ID = "us.zoom.xos"
+
+local function isZoomApp(appName, appObject)
+  if appObject then
+    local ok, bundleID = pcall(function() return appObject:bundleID() end)
+    if ok and bundleID then return bundleID == ZOOM_BUNDLE_ID end
+  end
+  return appName == "zoom.us" or appName == "Zoom"
+end
+
 local function handleAppEvent(appName, eventType, appObject)
-  if (appName == "zoom.us" and eventType == hs.application.watcher.launched) then
+  if not isZoomApp(appName, appObject) then return end
+
+  if (eventType == hs.application.watcher.launched) then
     zoomState:start()
 
     watcher = appObject:newWatcher(function (element, event, watcher, userData)
@@ -115,7 +133,7 @@ local function handleAppEvent(appName, eventType, appObject)
       elseif(eventName == "AXUIElementDestroyed") then
         endMeetingDebouncer:start()
       end
-    end, { name = "zoom.us" })
+    end, { name = ZOOM_BUNDLE_ID })
     watcher:start({hs.uielement.watcher.windowCreated, hs.uielement.watcher.titleChanged, hs.uielement.watcher.elementDestroyed})
 
     if obj.pollingInterval ~= nil then
@@ -156,9 +174,9 @@ function obj:start()
   -- reloaded mid-call), the "launched" branch above never fires and this
   -- state machine gets stuck at 'closed' forever, even during a real
   -- meeting. Replay that branch by hand for the app that's already there.
-  local existing = hs.application.get("zoom.us")
+  local existing = hs.application.get(ZOOM_BUNDLE_ID)
   if existing then
-    handleAppEvent("zoom.us", hs.application.watcher.launched, existing)
+    handleAppEvent(existing:name(), hs.application.watcher.launched, existing)
     -- Also detect whether a meeting is *already* in progress - the AX
     -- watcher above only reports *future* title/window-created events, so
     -- it can't see a meeting that was already open before we attached it.
@@ -182,14 +200,14 @@ function obj:stop()
 end
 
 function _check(tbl)
-  local check = hs.application.get("zoom.us")
+  local check = hs.application.get(ZOOM_BUNDLE_ID)
   if (check ~= nil) then
     return check:findMenuItem(tbl) ~= nil
   end
 end
 
 function obj:_click(tbl)
-  click = hs.application.get("zoom.us")
+  click = hs.application.get(ZOOM_BUNDLE_ID)
   if (click ~= nil) then
     return click:selectMenuItem(tbl)
   end
